@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>NutriHero — Sistema Visual · Pulso · Tokens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --vazio: #06070A;
+  --aco-800: #0D0F14;
+  --aco-700: #13151C;
+  --linha-600: #1E212A;
+  --linha-500: #2A2E3A;
+  --cinza-400: #5A5E68;
+  --cinza-300: #8F8B81;
+  --giz-200: #BDB9AF;
+  --giz-100: #EEEBE3;
+  --arco: #FF5B1F;
+  --arco-50: rgba(255, 91, 31, 0.5);
+  --arco-14: rgba(255, 91, 31, 0.14);
+  --atencao: #F7D74C;
+
+  --f-display: 'Archivo', sans-serif;
+  --f-narrow: 'Archivo Narrow', sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+
+  --ease-pulso: cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--vazio);
+  color: var(--giz-100);
+  font-family: var(--f-display);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+em { font-style: normal; color: var(--arco); }
+code, pre { font-family: var(--f-mono); }
+
+.container { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+
+section { padding: 96px 0 64px; position: relative; }
+
+.section-meta {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+}
+.section-num {
+  font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.24em; color: var(--cinza-300); text-transform: uppercase;
+}
+.section-rule { flex: 1; height: 1px; background: var(--linha-500); }
+.section-title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: clamp(48px, 6.4vw, 84px); line-height: 0.88;
+  letter-spacing: -0.035em; color: var(--giz-100);
+  margin-bottom: 32px; text-transform: uppercase;
+}
+.section-lede {
+  font-size: 18px; color: var(--giz-100); max-width: 780px;
+  line-height: 1.55; margin-bottom: 48px; opacity: 0.86;
+}
+.section-lede strong { font-weight: 600; opacity: 1; }
+.subsection-title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 26px; color: var(--giz-100);
+  margin: 56px 0 24px; letter-spacing: -0.02em; text-transform: uppercase;
+}
+
+/* ────── Ticker ────── */
+.ticker-divider {
+  border-top: 1px solid var(--arco-50);
+  border-bottom: 1px solid var(--arco-50);
+  overflow: hidden; white-space: nowrap; padding: 12px 0;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker 38s linear infinite;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 13px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ticker-track span { padding: 0 32px; }
+.ticker-track span::before { content: '·'; padding-right: 32px; color: var(--arco-50); }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ────── Cover ────── */
+.cover {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: space-between; padding: 56px 64px 0;
+  position: relative; overflow: hidden;
+}
+.cover::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 70% 30%, var(--arco-14), transparent 60%);
+  pointer-events: none;
+}
+.cover-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+.cover-mark {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--cinza-300); text-transform: uppercase;
+}
+.cover-mark strong { color: var(--giz-100); font-weight: 700; }
+.cover-status {
+  font-family: var(--f-narrow); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--vazio); background: var(--arco); padding: 7px 14px;
+}
+.cover-middle { position: relative; z-index: 1; }
+.wordmark {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: clamp(96px, 16vw, 240px); line-height: 0.84;
+  letter-spacing: -0.045em; color: var(--giz-100); text-transform: uppercase;
+}
+.wordmark-i { color: var(--arco); }
+.cover-snapshot {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 34px); line-height: 1.12;
+  letter-spacing: -0.02em; color: var(--giz-100);
+  max-width: 880px; margin-top: 56px; text-transform: uppercase;
+}
+.cover-snapshot em { color: var(--arco); }
+.cover-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  position: relative; z-index: 1;
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cinza-300); padding-bottom: 32px;
+}
+.cover-bottom strong { color: var(--giz-100); font-weight: 700; }
+.cover-meta-grid { display: grid; grid-template-columns: repeat(4, auto); gap: 48px; }
+.cover-meta-grid div { display: flex; flex-direction: column; gap: 4px; }
+
+/* ────── Code blocks ────── */
+.code-block {
+  background: var(--aco-800);
+  border-left: 3px solid var(--arco);
+  padding: 28px 32px;
+  font-family: var(--f-mono); font-size: 13px;
+  color: var(--giz-200); line-height: 1.6;
+  overflow-x: auto; white-space: pre;
+  margin-bottom: 24px;
+}
+.code-block .key { color: var(--giz-100); }
+.code-block .val { color: var(--arco); }
+.code-block .com { color: var(--cinza-400); }
+.code-block .num { color: var(--atencao); }
+
+.code-header {
+  background: var(--vazio);
+  border: 1px solid var(--linha-500);
+  border-bottom: none;
+  border-left: 3px solid var(--arco);
+  padding: 14px 32px;
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cinza-300);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.code-header b { color: var(--giz-100); font-weight: 500; }
+.code-header + .code-block { border-top: none; margin-top: 0; }
+
+/* ────── §2 Color swatches ────── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.swatch {
+  border: 1px solid var(--linha-500);
+  overflow: hidden;
+}
+.swatch-color {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px 16px;
+}
+.swatch-color .token {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 18px; letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.swatch-color .hex {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.swatch-info {
+  padding: 12px 16px;
+  background: var(--aco-800);
+  display: flex; flex-direction: column; gap: 4px;
+  border-top: 1px solid var(--linha-500);
+}
+.swatch-use {
+  font-size: 12.5px; color: var(--giz-100); opacity: 0.78;
+  line-height: 1.45;
+}
+.swatch-use strong { opacity: 1; color: var(--giz-100); font-weight: 600; }
+.swatch-contrast {
+  font-family: var(--f-mono); font-size: 10px;
+  letter-spacing: 0.04em; color: var(--cinza-300);
+}
+.swatch-contrast .pass { color: var(--arco); }
+
+/* — color signal (Arco e Atenção destacados) — */
+.swatch.signal .swatch-color {
+  position: relative;
+}
+.swatch.signal .swatch-color::after {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px solid currentColor;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* State map */
+.state-map {
+  display: grid;
+  grid-template-columns: 200px 1fr 100px;
+  gap: 14px 24px;
+  align-items: center;
+  margin-top: 32px;
+}
+.state-row { display: contents; }
+.state-row .name {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 14px; text-transform: uppercase;
+  letter-spacing: 0.02em; color: var(--giz-100);
+}
+.state-row .desc {
+  font-size: 13.5px; color: var(--giz-100); opacity: 0.82; line-height: 1.5;
+}
+.state-row .desc b { color: var(--giz-100); opacity: 1; font-weight: 600; }
+.state-row .demo {
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: 11px; color: var(--vazio); padding: 5px 10px;
+  text-align: center; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* Forbidden */
+.forbidden-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 32px;
+}
+.forbidden {
+  padding: 12px 18px;
+  background: var(--aco-800);
+  border-left: 2px solid var(--cinza-400);
+  font-size: 13px; color: var(--giz-200); line-height: 1.5;
+}
+.forbidden b { color: var(--giz-100); font-weight: 600; }
+
+/* ────── §3 Typography ────── */
+.type-spec {
+  border: 1px solid var(--linha-500);
+  margin-bottom: 20px;
+  background: var(--aco-700);
+  overflow: hidden;
+}
+.spec-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--linha-500);
+  background: var(--vazio);
+}
+.spec-name {
+  font-family: var(--f-mono); font-size: 12px;
+  font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--giz-100);
+}
+.spec-role {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300);
+}
+.spec-body { padding: 40px 32px 36px; }
+
+.spec-archivo {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 96px; line-height: 0.86;
+  letter-spacing: -0.04em; text-transform: uppercase;
+}
+.spec-archivo em { color: var(--arco); }
+
+.spec-narrow-row {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.spec-narrow-row > div {
+  display: flex; align-items: baseline; gap: 32px;
+  border-bottom: 1px solid var(--linha-600);
+  padding-bottom: 12px;
+}
+.spec-narrow-row > div:last-child { border-bottom: none; }
+.spec-narrow-row .size {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); letter-spacing: 0.1em;
+  text-transform: uppercase; min-width: 100px;
+}
+.spec-narrow-row .text {
+  font-family: var(--f-narrow); font-weight: 500;
+  color: var(--arco); text-transform: uppercase;
+}
+
+.spec-mono {
+  display: flex; align-items: baseline; gap: 48px; flex-wrap: wrap;
+}
+.spec-mono > div { display: flex; flex-direction: column; gap: 6px; }
+.spec-mono .label {
+  font-family: var(--f-mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cinza-300);
+}
+.mono-xl {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 96px; line-height: 0.86;
+  letter-spacing: -0.04em; color: var(--giz-100);
+  font-feature-settings: 'tnum';
+}
+.mono-lg {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 36px; color: var(--giz-100);
+  letter-spacing: -0.03em;
+  font-feature-settings: 'tnum';
+}
+.mono-md {
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: 24px; color: var(--giz-100);
+  font-feature-settings: 'tnum';
+}
+
+/* Type scale table */
+.scale-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  border: 1px solid var(--linha-500);
+  background: var(--aco-800);
+}
+.scale-table th, .scale-table td {
+  padding: 12px 18px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--linha-500);
+  color: var(--giz-100);
+  vertical-align: middle;
+}
+.scale-table th {
+  font-family: var(--f-mono); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cinza-300); background: var(--vazio);
+}
+.scale-table td.token {
+  font-family: var(--f-mono); color: var(--arco);
+}
+.scale-table td.preview {
+  color: var(--giz-100);
+}
+
+/* ────── §4 Layout ────── */
+.layout-modes {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+}
+.layout-mode {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.layout-mode h4 {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 22px; text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+.layout-mode h4 em { color: var(--arco); }
+.layout-mode p {
+  font-size: 14px; color: var(--giz-100); opacity: 0.8;
+  line-height: 1.55;
+}
+.layout-mode .mini-mockup {
+  background: var(--vazio);
+  padding: 20px;
+  height: 180px;
+  position: relative;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--linha-600);
+}
+.mockup-bignum {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 56px; line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--giz-100);
+  font-family: var(--f-mono); font-weight: 700;
+}
+.mockup-pulse {
+  height: 2px; background: var(--arco);
+  width: 80px; margin: 6px 0;
+  animation: pulseLine 2.0s var(--ease-pulso) infinite;
+  transform-origin: left;
+}
+@keyframes pulseLine {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.85); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+.mockup-rows {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-top: 8px;
+  font-family: var(--f-mono); font-size: 9px;
+  color: var(--cinza-300);
+}
+.mockup-rows > div { display: flex; justify-content: space-between; }
+.mockup-rows > div b { color: var(--giz-100); font-weight: 500; }
+.mockup-cta {
+  position: absolute; bottom: 12px; left: 12px; right: 12px;
+  background: var(--arco); color: var(--vazio);
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 9px; padding: 7px;
+  text-align: center; text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.layout-mode.ritual .mockup-bignum {
+  font-size: 32px;
+  text-align: center;
+  margin-top: 40px;
+}
+.layout-mode.ritual .mini-mockup {
+  align-items: center;
+  justify-content: center;
+}
+.layout-mode.ritual .mockup-rows {
+  text-align: center;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: 24px;
+}
+
+/* Spacing scale */
+.spacing-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 24px;
+}
+.spacing-row {
+  display: grid;
+  grid-template-columns: 90px 80px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 8px 0;
+}
+.spacing-row .name {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--arco); font-weight: 500;
+}
+.spacing-row .px {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--giz-200);
+}
+.spacing-row .bar {
+  background: var(--arco); height: 18px;
+}
+
+/* Radius scale */
+.radius-scale {
+  display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap;
+}
+.radius-row {
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.radius-box {
+  width: 80px; height: 80px;
+  background: var(--arco);
+}
+.radius-label {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--giz-200); letter-spacing: 0.04em;
+  text-align: center;
+}
+.radius-label b { color: var(--giz-100); font-weight: 500; }
+.radius-forbidden {
+  background: transparent;
+  border: 1px dashed var(--cinza-400);
+  color: var(--cinza-400);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 14px; text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Z-axis */
+.z-stack {
+  display: grid;
+  grid-template-columns: 90px 110px 1fr 100px;
+  gap: 24px;
+  align-items: center;
+  margin-top: 24px;
+}
+.z-row { display: contents; }
+.z-row .name {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--arco); font-weight: 500;
+}
+.z-row .swatch-mini {
+  height: 36px;
+  border: 1px solid var(--linha-500);
+}
+.z-row .label {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 13px; text-transform: uppercase;
+  letter-spacing: 0.02em; color: var(--giz-100);
+}
+.z-row .label .desc {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: 12.5px; color: var(--giz-100); opacity: 0.75;
+  letter-spacing: 0; text-transform: none;
+  margin-top: 2px;
+}
+.z-row .hex {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); text-align: right;
+}
+
+/* ────── §5 Components ────── */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.comp-card {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 32px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.comp-card.wide { grid-column: span 2; }
+.comp-label {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--cinza-300);
+  text-transform: uppercase;
+}
+.comp-label .arc { color: var(--arco); }
+
+.comp-stage {
+  padding: 24px;
+  background: var(--vazio);
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 16px;
+  min-height: 120px;
+}
+.comp-stage.tall { min-height: 220px; }
+.comp-stage.col { flex-direction: column; align-items: stretch; }
+
+.comp-note {
+  font-size: 12.5px; color: var(--giz-100); opacity: 0.8;
+  line-height: 1.55;
+}
+.comp-note b { color: var(--giz-100); opacity: 1; font-weight: 600; }
+.comp-note code {
+  font-family: var(--f-mono); font-size: 11px;
+  background: var(--vazio); padding: 1px 6px;
+  color: var(--arco);
+}
+
+/* — Buttons — */
+.btn-primary {
+  background: var(--arco); color: var(--vazio);
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 14px 24px; border-radius: 4px; border: none;
+  cursor: pointer; transition: all 200ms var(--ease-pulso);
+}
+.btn-primary:hover { opacity: 0.92; transform: scaleY(0.98); }
+.btn-primary:active { transform: scale(0.96); }
+
+.btn-ghost {
+  background: transparent; color: var(--giz-100);
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 13px 23px; border-radius: 4px;
+  border: 1px solid var(--linha-500);
+  cursor: pointer; transition: all 200ms var(--ease-pulso);
+}
+.btn-ghost:hover { border-color: var(--arco); color: var(--arco); }
+
+.btn-destructive {
+  background: transparent; color: var(--arco);
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 13px 23px; border-radius: 4px;
+  border: 1px solid var(--arco);
+  cursor: pointer; transition: all 200ms var(--ease-pulso);
+}
+.btn-destructive:hover { background: var(--arco); color: var(--vazio); }
+
+.btn-hero {
+  background: var(--arco); color: var(--vazio);
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 18px; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 22px 32px; border-radius: 4px; border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* — Inputs — */
+.input-num {
+  width: 100%; max-width: 260px;
+  display: flex; align-items: baseline;
+  border-bottom: 1px solid var(--linha-500);
+  padding-bottom: 8px;
+}
+.input-num .val {
+  flex: 1;
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 28px; color: var(--giz-100); text-align: right;
+  font-feature-settings: 'tnum';
+}
+.input-num .unit {
+  margin-left: 12px;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 11px; color: var(--arco);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.input-num.focus { border-bottom-color: var(--arco); }
+
+.input-text {
+  background: var(--aco-700); color: var(--giz-100);
+  font-family: var(--f-display); font-weight: 500;
+  font-size: 16px; padding: 14px 16px; border-radius: 4px;
+  border: none; width: 100%; max-width: 280px;
+}
+.input-text::placeholder { color: var(--cinza-400); }
+.input-text:focus { outline: 2px solid var(--arco); outline-offset: 2px; }
+
+/* — Card — */
+.card-surface {
+  background: var(--aco-700);
+  border: none; border-radius: 8px;
+  padding: 20px;
+  width: 100%; max-width: 280px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.card-surface .title {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em;
+}
+.card-surface .body {
+  font-size: 13px; color: var(--giz-200); line-height: 1.5;
+}
+
+/* — Meal card — */
+.meal-card {
+  background: var(--aco-700);
+  border-left: 2px solid var(--arco);
+  padding: 12px 14px;
+  width: 100%; max-width: 280px;
+}
+.meal-card.pending {
+  border-left-color: var(--linha-500);
+  opacity: 0.65;
+}
+.meal-card .row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 4px;
+}
+.meal-card .name {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em;
+  color: var(--giz-100);
+}
+.meal-card .kcal {
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: 13px; color: var(--giz-100);
+}
+.meal-card.pending .kcal { color: var(--cinza-400); }
+.meal-card .items {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: 11px; color: var(--cinza-300); line-height: 1.5;
+}
+
+/* — Pulso line hero — */
+.pulso-hero {
+  text-align: center;
+}
+.pulso-hero .num {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 88px; letter-spacing: -0.05em;
+  line-height: 1; color: var(--giz-100);
+  font-feature-settings: 'tnum';
+}
+.pulso-hero .num small {
+  font-size: 16px; color: var(--arco); margin-left: 8px;
+}
+.pulso-line {
+  height: 2px; background: var(--arco);
+  margin: 12px auto 8px;
+  width: 220px;
+  animation: pulseLine 2.0s var(--ease-pulso) infinite;
+  transform-origin: center;
+}
+.pulso-line.fast { animation-duration: 0.8s; }
+.pulso-line.static { animation: none; opacity: 0.3; }
+.pulso-hero .caption {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); letter-spacing: 0.18em;
+  text-transform: uppercase; margin-top: 8px;
+}
+
+/* — Ticker component — */
+.ticker-comp {
+  height: 36px;
+  border-top: 1px solid var(--arco-50);
+  border-bottom: 1px solid var(--arco-50);
+  overflow: hidden; white-space: nowrap;
+  display: flex; align-items: center; width: 100%;
+}
+.ticker-comp-inner {
+  display: inline-block;
+  animation: ticker 24s linear infinite;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 13px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ticker-comp-inner span { padding: 0 22px; }
+.ticker-comp-inner span::before {
+  content: '·'; padding-right: 22px; color: var(--arco-50);
+}
+
+/* — Arc gauge — */
+.arc-gauge svg { width: 180px; height: 180px; }
+
+/* — Atencao chip — */
+.chip-atencao {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--atencao); color: var(--vazio);
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* — Live indicator — */
+.live-dot {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.live-dot .dot {
+  width: 8px; height: 8px; background: var(--arco);
+  border-radius: 50%;
+}
+.live-dot .text {
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.18em;
+  color: var(--arco); text-transform: uppercase;
+}
+
+/* — Eyebrow — */
+.eyebrow-demo {
+  display: flex; justify-content: space-between;
+  width: 100%; max-width: 280px;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.eyebrow-demo .left { color: var(--cinza-300); }
+.eyebrow-demo .right { color: var(--arco); }
+
+/* — Bar chart — */
+.bar-chart {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; align-items: end;
+  height: 80px; width: 100%; max-width: 220px;
+}
+.bar-chart > div { background: var(--linha-500); }
+.bar-chart .arc { background: var(--arco); }
+.bar-chart .warn { background: var(--atencao); }
+.bar-days {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; width: 100%; max-width: 220px; margin-top: 4px;
+  font-family: var(--f-mono); font-size: 9px;
+  color: var(--cinza-300); text-align: center; letter-spacing: 0.1em;
+}
+.bar-days .arc { color: var(--arco); }
+.bar-days .warn { color: var(--atencao); }
+
+/* ────── §6 Icons ────── */
+.icons-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.icon-card {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 24px; display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+}
+.icon-card.custom { border-color: var(--arco-50); }
+.icon-svg {
+  width: 56px; height: 56px;
+  color: var(--giz-100);
+}
+.icon-svg.active { color: var(--arco); }
+.icon-name {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 13px; text-align: center;
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.icon-meta {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); letter-spacing: 0.06em;
+  text-align: center;
+}
+.icon-meta b { color: var(--arco); font-weight: 500; }
+
+.icon-sizes {
+  display: flex; align-items: flex-end; gap: 32px;
+  padding: 32px 0; justify-content: center;
+}
+.icon-size {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.icon-size .icon-svg { color: var(--giz-100); }
+.icon-size .lbl {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); letter-spacing: 0.08em;
+}
+
+/* ────── §7 Motion ────── */
+.motion-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-bottom: 32px;
+}
+.easing-vis {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 32px;
+}
+.easing-vis svg { display: block; width: 100%; height: auto; }
+.easing-label {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cinza-300); margin-top: 16px;
+}
+.easing-label b { color: var(--giz-100); font-weight: 500; }
+.easing-label.bad { color: var(--cinza-400); }
+
+.duration-scale {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-top: 24px;
+}
+.duration-row {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr 1fr;
+  gap: 24px; align-items: center;
+  padding: 14px 18px;
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+}
+.duration-row .name {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--arco); font-weight: 500;
+}
+.duration-row .ms {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--giz-200);
+}
+.duration-row .use {
+  font-size: 13px; color: var(--giz-100); opacity: 0.82;
+}
+.duration-row .demo {
+  position: relative; height: 24px;
+  background: var(--vazio);
+  overflow: hidden;
+}
+.demo-dot {
+  position: absolute; left: 0; top: 50%;
+  width: 16px; height: 16px;
+  background: var(--arco);
+  transform: translateY(-50%);
+  animation: slide-instant 100ms var(--ease-pulso) infinite alternate;
+}
+.demo-dot.fast { animation-name: slide-fast; animation-duration: 200ms; }
+.demo-dot.medium { animation-name: slide-medium; animation-duration: 320ms; }
+.demo-dot.slow { animation-name: slide-slow; animation-duration: 600ms; }
+@keyframes slide-instant {
+  0% { left: 0; } 100% { left: calc(100% - 16px); }
+}
+@keyframes slide-fast {
+  0% { left: 0; } 100% { left: calc(100% - 16px); }
+}
+@keyframes slide-medium {
+  0% { left: 0; } 100% { left: calc(100% - 16px); }
+}
+@keyframes slide-slow {
+  0% { left: 0; } 100% { left: calc(100% - 16px); }
+}
+
+/* ────── §8 The one thing ────── */
+.signature-block {
+  background: var(--aco-700);
+  border-left: 3px solid var(--arco);
+  padding: 56px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.signature-text h3 {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 36px; line-height: 1; text-transform: uppercase;
+  letter-spacing: -0.02em; margin-bottom: 24px;
+}
+.signature-text h3 em { color: var(--arco); }
+.signature-text p {
+  font-size: 16px; color: var(--giz-100); opacity: 0.86;
+  line-height: 1.6; margin-bottom: 14px;
+}
+.signature-text p strong { color: var(--giz-100); opacity: 1; font-weight: 600; }
+.signature-stage {
+  text-align: center;
+}
+.signature-stage .num {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 128px; letter-spacing: -0.05em;
+  line-height: 1; color: var(--giz-100);
+  font-feature-settings: 'tnum';
+}
+.signature-stage .line {
+  height: 3px; background: var(--arco);
+  margin: 18px auto 12px;
+  width: 280px;
+  animation: pulseLine 2.0s var(--ease-pulso) infinite;
+  transform-origin: center;
+}
+.signature-stage .caption {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ────── §9 Checklist ────── */
+.checklist {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+}
+.check-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 18px 22px;
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+}
+.check-num {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 14px; color: var(--arco); flex-shrink: 0; width: 22px;
+}
+.check-box {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--arco);
+  flex-shrink: 0; margin-top: 2px;
+}
+.check-text {
+  font-size: 14px; color: var(--giz-100); line-height: 1.5;
+}
+.check-text code {
+  font-family: var(--f-mono); font-size: 12px;
+  background: var(--vazio); padding: 1px 6px;
+  color: var(--arco);
+}
+
+/* ────── §11 Out of scope ────── */
+.out-of-scope {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 32px;
+}
+.out-of-scope-label {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--cinza-300);
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.out-of-scope ul {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 8px 32px;
+}
+.out-of-scope li {
+  font-size: 13.5px; color: var(--giz-100); opacity: 0.78;
+  padding: 6px 0 6px 18px; position: relative;
+}
+.out-of-scope li::before {
+  content: '—'; position: absolute; left: 0; color: var(--cinza-400);
+}
+
+/* Footer */
+footer {
+  padding: 56px 64px 80px;
+  border-top: 1px solid var(--linha-500);
+  margin-top: 96px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cinza-300);
+}
+footer strong { color: var(--giz-100); }
+footer a { color: var(--arco); text-decoration: none; border-bottom: 1px solid var(--arco); }
+
+@media (max-width: 1200px) {
+  .swatch-grid { grid-template-columns: repeat(2, 1fr); }
+  .components-grid { grid-template-columns: 1fr; }
+  .icons-grid { grid-template-columns: repeat(3, 1fr); }
+  .signature-block { grid-template-columns: 1fr; }
+}
+@media (max-width: 800px) {
+  .container { padding: 0 32px; }
+  .swatch-grid, .layout-modes, .icons-grid { grid-template-columns: 1fr; }
+  .motion-row { grid-template-columns: 1fr; }
+  .forbidden-list, .checklist { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  section { page-break-inside: avoid; }
+  .pulso-line, .ticker-track, .ticker-comp-inner,
+  .mockup-pulse, .signature-stage .line,
+  .demo-dot { animation: none !important; }
+}
+</style>
+
+<style id="mobile-fallback">
+/* Leitura no celular: sem rolagem lateral da página; tabelas rolam dentro do próprio bloco */
+@media (max-width: 720px) {
+  html, body { overflow-x: clip; }
+  body { overflow-wrap: anywhere; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+  pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; }
+  [class*="grid"]:not([class*="ticker"]) { grid-template-columns: minmax(0, 1fr) !important; }
+  [class*="card"] { max-width: 100%; min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ COVER ═══════════════════ -->
+<section class="cover">
+  <div class="cover-top">
+    <div class="cover-mark"><strong>NutriHero</strong> · Sistema Visual · Pulso · Tokens</div>
+    <div class="cover-status">Sistema travado · Pronto para implementação</div>
+  </div>
+
+  <div class="cover-middle">
+    <div class="wordmark">NUTR<span class="wordmark-i">I</span>HERO</div>
+    <div class="cover-snapshot">
+      Tokens visuais <em>em uso real.</em> Cor com HEX e contraste. Tipografia em tamanho real. Componentes vivos. Easing curves animadas. <em>Sem follow-up necessário.</em>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta-grid">
+      <div><span>Documento</span><strong>03 · Visual System</strong></div>
+      <div><span>Direção</span><strong>Pulso</strong></div>
+      <div><span>Versão</span><strong>v1 · 2026-05-19</strong></div>
+      <div><span>Companion</span><strong>03-visual-system.md</strong></div>
+    </div>
+    <div>Scroll ↓</div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>VAZIO #06070A</span><span>ARCO #FF5B1F</span><span>ARCHIVO BLACK 900</span><span>JETBRAINS MONO 700</span><span>EASE-PULSO .2,1,.2,1</span><span>RADIUS 4-8PX</span><span>VAZIO #06070A</span><span>ARCO #FF5B1F</span><span>ARCHIVO BLACK 900</span><span>JETBRAINS MONO 700</span><span>EASE-PULSO .2,1,.2,1</span><span>RADIUS 4-8PX</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §1 TOKENS ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§1 · Tokens prontos para colar</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Variáveis CSS. <em>Copy-paste.</em></h2>
+    <p class="section-lede">
+      Bloco completo para colar em <code style="font-family:var(--f-mono);background:var(--aco-800);padding:2px 6px;color:var(--arco)">app/globals.css</code> ou equivalente. Todas as outras seções deste doc referenciam estes tokens.
+    </p>
+
+    <div class="code-header">
+      <span><b>:root</b> · variáveis CSS</span>
+      <span>copiar tudo</span>
+    </div>
+    <div class="code-block"><span class="key">:root</span> {
+  <span class="com">/* — Surface / neutral scale — */</span>
+  <span class="key">--c-vazio</span>:    <span class="val">#06070A</span>;  <span class="com">/* page background */</span>
+  <span class="key">--c-aco-800</span>:  <span class="val">#0D0F14</span>;  <span class="com">/* panel surface */</span>
+  <span class="key">--c-aco-700</span>:  <span class="val">#13151C</span>;  <span class="com">/* card surface */</span>
+  <span class="key">--c-linha-600</span>:<span class="val">#1E212A</span>;  <span class="com">/* elevated / hover surface */</span>
+  <span class="key">--c-linha-500</span>:<span class="val">#2A2E3A</span>;  <span class="com">/* dividers, ghost button borders */</span>
+  <span class="key">--c-cinza-400</span>:<span class="val">#5A5E68</span>;  <span class="com">/* muted text, disabled */</span>
+  <span class="key">--c-cinza-300</span>:<span class="val">#8F8B81</span>;  <span class="com">/* secondary text */</span>
+  <span class="key">--c-giz-200</span>:  <span class="val">#BDB9AF</span>;  <span class="com">/* tertiary text on dark */</span>
+  <span class="key">--c-giz-100</span>:  <span class="val">#EEEBE3</span>;  <span class="com">/* primary text · "Giz" */</span>
+
+  <span class="com">/* — Identity / signal — */</span>
+  <span class="key">--c-arco</span>:     <span class="val">#FF5B1F</span>;  <span class="com">/* HERO · action · pulse · CTA */</span>
+  <span class="key">--c-atencao</span>:  <span class="val">#F7D74C</span>;  <span class="com">/* single warning state · 1×/week */</span>
+
+  <span class="com">/* — Type — */</span>
+  <span class="key">--f-display</span>:  <span class="val">'Archivo'</span>, sans-serif;
+  <span class="key">--f-narrow</span>:   <span class="val">'Archivo Narrow'</span>, sans-serif;
+  <span class="key">--f-mono</span>:     <span class="val">'JetBrains Mono'</span>, monospace;
+
+  <span class="com">/* — Spacing (4px base) — */</span>
+  <span class="key">--s-1</span>: <span class="num">4px</span>;    <span class="key">--s-2</span>: <span class="num">8px</span>;    <span class="key">--s-3</span>: <span class="num">12px</span>;
+  <span class="key">--s-4</span>: <span class="num">16px</span>;   <span class="key">--s-5</span>: <span class="num">20px</span>;   <span class="key">--s-6</span>: <span class="num">24px</span>;
+  <span class="key">--s-8</span>: <span class="num">32px</span>;   <span class="key">--s-10</span>: <span class="num">40px</span>;  <span class="key">--s-12</span>: <span class="num">48px</span>;
+  <span class="key">--s-16</span>: <span class="num">64px</span>;  <span class="key">--s-20</span>: <span class="num">80px</span>;  <span class="key">--s-24</span>: <span class="num">96px</span>;
+
+  <span class="com">/* — Radius — */</span>
+  <span class="key">--r-1</span>: <span class="num">2px</span>;
+  <span class="key">--r-2</span>: <span class="num">4px</span>;
+  <span class="key">--r-3</span>: <span class="num">8px</span>;
+  <span class="com">/* NUNCA acima de 8px. Pílula proibido. */</span>
+
+  <span class="com">/* — Motion — */</span>
+  <span class="key">--ease-pulso</span>: <span class="val">cubic-bezier(0.2, 1, 0.2, 1)</span>;
+  <span class="key">--t-instant</span>: <span class="num">100ms</span>;
+  <span class="key">--t-fast</span>:    <span class="num">200ms</span>;
+  <span class="key">--t-medium</span>:  <span class="num">320ms</span>;
+  <span class="key">--t-slow</span>:    <span class="num">600ms</span>;
+}</div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §2 COR ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§2 · Sistema de cor</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Monocromático <em>+ Arco + Atenção.</em></h2>
+    <p class="section-lede">
+      Pulso é <strong>só escuro</strong>. Página nunca clareia além de Aço. O sinal funciona porque é escasso — Arco em no máximo 2 elementos por tela, Atenção 1× por semana.
+    </p>
+
+    <h3 class="subsection-title">Escala neutra · 8 passos</h3>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#06070A">
+          <span class="token" style="color:#EEEBE3">Vazio</span>
+          <span class="hex" style="color:#8F8B81">#06070A</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use"><strong>Page background.</strong> Mais profundo que preto comum — referência: tinta de offset.</span>
+          <span class="swatch-contrast">vs giz-100 → <span class="pass">15.8:1 · AAA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0D0F14">
+          <span class="token" style="color:#EEEBE3">Aço-800</span>
+          <span class="hex" style="color:#8F8B81">#0D0F14</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Panel surface · containers cheios.</span>
+          <span class="swatch-contrast">vs giz-100 → <span class="pass">14.9:1 · AAA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#13151C">
+          <span class="token" style="color:#EEEBE3">Aço-700</span>
+          <span class="hex" style="color:#8F8B81">#13151C</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Card surface · "Aço" do brief Pulso · meal cards, hero cards.</span>
+          <span class="swatch-contrast">vs giz-100 → <span class="pass">13.2:1 · AAA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1E212A">
+          <span class="token" style="color:#EEEBE3">Linha-600</span>
+          <span class="hex" style="color:#8F8B81">#1E212A</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Elevated · botão ghost hover, dropdown, modal.</span>
+          <span class="swatch-contrast">vs giz-100 → <span class="pass">11.8:1 · AAA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2A2E3A">
+          <span class="token" style="color:#EEEBE3">Linha-500</span>
+          <span class="hex" style="color:#8F8B81">#2A2E3A</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Dividers, bordas de botão ghost.</span>
+          <span class="swatch-contrast">vs giz-100 → <span class="pass">9.6:1 · AAA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5A5E68">
+          <span class="token" style="color:#EEEBE3">Cinza-400</span>
+          <span class="hex" style="color:#06070A">#5A5E68</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Texto desabilitado, muted.</span>
+          <span class="swatch-contrast">vs vazio → <span class="pass">4.2:1 · AA Large</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#8F8B81">
+          <span class="token" style="color:#06070A">Cinza-300</span>
+          <span class="hex" style="color:#06070A">#8F8B81</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Texto secundário · "Cinza" do brief Pulso.</span>
+          <span class="swatch-contrast">vs vazio → <span class="pass">5.9:1 · AA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#BDB9AF">
+          <span class="token" style="color:#06070A">Giz-200</span>
+          <span class="hex" style="color:#06070A">#BDB9AF</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Texto terciário, deltas negativos em mono.</span>
+          <span class="swatch-contrast">vs vazio → <span class="pass">9.4:1 · AAA</span></span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background:#EEEBE3">
+          <span class="token" style="color:#06070A">Giz-100</span>
+          <span class="hex" style="color:#06070A">#EEEBE3</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use"><strong>Texto primário.</strong> "Giz" — nunca branco puro #FFF.</span>
+          <span class="swatch-contrast">— vs vazio → 15.8:1 ·</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Sinal · 2 acentos</h3>
+
+    <div class="swatch-grid">
+      <div class="swatch signal">
+        <div class="swatch-color signal" style="background:#FF5B1F;color:#06070A">
+          <span class="token">Arco</span>
+          <span class="hex">#FF5B1F</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use"><strong>HERO color. Cor da marca.</strong> Recalibração, deltas ao vivo, linha de pulso, CTAs. <b>Único acento.</b></span>
+          <span class="swatch-contrast">vs vazio → <span class="pass">5.2:1 · AA Large</span> · max 2 elementos/tela</span>
+        </div>
+      </div>
+
+      <div class="swatch signal">
+        <div class="swatch-color signal" style="background:#F7D74C;color:#06070A">
+          <span class="token">Atenção</span>
+          <span class="hex">#F7D74C</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use"><strong>Único estado de aviso.</strong> Indulgência semanal — álcool, jantar tarde. Usado <b>1× por semana</b>.</span>
+          <span class="swatch-contrast">vs vazio → <span class="pass">13.4:1 · AAA</span> · 1×/semana max</span>
+        </div>
+      </div>
+
+      <div class="swatch" style="opacity:0.6">
+        <div class="swatch-color" style="background:transparent;border:1px dashed var(--cinza-400)">
+          <span class="token" style="color:#5A5E68">— Nenhum —</span>
+          <span class="hex" style="color:#5A5E68">terceiro acento proibido</span>
+        </div>
+        <div class="swatch-info">
+          <span class="swatch-use">Pulso é monocromático + Arco + Atenção. <strong>Sem verdes, sem azuis</strong>, sem outros tons.</span>
+          <span class="swatch-contrast">→ vide §2 Forbidden</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">State map · regras de uso</h3>
+
+    <div class="state-map">
+      <div class="state-row">
+        <span class="name">No plano</span>
+        <span class="desc">Linha de pulso 2px sob o número-manchete, animação 2.0s/loop. <b>Sem chip verde</b> — Pulso não usa verde.</span>
+        <span class="demo" style="background:var(--arco)">arco · 2.0s</span>
+      </div>
+      <div class="state-row">
+        <span class="name">Fora do plano</span>
+        <span class="desc">Mesma cor da linha, animação 0.8s/loop. <b>Sinal é ritmo, não cor nova.</b></span>
+        <span class="demo" style="background:var(--arco)">arco · 0.8s</span>
+      </div>
+      <div class="state-row">
+        <span class="name">Indulgência semanal</span>
+        <span class="desc">Chip Atenção em refeição registrada como exceção. Máximo <b>1× por semana visível</b>.</span>
+        <span class="demo" style="background:var(--atencao)">atenção</span>
+      </div>
+      <div class="state-row">
+        <span class="name">Δ positivo (kcal extra)</span>
+        <span class="desc">"+180 kcal @ 19:30" em ticker. Sempre Arco.</span>
+        <span class="demo" style="background:var(--arco)">arco</span>
+      </div>
+      <div class="state-row">
+        <span class="name">Δ negativo (kcal removido)</span>
+        <span class="desc">"−180 kcal" em mono, muted. <b>Menos alarmante que extra</b> — você não está em perigo, está renivelando.</span>
+        <span class="demo" style="background:var(--giz-200);color:var(--vazio)">giz-200</span>
+      </div>
+      <div class="state-row">
+        <span class="name">Destructive</span>
+        <span class="desc">Sem vermelho dedicado. Botão ghost com borda Arco + texto Arco. Hover preenche.</span>
+        <span class="demo" style="background:transparent;border:1px solid var(--arco);color:var(--arco)">ghost arco</span>
+      </div>
+      <div class="state-row">
+        <span class="name">Disabled</span>
+        <span class="desc">Opacity 0.4 sobre o componente original. Sem cor nova.</span>
+        <span class="demo" style="background:var(--cinza-400)">cinza-400</span>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Forbidden · não negociável</h3>
+
+    <div class="forbidden-list">
+      <div class="forbidden">❌ <b>Verde</b> — qualquer tom. Inclusive lima.</div>
+      <div class="forbidden">❌ <b>Azul</b> — qualquer tom. Inclusive ciano.</div>
+      <div class="forbidden">❌ <b>Vermelho dedicado</b> — Arco substitui em todos os usos de alerta.</div>
+      <div class="forbidden">❌ <b>Branco puro #FFFFFF</b> — use Giz-100.</div>
+      <div class="forbidden">❌ <b>Gradients decorativos</b> (roxo→azul, etc.).</div>
+      <div class="forbidden">❌ <b>Modo claro.</b> Página nunca clareia além de Aço-800.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §3 TIPOGRAFIA ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§3 · Tipografia</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Três famílias. <em>Papéis estritos.</em></h2>
+    <p class="section-lede">
+      Nada de Inter, Roboto, Poppins. <strong>Pulso não tem voz itálica</strong> — display sempre caixa alta; Narrow caps + tracking positivo; Mono só para dígitos que se atualizam.
+    </p>
+
+    <div class="type-spec">
+      <div class="spec-head">
+        <span class="spec-name">Archivo Black 900</span>
+        <span class="spec-role">Display · manchetes · sempre uppercase</span>
+      </div>
+      <div class="spec-body">
+        <div class="spec-archivo">Plano <em>mudou.</em></div>
+      </div>
+    </div>
+
+    <div class="type-spec">
+      <div class="spec-head">
+        <span class="spec-name">Archivo Narrow 500</span>
+        <span class="spec-role">Tickers · rótulos · sempre caps + tracking positivo</span>
+      </div>
+      <div class="spec-body">
+        <div class="spec-narrow-row">
+          <div>
+            <span class="size">22 / +14%</span>
+            <span class="text" style="font-size:22px;letter-spacing:0.14em">+180 KCAL · RENIVELAR 21:40</span>
+          </div>
+          <div>
+            <span class="size">14 / +14%</span>
+            <span class="text" style="font-size:14px;letter-spacing:0.14em">JANTAR TARDE · PULAR LANCHE · +24G PROTEÍNA</span>
+          </div>
+          <div>
+            <span class="size">10 / +18%</span>
+            <span class="text" style="font-size:10px;letter-spacing:0.18em">EYEBROW · METADADOS · MINI LABELS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-spec">
+      <div class="spec-head">
+        <span class="spec-name">JetBrains Mono</span>
+        <span class="spec-role">Numerais tabulares · tudo que se atualiza</span>
+      </div>
+      <div class="spec-body">
+        <div class="spec-mono">
+          <div>
+            <span class="label">data-xl · 96 / Bold</span>
+            <span class="mono-xl">2.184</span>
+          </div>
+          <div>
+            <span class="label">data-lg · 36 / Bold</span>
+            <span class="mono-lg">−4,1kg</span>
+          </div>
+          <div>
+            <span class="label">data-md · 24 / Medium</span>
+            <span class="mono-md">168 / 196</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Type scale · 18 tokens</h3>
+
+    <table class="scale-table">
+      <thead>
+        <tr><th>Token</th><th>Família</th><th>Peso</th><th>Tamanho</th><th>Tracking</th><th>Preview</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="token">display-hero</td><td>Archivo</td><td>Black 900</td><td>96-140px</td><td>−4.5%</td><td class="preview" style="font-family:var(--f-display);font-weight:900;font-size:32px;letter-spacing:-0.045em;text-transform:uppercase">2.184</td></tr>
+        <tr><td class="token">display-1</td><td>Archivo</td><td>Black 900</td><td>56-64px</td><td>−4%</td><td class="preview" style="font-family:var(--f-display);font-weight:900;font-size:24px;letter-spacing:-0.04em;text-transform:uppercase">PLANO MUDOU.</td></tr>
+        <tr><td class="token">display-2</td><td>Archivo</td><td>Black 900</td><td>32px</td><td>−3%</td><td class="preview" style="font-family:var(--f-display);font-weight:900;font-size:20px;letter-spacing:-0.03em;text-transform:uppercase">SEMANA 14</td></tr>
+        <tr><td class="token">display-3</td><td>Archivo</td><td>Black 900</td><td>22px</td><td>−2%</td><td class="preview" style="font-family:var(--f-display);font-weight:900;font-size:16px;letter-spacing:-0.02em;text-transform:uppercase">REFEIÇÕES HOJE</td></tr>
+        <tr><td class="token">ticker-lg</td><td>Archivo Narrow</td><td>Medium 500</td><td>22px</td><td>+14%</td><td class="preview" style="font-family:var(--f-narrow);font-weight:500;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:var(--arco)">RECALIBRAR · 21:40</td></tr>
+        <tr><td class="token">ticker-md</td><td>Archivo Narrow</td><td>Medium 500</td><td>14px</td><td>+14%</td><td class="preview" style="font-family:var(--f-narrow);font-weight:500;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--arco)">+180 KCAL</td></tr>
+        <tr><td class="token">ticker-sm</td><td>Archivo Narrow</td><td>Medium 500</td><td>10px</td><td>+18%</td><td class="preview" style="font-family:var(--f-narrow);font-weight:500;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cinza-300)">EYEBROW</td></tr>
+        <tr><td class="token">label</td><td>Archivo Narrow</td><td>Medium 500</td><td>13px</td><td>+14%</td><td class="preview" style="font-family:var(--f-narrow);font-weight:500;font-size:12px;letter-spacing:0.14em;text-transform:uppercase">PESO</td></tr>
+        <tr><td class="token">body-lg</td><td>Archivo</td><td>Regular 400</td><td>18px</td><td>0</td><td class="preview" style="font-family:var(--f-display);font-weight:400;font-size:16px">Copy longo · paywall · descrições</td></tr>
+        <tr><td class="token">body</td><td>Archivo</td><td>Regular 400</td><td>16px</td><td>0</td><td class="preview" style="font-family:var(--f-display);font-weight:400;font-size:14px">Corpo padrão de texto</td></tr>
+        <tr><td class="token">body-sm</td><td>Archivo</td><td>Regular 400</td><td>14px</td><td>0</td><td class="preview" style="font-family:var(--f-display);font-weight:400;font-size:13px">Notas · captions</td></tr>
+        <tr><td class="token">caption</td><td>Archivo</td><td>Medium 500</td><td>11px</td><td>+4%</td><td class="preview" style="font-family:var(--f-display);font-weight:500;font-size:11px;letter-spacing:0.04em">Hints · metadados pequenos</td></tr>
+        <tr><td class="token">data-xl</td><td>JetBrains Mono</td><td>Bold 700</td><td>96-112px</td><td>−4%</td><td class="preview" style="font-family:var(--f-mono);font-weight:700;font-size:28px;letter-spacing:-0.04em">2.184</td></tr>
+        <tr><td class="token">data-lg</td><td>JetBrains Mono</td><td>Bold 700</td><td>72px</td><td>−3.5%</td><td class="preview" style="font-family:var(--f-mono);font-weight:700;font-size:24px;letter-spacing:-0.035em">−4,1kg</td></tr>
+        <tr><td class="token">data-md</td><td>JetBrains Mono</td><td>Medium 500</td><td>32px</td><td>−2%</td><td class="preview" style="font-family:var(--f-mono);font-weight:500;font-size:18px;letter-spacing:-0.02em">80,5</td></tr>
+        <tr><td class="token">data</td><td>JetBrains Mono</td><td>Medium 500</td><td>16px</td><td>0</td><td class="preview" style="font-family:var(--f-mono);font-weight:500;font-size:14px">168 / 196</td></tr>
+        <tr><td class="token">data-sm</td><td>JetBrains Mono</td><td>Medium 500</td><td>12px</td><td>+4%</td><td class="preview" style="font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:0.04em">12:14:08</td></tr>
+        <tr><td class="token">data-xs</td><td>JetBrains Mono</td><td>Medium 500</td><td>10px</td><td>+12%</td><td class="preview" style="font-family:var(--f-mono);font-weight:500;font-size:10px;letter-spacing:0.12em;text-transform:uppercase">REV 14</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>SPACING 4PX BASE</span><span>RADIUS 4-8PX MAX</span><span>Z-AXIS POR COR</span><span>SEM BOX-SHADOW</span><span>SPACING 4PX BASE</span><span>RADIUS 4-8PX MAX</span><span>Z-AXIS POR COR</span><span>SEM BOX-SHADOW</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §4 LAYOUT ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§4 · Layout</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Dois modos. <em>Mesmo sistema.</em></h2>
+    <p class="section-lede">
+      Densidade é decisão por tipo de tela. <strong>Operacional denso</strong> nas telas usadas diariamente. <strong>Ritual respirado</strong> nas telas-cerimônia (splash, paywall, projeção).
+    </p>
+
+    <div class="layout-modes">
+      <div class="layout-mode">
+        <h4>Operacional · <em>denso</em></h4>
+        <p>Home, registro de refeição, semana, configurações. Tipografia compacta, múltiplas linhas de dado, ticker visível, margem mínima.</p>
+        <div class="mini-mockup">
+          <div class="mockup-bignum" style="font-family:var(--f-mono);font-weight:700">2.184</div>
+          <div class="mockup-pulse"></div>
+          <div class="mockup-rows">
+            <div><span>PROTEÍNA</span><b>168 / 196</b></div>
+            <div><span>CARBOS</span><b>211 / 248</b></div>
+            <div><span>GORDURA</span><b>64 / 78</b></div>
+          </div>
+          <div class="mockup-cta">REAJUSTAR JANTAR</div>
+        </div>
+      </div>
+
+      <div class="layout-mode ritual">
+        <h4>Ritual · <em>respirado</em></h4>
+        <p>Splash, paywall, projeção do eu futuro, recalibrar. Tipografia ENORME (display-hero), 60%+ da tela é ar, 1 CTA, no máximo 3 elementos.</p>
+        <div class="mini-mockup">
+          <div class="mockup-bignum" style="font-family:var(--f-display);font-weight:900;text-transform:uppercase">Plano <em>mudou.</em></div>
+          <div class="mockup-rows">
+            <div style="justify-content:center"><b>+180 KCAL</b></div>
+          </div>
+          <div class="mockup-cta">ACEITAR</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Spacing scale · base 4px</h3>
+
+    <div class="spacing-scale">
+      <div class="spacing-row"><span class="name">--s-1</span><span class="px">4 px</span><div class="bar" style="width:4px"></div></div>
+      <div class="spacing-row"><span class="name">--s-2</span><span class="px">8 px</span><div class="bar" style="width:8px"></div></div>
+      <div class="spacing-row"><span class="name">--s-3</span><span class="px">12 px</span><div class="bar" style="width:12px"></div></div>
+      <div class="spacing-row"><span class="name">--s-4</span><span class="px">16 px</span><div class="bar" style="width:16px"></div></div>
+      <div class="spacing-row"><span class="name">--s-5</span><span class="px">20 px</span><div class="bar" style="width:20px"></div></div>
+      <div class="spacing-row"><span class="name">--s-6</span><span class="px">24 px</span><div class="bar" style="width:24px"></div></div>
+      <div class="spacing-row"><span class="name">--s-8</span><span class="px">32 px</span><div class="bar" style="width:32px"></div></div>
+      <div class="spacing-row"><span class="name">--s-10</span><span class="px">40 px</span><div class="bar" style="width:40px"></div></div>
+      <div class="spacing-row"><span class="name">--s-12</span><span class="px">48 px</span><div class="bar" style="width:48px"></div></div>
+      <div class="spacing-row"><span class="name">--s-16</span><span class="px">64 px</span><div class="bar" style="width:64px"></div></div>
+      <div class="spacing-row"><span class="name">--s-20</span><span class="px">80 px</span><div class="bar" style="width:80px"></div></div>
+      <div class="spacing-row"><span class="name">--s-24</span><span class="px">96 px</span><div class="bar" style="width:96px"></div></div>
+    </div>
+
+    <h3 class="subsection-title">Radius scale · max 8px</h3>
+
+    <div class="radius-scale">
+      <div class="radius-row">
+        <div class="radius-box" style="border-radius:0"></div>
+        <div class="radius-label"><b>--r-0</b><br>0px</div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-box" style="border-radius:2px"></div>
+        <div class="radius-label"><b>--r-1</b><br>2px</div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-box" style="border-radius:4px"></div>
+        <div class="radius-label"><b>--r-2</b><br>4px · CTA</div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-box" style="border-radius:8px"></div>
+        <div class="radius-label"><b>--r-3</b><br>8px · max</div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-box radius-forbidden" style="border-radius:16px">❌</div>
+        <div class="radius-label" style="color:var(--cinza-400)">16px<br>proibido</div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-box radius-forbidden" style="border-radius:9999px">❌</div>
+        <div class="radius-label" style="color:var(--cinza-400)">pílula<br>proibido</div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Z-axis · elevação por cor (sem sombra)</h3>
+
+    <div class="z-stack">
+      <div class="z-row">
+        <span class="name">z-0</span>
+        <div class="swatch-mini" style="background:var(--vazio)"></div>
+        <div class="label">Page<div class="desc">Background dominante</div></div>
+        <span class="hex">#06070A</span>
+      </div>
+      <div class="z-row">
+        <span class="name">z-1</span>
+        <div class="swatch-mini" style="background:var(--aco-800)"></div>
+        <div class="label">Panel<div class="desc">Containers cheios (cards grandes)</div></div>
+        <span class="hex">#0D0F14</span>
+      </div>
+      <div class="z-row">
+        <span class="name">z-2</span>
+        <div class="swatch-mini" style="background:var(--aco-700)"></div>
+        <div class="label">Card<div class="desc">Meal cards, hero cards, panels normais</div></div>
+        <span class="hex">#13151C</span>
+      </div>
+      <div class="z-row">
+        <span class="name">z-3</span>
+        <div class="swatch-mini" style="background:var(--linha-600)"></div>
+        <div class="label">Elevated<div class="desc">Hover state, dropdown</div></div>
+        <span class="hex">#1E212A</span>
+      </div>
+      <div class="z-row">
+        <span class="name">z-4</span>
+        <div class="swatch-mini" style="background:var(--linha-600);border-color:var(--linha-500)"></div>
+        <div class="label">Modal<div class="desc">Modal/sheet + 1px Linha-500 border</div></div>
+        <span class="hex">#1E212A + border</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §5 COMPONENTES ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§5 · Componentes · vivos</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Onze peças. <em>Implementáveis hoje.</em></h2>
+    <p class="section-lede">
+      Cada componente aqui está em <strong>HTML/CSS funcional</strong> — inspecione, copie, adapte. PulsoLine e Ticker animam ao vivo nesta página.
+    </p>
+
+    <div class="components-grid">
+
+      <!-- Buttons -->
+      <div class="comp-card">
+        <div class="comp-label">Button · primary</div>
+        <div class="comp-stage">
+          <button class="btn-primary">Recalibrar jantar</button>
+        </div>
+        <div class="comp-note">
+          Fundo <b>Arco</b>, texto Vazio, Archivo Black uppercase. Radius <code>--r-2</code> (4px). Hover: <code>scaleY(0.98)</code> + opacity 0.92. Active: <code>scale(0.96)</code>.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Button · ghost</div>
+        <div class="comp-stage">
+          <button class="btn-ghost">O que mudou?</button>
+        </div>
+        <div class="comp-note">
+          Background <b>transparent</b>, border 1px Linha-500. Hover: border vira <b>Arco</b>, texto vira Arco. <b>Sem fill no hover.</b>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Button · destructive</div>
+        <div class="comp-stage">
+          <button class="btn-destructive">Apagar conta</button>
+        </div>
+        <div class="comp-note">
+          <b>Sem vermelho.</b> Border Arco + texto Arco. Hover preenche Arco. Copy em caps com tom imperativo.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Button · hero (CTA de Recalibrar)</div>
+        <div class="comp-stage">
+          <button class="btn-hero">REAJUSTAR DIETA</button>
+        </div>
+        <div class="comp-note">
+          <b>Altura 72px</b>, full-bleed. Mesmo estilo do primary mas maior — usado só para o CTA de Recalibrar na Home.
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="comp-card">
+        <div class="comp-label">Input · numérico</div>
+        <div class="comp-stage col">
+          <div class="input-num focus">
+            <span class="val">80,5</span>
+            <span class="unit">KG</span>
+          </div>
+        </div>
+        <div class="comp-note">
+          JetBrains Mono Bold 28px, alinhado à direita. Unit chip em Archivo Black uppercase Arco. Underline 1px só no focus.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Input · texto</div>
+        <div class="comp-stage col">
+          <input type="text" class="input-text" placeholder="seu@email.com">
+        </div>
+        <div class="comp-note">
+          Background Aço-700, sem border, radius <code>--r-2</code>. Focus: outline 2px Arco offset 2px.
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="comp-card">
+        <div class="comp-label">Card · surface</div>
+        <div class="comp-stage">
+          <div class="card-surface">
+            <div class="title">Lanche · 16:30</div>
+            <div class="body">Iogurte natural + granola sem açúcar. Restam <strong style="color:var(--giz-100)">240 kcal</strong>.</div>
+          </div>
+        </div>
+        <div class="comp-note">
+          Background Aço-700, <b>sem border, sem sombra</b>. Radius <code>--r-3</code> (8px). Padding 20px.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Meal card · feito + pendente</div>
+        <div class="comp-stage col">
+          <div class="meal-card">
+            <div class="row"><span class="name">Almoço</span><span class="kcal">612</span></div>
+            <div class="items">Arroz · frango grelhado · brócolis · azeite</div>
+          </div>
+          <div class="meal-card pending">
+            <div class="row"><span class="name">Jantar</span><span class="kcal">580</span></div>
+            <div class="items">Previsto 20:30</div>
+          </div>
+        </div>
+        <div class="comp-note">
+          Border-left 2px: <b>Arco se feito</b>, Linha-500 se pendente. Opacity 0.65 quando pendente. <b>Sem radius</b> — leitura tabular.
+        </div>
+      </div>
+
+      <!-- Pulso line -->
+      <div class="comp-card wide">
+        <div class="comp-label"><span class="arc">★</span> Pulso de Recalibração · componente-assinatura · AO VIVO</div>
+        <div class="comp-stage tall col" style="gap:32px;padding-top:32px">
+          <div class="pulso-hero">
+            <div class="num">2.184<small>/ 2.496</small></div>
+            <div class="pulso-line"></div>
+            <div class="caption">● 2.0s / loop · no plano</div>
+          </div>
+          <div class="pulso-hero">
+            <div class="num" style="font-size:48px">2.184<small style="font-size:11px">/ 2.496</small></div>
+            <div class="pulso-line fast" style="width:160px"></div>
+            <div class="caption" style="color:var(--arco)">● 0.8s / loop · fora do plano · acelerado</div>
+          </div>
+          <div class="pulso-hero">
+            <div class="num" style="font-size:48px">2.184<small style="font-size:11px">/ 2.496</small></div>
+            <div class="pulso-line static" style="width:160px"></div>
+            <div class="caption">○ static · no-data · 30% opacity</div>
+          </div>
+        </div>
+        <div class="comp-note">
+          Altura <b>2px</b>, background Arco, animação <code>scaleX(0.85→1.0) + opacity(0.5→1.0)</code> em loop. <b>2.0s no plano · 0.8s fora do plano · static no no-data.</b> Largura match exato do número-manchete. Esse é o componente que faz lembrar pra sempre — implementar e validar PRIMEIRO no dev.
+        </div>
+      </div>
+
+      <!-- Ticker -->
+      <div class="comp-card wide">
+        <div class="comp-label">Ticker · Pulso de Recalibração · AO VIVO</div>
+        <div class="comp-stage" style="padding:0;border:none">
+          <div class="ticker-comp" style="background:transparent">
+            <div class="ticker-comp-inner">
+              <span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE TARDE</span><span>RENIVELAR 21:40</span><span>VINHO REGISTRADO · 1U</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE TARDE</span><span>RENIVELAR 21:40</span>
+            </div>
+          </div>
+        </div>
+        <div class="comp-note">
+          Marquise contínua <b>24s/loop</b>, Archivo Narrow caps Arco. Border-top/bottom 1px Arco 50%. <b>1 ticker máximo por tela.</b>
+        </div>
+      </div>
+
+      <!-- Arc gauge -->
+      <div class="comp-card">
+        <div class="comp-label">Arc gauge · composição corporal</div>
+        <div class="comp-stage tall">
+          <div class="arc-gauge">
+            <svg viewBox="0 0 200 200">
+              <path d="M30,160 A 80,80 0 1,1 170,160" fill="none" stroke="#2A2E3A" stroke-width="14" stroke-linecap="round"/>
+              <path d="M30,160 A 80,80 0 1,1 158,118" fill="none" stroke="#FF5B1F" stroke-width="14" stroke-linecap="round"/>
+              <text x="100" y="108" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="46" fill="#EEEBE3" letter-spacing="-2">18,4</text>
+              <text x="100" y="138" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#8F8B81" letter-spacing="2">% GORDURA</text>
+            </svg>
+          </div>
+        </div>
+        <div class="comp-note">
+          <b>270° arc</b>, stroke 14px, linecap round. Substitui rosca/donut/dial. Center number em Archivo Black 46pt. Label Mono caps abaixo.
+        </div>
+      </div>
+
+      <!-- Atencao chip -->
+      <div class="comp-card">
+        <div class="comp-label">Chip · Atenção (1×/semana max)</div>
+        <div class="comp-stage" style="gap:8px">
+          <span class="chip-atencao">JANTAR TARDE</span>
+          <span class="chip-atencao">VINHO · 2U</span>
+        </div>
+        <div class="comp-note">
+          Background Atenção, texto Vazio, Archivo Black caps. <b>Único estado de aviso.</b> Reservado para indulgência semanal.
+        </div>
+      </div>
+
+      <!-- Live + Eyebrow -->
+      <div class="comp-card">
+        <div class="comp-label">Live indicator + Eyebrow</div>
+        <div class="comp-stage col" style="gap:14px">
+          <div class="live-dot">
+            <span class="dot"></span>
+            <span class="text">AO VIVO · 21:04</span>
+          </div>
+          <div class="eyebrow-demo">
+            <span class="left">SEMANA 14 · DOM</span>
+            <span class="right">● NO PLANO</span>
+          </div>
+        </div>
+        <div class="comp-note">
+          Bullet ● 8px Arco + "AO VIVO" em Narrow caps. Eyebrow em topo de toda tela utilitária — esquerda contexto (Cinza), direita status (Arco se vivo).
+        </div>
+      </div>
+
+      <!-- Bar chart -->
+      <div class="comp-card wide">
+        <div class="comp-label">Bar chart · semana</div>
+        <div class="comp-stage col" style="align-items:center;padding-top:32px;padding-bottom:32px">
+          <div class="bar-chart">
+            <div style="height:30%"></div>
+            <div style="height:48%"></div>
+            <div style="height:42%"></div>
+            <div style="height:38%"></div>
+            <div class="arc" style="height:92%"></div>
+            <div class="warn" style="height:64%"></div>
+            <div style="height:36%"></div>
+          </div>
+          <div class="bar-days">
+            <span>S</span><span>T</span><span>Q</span><span>Q</span><span class="arc">S</span><span class="warn">S</span><span>D</span>
+          </div>
+        </div>
+        <div class="comp-note">
+          <b>Exatamente 7 barras.</b> Default Linha-500 · alerta Arco · indulgência Atenção. Sem legenda — a cor é a legenda. Day labels em Mono caps espaçada.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §6 ICONS ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§6 · Sistema de ícones</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Outline. <em>2px stroke.</em> Cantos retos.</h2>
+    <p class="section-lede">
+      <strong>Nunca filled, nunca rounded caps.</strong> Base library: Tabler Icons (stroke 2px square caps já compatível). 7 ícones Pulso-específicos devem ser desenhados custom — listados abaixo.
+    </p>
+
+    <h3 class="subsection-title">Pulso-específicos · 7 ícones custom</h3>
+
+    <div class="icons-grid">
+      <div class="icon-card custom">
+        <svg class="icon-svg active" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <div class="icon-name">Recalibrar</div>
+        <div class="icon-meta">waveform + seta<br><b>NÃO</b> refresh circle</div>
+      </div>
+
+      <div class="icon-card custom">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square">
+          <path d="M4 8 V4 H8"/>
+          <path d="M20 8 V4 H16"/>
+          <path d="M4 16 V20 H8"/>
+          <path d="M20 16 V20 H16"/>
+        </svg>
+        <div class="icon-name">Tirar foto</div>
+        <div class="icon-meta">colchetes [ ]<br><b>NÃO</b> camera</div>
+      </div>
+
+      <div class="icon-card custom">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="4" y1="11" x2="20" y2="11"/>
+          <line x1="4" y1="16" x2="20" y2="16" stroke="#FF5B1F"/>
+          <line x1="4" y1="21" x2="20" y2="21"/>
+        </svg>
+        <div class="icon-name">Semana</div>
+        <div class="icon-meta">stack de 7 linhas · dia ativo Arco<br><b>NÃO</b> calendar grid</div>
+      </div>
+
+      <div class="icon-card custom">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+        </svg>
+        <div class="icon-name">Profile</div>
+        <div class="icon-meta">ponto em círculo<br><b>NÃO</b> person silhouette</div>
+      </div>
+
+      <div class="icon-card custom">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square">
+          <circle cx="12" cy="12" r="9"/>
+          <line x1="12" y1="12" x2="18" y2="6"/>
+        </svg>
+        <div class="icon-name">Settings</div>
+        <div class="icon-meta">marca de dial<br><b>NÃO</b> gear</div>
+      </div>
+
+      <div class="icon-card custom">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square">
+          <path d="M4 12 L10 18 L20 6"/>
+        </svg>
+        <div class="icon-name">Refeição feita</div>
+        <div class="icon-meta">tick em mono spacing<br><b>NÃO</b> checkmark cursive</div>
+      </div>
+
+      <div class="icon-card custom">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+          <path d="M4 6 L14 12 L4 18 Z"/>
+          <path d="M16 8 L18 10 L20 8 L22 10"/>
+        </svg>
+        <div class="icon-name">Plano mudou</div>
+        <div class="icon-meta">triângulo + waveform<br>indicador de mudança</div>
+      </div>
+
+      <div class="icon-card">
+        <div class="icon-svg" style="display:flex;align-items:center;justify-content:center;color:var(--cinza-400);font-family:var(--f-display);font-weight:900;font-size:24px;text-transform:uppercase">+0</div>
+        <div class="icon-name" style="color:var(--cinza-400)">Default UI</div>
+        <div class="icon-meta">resto via Tabler Icons<br>2px stroke, square caps</div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Grid de tamanhos · 4px base</h3>
+
+    <div class="icon-sizes">
+      <div class="icon-size">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" style="width:12px;height:12px">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <span class="lbl">12 · icon-xs</span>
+      </div>
+      <div class="icon-size">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" style="width:16px;height:16px">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <span class="lbl">16 · icon-sm</span>
+      </div>
+      <div class="icon-size">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" style="width:20px;height:20px">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <span class="lbl">20 · icon-md · default UI</span>
+      </div>
+      <div class="icon-size">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" style="width:24px;height:24px">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <span class="lbl">24 · icon-lg</span>
+      </div>
+      <div class="icon-size">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" style="width:32px;height:32px">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <span class="lbl">32 · icon-xl · empty states</span>
+      </div>
+      <div class="icon-size">
+        <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" style="width:48px;height:48px">
+          <path d="M3 12 L6 12 L8 8 L10 16 L12 10 L14 14 L17 12 L20 12"/>
+          <path d="M17 9 L20 12 L17 15"/>
+        </svg>
+        <span class="lbl">48 · icon-2xl · splash</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §7 MOTION ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§7 · Motion</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Rápido. <em>Cinético.</em> Sem ornamento.</h2>
+    <p class="section-lede">
+      Uma curva. Quatro durações. <strong>Sem spring, sem bounce, sem elasticidade.</strong> Pulso é a única direção autorizada a parecer rápida.
+    </p>
+
+    <div class="motion-row">
+      <div class="easing-vis">
+        <svg viewBox="0 0 300 160">
+          <line x1="0" y1="140" x2="300" y2="140" stroke="#3A3A42" stroke-width="1"/>
+          <line x1="0" y1="20" x2="300" y2="20" stroke="#3A3A42" stroke-width="1" stroke-dasharray="2 4"/>
+          <path d="M 0 140 C 60 140, 60 20, 300 20" stroke="#FF5B1F" stroke-width="2" fill="none"/>
+          <text x="10" y="155" font-family="JetBrains Mono" font-size="9" fill="#8F8B81">0</text>
+          <text x="280" y="15" font-family="JetBrains Mono" font-size="9" fill="#8F8B81">1</text>
+        </svg>
+        <div class="easing-label"><b>cubic-bezier(.2, 1, .2, 1)</b> · ease-pulso · padrão (fast in, slow out)</div>
+      </div>
+      <div class="easing-vis">
+        <svg viewBox="0 0 300 160">
+          <line x1="0" y1="140" x2="300" y2="140" stroke="#3A3A42" stroke-width="1"/>
+          <line x1="0" y1="20" x2="300" y2="20" stroke="#3A3A42" stroke-width="1" stroke-dasharray="2 4"/>
+          <path d="M 0 140 C 100 140, 100 -10, 150 80 C 200 170, 200 20, 300 20" stroke="#5A5E68" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+          <text x="10" y="155" font-family="JetBrains Mono" font-size="9" fill="#5A5E68">0</text>
+          <text x="280" y="15" font-family="JetBrains Mono" font-size="9" fill="#5A5E68">1</text>
+        </svg>
+        <div class="easing-label bad">❌ cubic-bezier(.68, -.55, .27, 1.55) · bounce · <b>proibido</b></div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Duration scale · 4 tokens + 2 contínuos</h3>
+
+    <div class="duration-scale">
+      <div class="duration-row">
+        <span class="name">--t-instant</span>
+        <span class="ms">100ms</span>
+        <span class="use">Button press feedback (scale + opacity)</span>
+        <div class="demo"><div class="demo-dot"></div></div>
+      </div>
+      <div class="duration-row">
+        <span class="name">--t-fast</span>
+        <span class="ms">200ms</span>
+        <span class="use">UI state changes (hover, focus, disabled toggle)</span>
+        <div class="demo"><div class="demo-dot fast"></div></div>
+      </div>
+      <div class="duration-row">
+        <span class="name">--t-medium</span>
+        <span class="ms">320ms</span>
+        <span class="use">Entrance transitions, count-up de numerais</span>
+        <div class="demo"><div class="demo-dot medium"></div></div>
+      </div>
+      <div class="duration-row">
+        <span class="name">--t-slow</span>
+        <span class="ms">600ms</span>
+        <span class="use">Arming flash antes do plano mudar</span>
+        <div class="demo"><div class="demo-dot slow"></div></div>
+      </div>
+      <div class="duration-row">
+        <span class="name">--t-ticker</span>
+        <span class="ms">24s/loop</span>
+        <span class="use">Marquise infinita do ticker</span>
+        <div class="demo" style="overflow:hidden">
+          <div class="ticker-comp-inner" style="font-size:9px;letter-spacing:0.1em">
+            <span>+180 KCAL</span><span>RENIVELAR 21:40</span><span>+24G P</span><span>+180 KCAL</span><span>RENIVELAR 21:40</span><span>+24G P</span>
+          </div>
+        </div>
+      </div>
+      <div class="duration-row">
+        <span class="name">--t-pulse</span>
+        <span class="ms">2.0s/loop</span>
+        <span class="use">Pulso de Recalibração no plano · 0.8s/loop fora do plano</span>
+        <div class="demo" style="display:flex;align-items:center;padding:0 8px">
+          <div style="height:2px;background:var(--arco);flex:1;animation:pulseLine 2.0s var(--ease-pulso) infinite;transform-origin:left"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §8 THE ONE THING ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§8 · The one thing</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">A coisa que faz <em>lembrar pra sempre.</em></h2>
+
+    <div class="signature-block">
+      <div class="signature-text">
+        <h3>A linha laranja <em>de 2px</em> que pulsa sob o número.</h3>
+        <p>Não é o logo. Não é a cor. Não é a tipografia. É a <strong>Pulso de Recalibração</strong> — uma linha fina que vive sob o kcal do dia, pulsando lentamente quando você está no plano, mais rápido quando não está.</p>
+        <p><strong>No segundo mês de uso, o usuário sente a aceleração antes de ler o número.</strong> Em um screenshot na timeline de um influenciador parceiro, é a única coisa que precisa estar visível para alguém reconhecer NutriHero.</p>
+        <p>Se um componente do sistema for sacrificado em qualquer reescrita futura, <strong>este é o último a sair</strong>.</p>
+      </div>
+      <div class="signature-stage">
+        <div class="num">2.184</div>
+        <div class="line"></div>
+        <div class="caption">● ao vivo · 2.0s / loop · ease-pulso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §9 CHECKLIST ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§9 · Implementação · checklist</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Oito passos para o dev <em>abrir o repo.</em></h2>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-num">01</div>
+        <div class="check-box"></div>
+        <div class="check-text">Adicionar Google Fonts no <code>&lt;head&gt;</code>: Archivo 400/500/600/700/900 + Archivo Narrow 500/600/700 + JetBrains Mono 400/500/700</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">02</div>
+        <div class="check-box"></div>
+        <div class="check-text">Colar bloco <code>:root { ... }</code> de §1 deste doc em <code>app/globals.css</code></div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">03</div>
+        <div class="check-box"></div>
+        <div class="check-text">Configurar <code>font-feature-settings: 'tnum'</code> no JetBrains Mono globalmente para tabular figures</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">04</div>
+        <div class="check-box"></div>
+        <div class="check-text">Setar <code>body</code> background Vazio, color Giz-100, font-family Archivo</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">05</div>
+        <div class="check-box"></div>
+        <div class="check-text">Implementar componentes <strong>nesta ordem</strong>: Button → Input → <strong>PulsoLine</strong> (isolado, testar primeiro) → Ticker → MealCard → ArcGauge → Eyebrow + LiveDot</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">06</div>
+        <div class="check-box"></div>
+        <div class="check-text">Configurar <code>prefers-reduced-motion: reduce</code> — desabilita ticker + Pulso (acessibilidade)</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">07</div>
+        <div class="check-box"></div>
+        <div class="check-text"><code>font-variant-numeric: tabular-nums</code> em todo elemento JetBrains Mono</div>
+      </div>
+      <div class="check-item">
+        <div class="check-num">08</div>
+        <div class="check-box"></div>
+        <div class="check-text">Validar contraste com axe DevTools — todos os pares texto vs background passam AA mínimo (calculados em §2)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §10 TAILWIND ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§10 · Tailwind config</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Para quem usa <em>Tailwind.</em></h2>
+
+    <div class="code-header">
+      <span><b>tailwind.config.ts</b> · drop-in</span>
+      <span>copiar tudo</span>
+    </div>
+    <div class="code-block"><span class="com">// tailwind.config.ts</span>
+<span class="key">export default</span> {
+  <span class="key">theme</span>: {
+    <span class="key">extend</span>: {
+      <span class="key">colors</span>: {
+        <span class="key">vazio</span>:     <span class="val">'#06070A'</span>,
+        <span class="val">'aco-800'</span>:  <span class="val">'#0D0F14'</span>,
+        <span class="val">'aco-700'</span>:  <span class="val">'#13151C'</span>,
+        <span class="val">'linha-600'</span>:<span class="val">'#1E212A'</span>,
+        <span class="val">'linha-500'</span>:<span class="val">'#2A2E3A'</span>,
+        <span class="val">'cinza-400'</span>:<span class="val">'#5A5E68'</span>,
+        <span class="val">'cinza-300'</span>:<span class="val">'#8F8B81'</span>,
+        <span class="val">'giz-200'</span>:  <span class="val">'#BDB9AF'</span>,
+        <span class="val">'giz-100'</span>:  <span class="val">'#EEEBE3'</span>,
+        <span class="key">arco</span>:      <span class="val">'#FF5B1F'</span>,
+        <span class="key">atencao</span>:   <span class="val">'#F7D74C'</span>,
+      },
+      <span class="key">fontFamily</span>: {
+        <span class="key">display</span>: [<span class="val">'Archivo'</span>, <span class="val">'sans-serif'</span>],
+        <span class="key">narrow</span>:  [<span class="val">'Archivo Narrow'</span>, <span class="val">'sans-serif'</span>],
+        <span class="key">mono</span>:    [<span class="val">'JetBrains Mono'</span>, <span class="val">'monospace'</span>],
+      },
+      <span class="key">borderRadius</span>: {
+        <span class="val">'pulso-1'</span>: <span class="val">'2px'</span>,
+        <span class="val">'pulso-2'</span>: <span class="val">'4px'</span>,
+        <span class="val">'pulso-3'</span>: <span class="val">'8px'</span>,
+        <span class="com">// sem 'lg', 'xl', 'full' — proibido em Pulso</span>
+      },
+      <span class="key">transitionTimingFunction</span>: {
+        <span class="key">pulso</span>: <span class="val">'cubic-bezier(0.2, 1, 0.2, 1)'</span>,
+      },
+      <span class="key">transitionDuration</span>: {
+        <span class="key">instant</span>: <span class="val">'100ms'</span>,
+        <span class="key">fast</span>:    <span class="val">'200ms'</span>,
+        <span class="key">medium</span>:  <span class="val">'320ms'</span>,
+        <span class="key">slow</span>:    <span class="val">'600ms'</span>,
+      },
+    },
+  },
+};</div>
+
+    <div style="margin-top:32px;padding:20px 24px;background:var(--aco-800);border-left:3px solid var(--arco);font-size:13px;color:var(--giz-100);opacity:0.86;line-height:1.55">
+      <strong style="color:var(--giz-100);opacity:1">Uso em JSX:</strong> <code style="font-family:var(--f-mono);background:var(--vazio);padding:1px 6px;color:var(--arco)">className="bg-vazio text-giz-100 font-display"</code>.<br>
+      <strong style="color:var(--giz-100);opacity:1">React Native + NativeWind:</strong> usar família exata como carregada via <code style="font-family:var(--f-mono);background:var(--vazio);padding:1px 6px;color:var(--arco)">@expo-google-fonts/archivo</code> (ex.: <code style="font-family:var(--f-mono);background:var(--vazio);padding:1px 6px;color:var(--arco)">Archivo_900Black</code>).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §11 OUT OF SCOPE ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§11 · Fora de escopo deste sistema</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">O que ainda <em>não está</em> aqui.</h2>
+
+    <div class="out-of-scope">
+      <div class="out-of-scope-label">— Entregáveis separados (v1.1 ou contrato adicional) —</div>
+      <ul>
+        <li>Tradução para Figma library (variables/components)</li>
+        <li>Sons da identidade sonora (Pulso vira som no v1.1)</li>
+        <li>Empty states ilustrados (caso a caso, seguindo princípios)</li>
+        <li>Estados de loading customizados (usar Pulso acelerado por padrão)</li>
+        <li>Onboarding visual completo (depende do passo 3: <code style="font-family:var(--f-mono);background:var(--vazio);padding:1px 6px;color:var(--arco)">/execute-visual-identity</code>)</li>
+        <li>Logo final ilustrada (passo 3)</li>
+        <li>Direção fotográfica para marketing</li>
+        <li>Tom de voz nas redes sociais</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div><strong>NutriHero</strong> · Sistema Visual · Pulso · 03 Tokens</div>
+    <div style="margin-top:8px;text-transform:none;letter-spacing:0;color:var(--cinza-400);font-size:11px;font-family:var(--f-display)">Spec textual: <a href="03-visual-system.md">03-visual-system.md</a> · Direção: <a href="02-brand-direction-visual.html">02-brand-direction-visual.html</a> · Identidade: <a href="04-visual-identity.html">04-visual-identity.html</a> · Dev: <a href="05-dev-handoff.md">05-dev-handoff.md</a></div>
+  </div>
+  <div>
+    <div>Próximo passo</div>
+    <div style="color:var(--arco);margin-top:6px"><strong>Dev abre o repo · §9 checklist</strong></div>
+  </div>
+</footer>
+
+</body>
+</html>

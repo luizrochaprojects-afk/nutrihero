@@ -1,0 +1,8 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <title>NutriHero App Icon · 1024×1024 master · Vazio bg + Mark a 60% safe area</title>
+  <rect width="1024" height="1024" fill="#06070A"/>
+  <g transform="translate(102.4, 102.4) scale(12.8)">
+    <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+    <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+  </g>
+</svg>

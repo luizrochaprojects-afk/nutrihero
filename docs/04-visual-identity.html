@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>NutriHero — Identidade Visual · Pulso · Execução</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --vazio: #06070A;
+  --aco-800: #0D0F14;
+  --aco-700: #13151C;
+  --linha-600: #1E212A;
+  --linha-500: #2A2E3A;
+  --cinza-400: #5A5E68;
+  --cinza-300: #8F8B81;
+  --giz-200: #BDB9AF;
+  --giz-100: #EEEBE3;
+  --arco: #FF5B1F;
+  --arco-50: rgba(255, 91, 31, 0.5);
+  --arco-14: rgba(255, 91, 31, 0.14);
+  --atencao: #F7D74C;
+
+  --f-display: 'Archivo', sans-serif;
+  --f-narrow: 'Archivo Narrow', sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+
+  --ease-pulso: cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--vazio);
+  color: var(--giz-100);
+  font-family: var(--f-display);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+em { font-style: normal; color: var(--arco); }
+
+.container { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+
+section { padding: 96px 0 64px; position: relative; }
+
+.section-meta {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+}
+.section-num {
+  font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.24em; color: var(--cinza-300); text-transform: uppercase;
+}
+.section-rule { flex: 1; height: 1px; background: var(--linha-500); }
+.section-title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: clamp(48px, 6.4vw, 84px); line-height: 0.88;
+  letter-spacing: -0.035em; color: var(--giz-100);
+  margin-bottom: 32px; text-transform: uppercase;
+}
+.section-lede {
+  font-size: 19px; color: var(--giz-100); max-width: 780px;
+  line-height: 1.55; margin-bottom: 56px; opacity: 0.86;
+}
+.section-lede strong { color: var(--giz-100); font-weight: 600; opacity: 1; }
+
+/* ───── Ticker divider ───── */
+.ticker-divider {
+  border-top: 1px solid var(--arco-50);
+  border-bottom: 1px solid var(--arco-50);
+  overflow: hidden; white-space: nowrap;
+  padding: 12px 0;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker 38s linear infinite;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 13px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ticker-track span { padding: 0 32px; }
+.ticker-track span::before {
+  content: '·'; padding-right: 32px; color: var(--arco-50);
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ───── §0 Cover ───── */
+.cover {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: space-between; padding: 56px 64px 0;
+  position: relative; overflow: hidden;
+}
+.cover::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 70% 30%, var(--arco-14), transparent 60%);
+  pointer-events: none;
+}
+.cover-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  position: relative; z-index: 1;
+}
+.cover-mark {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--cinza-300); text-transform: uppercase;
+}
+.cover-mark strong { color: var(--giz-100); font-weight: 700; }
+.cover-status {
+  font-family: var(--f-narrow); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--vazio); background: var(--arco); padding: 7px 14px;
+}
+.cover-middle { position: relative; z-index: 1; }
+.wordmark {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: clamp(96px, 16vw, 240px); line-height: 0.84;
+  letter-spacing: -0.045em; color: var(--giz-100); text-transform: uppercase;
+}
+.wordmark-i { color: var(--arco); }
+.cover-snapshot {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 34px); line-height: 1.12;
+  letter-spacing: -0.02em; color: var(--giz-100);
+  max-width: 880px; margin-top: 56px; text-transform: uppercase;
+}
+.cover-snapshot em { color: var(--arco); }
+.cover-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  position: relative; z-index: 1;
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cinza-300); padding-bottom: 32px;
+}
+.cover-bottom strong { color: var(--giz-100); font-weight: 700; }
+.cover-meta-grid {
+  display: grid; grid-template-columns: repeat(4, auto); gap: 48px;
+}
+.cover-meta-grid div { display: flex; flex-direction: column; gap: 4px; }
+
+/* ───── §1 Mark + Wordmark ───── */
+.identity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.identity-panel {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.identity-panel.light {
+  background: var(--giz-100);
+  color: var(--vazio);
+}
+.identity-panel.reversed {
+  background: var(--arco);
+  color: var(--vazio);
+}
+.panel-label {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cinza-300);
+}
+.identity-panel.light .panel-label { color: var(--cinza-400); }
+.identity-panel.reversed .panel-label { color: var(--vazio); opacity: 0.7; }
+
+.lockup-row {
+  display: flex; align-items: center; gap: 24px;
+  justify-content: center; padding: 40px 0;
+}
+.mark-svg {
+  display: block; flex-shrink: 0;
+}
+.lockup-wordmark {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 88px; line-height: 0.86;
+  letter-spacing: -0.045em; text-transform: uppercase;
+}
+.lockup-wordmark .wmi { color: var(--arco); }
+.identity-panel.light .lockup-wordmark { color: var(--vazio); }
+.identity-panel.light .lockup-wordmark .wmi { color: var(--arco); }
+.identity-panel.reversed .lockup-wordmark { color: var(--vazio); }
+.identity-panel.reversed .lockup-wordmark .wmi { color: var(--vazio); }
+
+.mark-construction {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 56px;
+  display: flex;
+  gap: 48px;
+  align-items: center;
+}
+.construction-grid {
+  width: 320px; height: 320px;
+  background: var(--vazio);
+  position: relative;
+  flex-shrink: 0;
+  background-image:
+    linear-gradient(to right, var(--linha-500) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--linha-500) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.construction-grid svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+.construction-grid .guide {
+  position: absolute;
+  background: var(--arco);
+  opacity: 0.3;
+}
+.construction-grid .guide.horizontal-center {
+  left: 0; right: 0; top: 50%; height: 1px;
+}
+.construction-grid .guide.vertical-center {
+  top: 0; bottom: 0; left: 50%; width: 1px;
+}
+.construction-notes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.construction-notes h4 {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 24px; text-transform: uppercase;
+  letter-spacing: -0.02em; color: var(--giz-100);
+}
+.construction-notes ul {
+  list-style: none; display: flex; flex-direction: column; gap: 8px;
+}
+.construction-notes li {
+  font-family: var(--f-mono); font-size: 13px;
+  color: var(--giz-200); padding-left: 16px; position: relative;
+}
+.construction-notes li::before {
+  content: '·'; position: absolute; left: 0; color: var(--arco);
+  font-weight: 700;
+}
+.construction-notes li b { color: var(--giz-100); font-weight: 500; }
+
+/* Lockup variants */
+.lockup-variants {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.lockup-card {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.lockup-card.dark-bg { background: var(--vazio); }
+.lockup-card.light-bg { background: var(--giz-100); }
+.lockup-card.arco-bg { background: var(--arco); }
+.lockup-display {
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 0; gap: 16px;
+}
+.lockup-display.stacked {
+  flex-direction: column; gap: 12px;
+}
+.lockup-display-wordmark {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 52px; line-height: 0.86;
+  letter-spacing: -0.045em; text-transform: uppercase;
+}
+.lockup-display.stacked .lockup-display-wordmark {
+  font-size: 40px;
+}
+.lockup-card-meta {
+  font-family: var(--f-mono); font-size: 10px;
+  letter-spacing: 0.2em; color: var(--cinza-300);
+  text-transform: uppercase;
+}
+.lockup-card.light-bg .lockup-card-meta { color: var(--cinza-400); }
+.lockup-card.arco-bg .lockup-card-meta { color: var(--vazio); opacity: 0.7; }
+
+/* ───── §2 App Icon ───── */
+.appicon-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 56px;
+  flex-wrap: wrap;
+  padding: 56px 0;
+  justify-content: center;
+}
+.appicon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.appicon-square {
+  background: var(--vazio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 22%;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+.appicon-square svg { display: block; }
+.appicon-label {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Sizes */
+.appicon-1024 .appicon-square { width: 220px; height: 220px; border-radius: 24%; }
+.appicon-180  .appicon-square { width: 120px; height: 120px; border-radius: 22%; }
+.appicon-60   .appicon-square { width: 60px; height: 60px; border-radius: 22%; }
+.appicon-32   .appicon-square { width: 32px; height: 32px; border-radius: 22%; }
+.appicon-16   .appicon-square { width: 16px; height: 16px; border-radius: 22%; }
+
+/* iOS / Android contexts */
+.icon-context {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 48px;
+}
+.icon-context-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--linha-500);
+  padding-bottom: 12px;
+}
+.icon-context-title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 18px; text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.icon-context-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--linha-500);
+}
+.icon-context-row:last-child { border-bottom: none; }
+.icon-context-row .text {
+  flex: 1;
+  font-family: var(--f-mono); font-size: 13px; color: var(--giz-100);
+}
+.icon-context-row .text b { color: var(--giz-100); font-weight: 500; }
+.icon-context-row .text .muted { color: var(--cinza-300); }
+
+/* ───── §3 Phone mockups ───── */
+.screens-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px;
+  margin-bottom: 48px;
+}
+.screen-card {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.screen-card.feature {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+  align-items: center;
+}
+.screen-card-content { display: flex; flex-direction: column; gap: 16px; }
+.screen-num {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--arco); letter-spacing: 0.22em; font-weight: 500;
+}
+.screen-title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 36px; color: var(--giz-100);
+  text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.95;
+}
+.screen-title em { color: var(--arco); }
+.screen-sub {
+  font-size: 14px; color: var(--giz-100); opacity: 0.8; line-height: 1.55;
+}
+.screen-sub strong { opacity: 1; color: var(--giz-100); font-weight: 600; }
+.screen-meta {
+  margin-top: 16px;
+  display: flex; flex-direction: column; gap: 6px;
+  border-top: 1px solid var(--linha-500);
+  padding-top: 14px;
+}
+.screen-meta-row {
+  display: flex; gap: 12px;
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); letter-spacing: 0.04em;
+}
+.screen-meta-row .label {
+  color: var(--arco); text-transform: uppercase;
+  letter-spacing: 0.2em; flex-shrink: 0; min-width: 88px;
+}
+.screen-meta-row .val { color: var(--giz-200); }
+
+/* Phone frame */
+.phone-frame {
+  width: 320px; aspect-ratio: 9 / 19.5;
+  background: #000;
+  border-radius: 36px;
+  padding: 10px;
+  margin: 0 auto;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  position: relative;
+  flex-shrink: 0;
+}
+.phone-screen {
+  width: 100%; height: 100%;
+  border-radius: 26px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--vazio);
+}
+.phone-statusbar {
+  position: absolute; top: 0; left: 0; right: 0; height: 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 14px 0;
+  font-size: 9px; font-weight: 600; z-index: 10;
+  font-family: var(--f-display); color: var(--giz-100);
+}
+.phone-statusbar .right { display: flex; gap: 4px; align-items: center; font-size: 8px; }
+
+/* Hero 1 · Home */
+.s-home { padding: 32px 16px 14px; }
+.s-home .eyebrow {
+  display: flex; justify-content: space-between;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.18em;
+  color: var(--cinza-300); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.s-home .eyebrow .live { color: var(--arco); }
+.s-home .hero-num {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 80px; line-height: 0.82;
+  letter-spacing: -0.05em; color: var(--giz-100);
+  margin-left: -4px;
+}
+.s-home .hero-sub {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 14px; color: var(--arco); margin-top: 4px;
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.s-home .pulse {
+  height: 2px; background: var(--arco);
+  margin: 14px 0 4px;
+  transform-origin: left;
+  animation: pulseLine 2.0s var(--ease-pulso) infinite;
+}
+@keyframes pulseLine {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.85); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+.s-home .macros {
+  display: flex; flex-direction: column; gap: 5px;
+  margin-top: 14px;
+}
+.s-home .macro-row {
+  display: flex; justify-content: space-between;
+  font-family: var(--f-mono); font-size: 11px;
+  border-top: 1px solid rgba(238, 235, 227, 0.1);
+  padding-top: 5px; color: var(--cinza-300);
+}
+.s-home .macro-row b { color: var(--giz-100); font-weight: 500; }
+.s-home .ticker-wrap {
+  position: absolute; left: 0; right: 0; bottom: 66px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--arco-50);
+  border-bottom: 1px solid var(--arco-50);
+  overflow: hidden; white-space: nowrap;
+}
+.s-home .ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 10px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.s-home .ticker-inner span { padding: 0 16px; }
+.s-home .cta {
+  position: absolute; left: 12px; right: 12px; bottom: 14px;
+  background: var(--arco); color: var(--vazio);
+  padding: 13px; text-align: center;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 12px; letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Hero 2 · Recalibrate */
+.s-recal { padding: 32px 16px 16px; }
+.s-recal .eyebrow {
+  display: flex; justify-content: space-between;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.18em;
+  color: var(--arco); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.s-recal .title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 64px; line-height: 0.82;
+  letter-spacing: -0.05em; color: var(--giz-100);
+  text-transform: uppercase; margin-bottom: 18px;
+}
+.s-recal .title em { color: var(--arco); }
+.s-recal .ticker {
+  border-top: 1px solid var(--arco);
+  border-bottom: 1px solid var(--arco);
+  overflow: hidden; white-space: nowrap;
+  padding: 8px 0; margin-bottom: 18px;
+}
+.s-recal .ticker-inner {
+  display: inline-block;
+  animation: ticker 18s linear infinite;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 11px; color: var(--arco);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.s-recal .ticker-inner span { padding: 0 16px; }
+.s-recal .body {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); line-height: 1.6;
+}
+.s-recal .body b { color: var(--giz-100); font-weight: 500; }
+.s-recal .cta-group {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  display: flex; gap: 6px;
+}
+.s-recal .btn {
+  background: var(--arco); color: var(--vazio);
+  padding: 13px; flex: 1; text-align: center;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.s-recal .btn.ghost {
+  background: transparent; border: 1px solid var(--linha-500);
+  color: var(--giz-100); font-weight: 700; flex: 0.8;
+}
+
+/* Hero 3 · Projection */
+.s-proj { padding: 32px 16px 16px; position: relative; }
+.s-proj .eyebrow {
+  display: flex; justify-content: space-between;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.18em;
+  color: var(--cinza-300); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.s-proj .eyebrow b { color: var(--arco); }
+.s-proj .bodies {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-bottom: 18px; flex: 1; min-height: 280px;
+}
+.s-proj .body {
+  position: relative;
+  background:
+    repeating-linear-gradient(0deg, rgba(238, 235, 227, 0.08) 0 1px, transparent 1px 5px),
+    linear-gradient(180deg, #2a2826 0%, #0d0c0b 100%);
+  border: 1px solid rgba(238, 235, 227, 0.16);
+}
+.s-proj .body.future {
+  border-right: 3px solid var(--arco);
+}
+.s-proj .body::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 18%; bottom: 8%;
+  transform: translateX(-50%);
+  width: 40%;
+  background:
+    radial-gradient(ellipse at 50% 12%, #c7c2b5 0%, transparent 18%),
+    linear-gradient(180deg, rgba(238, 235, 227, 0.35) 0%, rgba(238, 235, 227, 0.15) 70%, transparent 100%);
+  border-radius: 40% 40% 30% 30%;
+}
+.s-proj .body.future::after { width: 32%; }
+.s-proj .body .lbl {
+  position: absolute; bottom: 6px; left: 8px;
+  font-family: var(--f-mono); font-size: 8px;
+  color: var(--giz-100); letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.s-proj .body.future .lbl { color: var(--arco); }
+.s-proj .delta {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 56px; line-height: 0.85;
+  letter-spacing: -0.05em; color: var(--giz-100);
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.s-proj .delta em { color: var(--arco); }
+.s-proj .delta-sub {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); letter-spacing: 0.04em;
+  margin-bottom: 76px;
+}
+.s-proj .cta-group {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.s-proj .btn {
+  background: var(--arco); color: var(--vazio);
+  padding: 13px; text-align: center;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.s-proj .btn.ghost {
+  background: transparent; border: 1px solid var(--linha-500);
+  color: var(--giz-100); font-weight: 700;
+}
+
+/* Hero 4 · Meal Log (NEW) */
+.s-meal { padding: 0; }
+.s-meal .topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 32px 14px 12px;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 11px; color: var(--giz-100);
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.s-meal .topbar .x {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 18px; color: var(--giz-100);
+}
+.s-meal .topbar .time {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); letter-spacing: 0.1em;
+}
+.s-meal .photo {
+  flex: 1; min-height: 240px;
+  background:
+    radial-gradient(ellipse at 30% 40%, #5a5550 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, #3a3530 0%, transparent 50%),
+    linear-gradient(180deg, #2a2725 0%, #0d0c0b 100%);
+  position: relative;
+  filter: grayscale(100%) contrast(1.1);
+}
+.s-meal .photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 2px, rgba(255, 255, 255, 0.015) 2px 3px),
+    repeating-linear-gradient(90deg, transparent 0 2px, rgba(0, 0, 0, 0.03) 2px 3px);
+  pointer-events: none;
+}
+.s-meal .photo-chip {
+  position: absolute; bottom: 12px; left: 12px;
+  background: var(--arco); color: var(--vazio);
+  padding: 6px 10px;
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 10px; letter-spacing: 0.06em;
+  text-transform: uppercase; z-index: 2;
+}
+.s-meal .items {
+  padding: 16px 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.s-meal .item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--linha-500);
+}
+.s-meal .item:last-child { border-bottom: none; }
+.s-meal .item .name {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: 12px; color: var(--giz-100);
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.s-meal .item .meta {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); letter-spacing: 0.04em;
+}
+.s-meal .item .edit {
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 9px; color: var(--arco);
+  letter-spacing: 0.16em; text-transform: uppercase;
+  margin-left: 8px;
+}
+.s-meal .cta-group {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.s-meal .btn {
+  background: var(--arco); color: var(--vazio);
+  padding: 13px; text-align: center;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.s-meal .btn.ghost {
+  background: transparent; border: 1px solid var(--linha-500);
+  color: var(--giz-100); font-weight: 700;
+}
+
+/* Hero 5 · Weekly */
+.s-week { padding: 32px 18px 18px; }
+.s-week .eyebrow {
+  display: flex; justify-content: space-between;
+  font-family: var(--f-narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.16em;
+  color: var(--cinza-300); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.s-week .eyebrow .arc { color: var(--arco); }
+.s-week .title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 44px; line-height: 0.86;
+  letter-spacing: -0.045em; color: var(--giz-100);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.s-week .title em { color: var(--arco); }
+.s-week .chart {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; align-items: end; height: 88px;
+}
+.s-week .bar { background: var(--linha-500); }
+.s-week .bar.arc { background: var(--arco); }
+.s-week .bar.warn { background: var(--atencao); }
+.s-week .days {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; margin-top: 6px;
+  font-family: var(--f-mono); font-size: 9px;
+  color: var(--cinza-300); letter-spacing: 0.1em;
+  text-align: center;
+}
+.s-week .days .arc { color: var(--arco); }
+.s-week .days .warn { color: var(--atencao); }
+.s-week .diag {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); line-height: 1.6;
+  margin-top: 16px; padding-top: 10px;
+  border-top: 1px solid var(--linha-500);
+}
+.s-week .diag b { color: var(--arco); font-weight: 500; }
+.s-week .diag strong { color: var(--giz-100); font-weight: 500; }
+.s-week .cta {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  background: var(--arco); color: var(--vazio);
+  padding: 13px; text-align: center;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ───── §4 Domain viz ───── */
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.viz-card {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 32px;
+  display: flex; flex-direction: column; gap: 20px;
+  min-height: 360px;
+}
+.viz-label {
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--cinza-300);
+  text-transform: uppercase;
+}
+.viz-stage {
+  flex: 1;
+  background: var(--vazio);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  min-height: 200px;
+}
+.viz-stage-num {
+  font-family: var(--f-mono); font-weight: 700;
+  font-size: 64px; line-height: 0.85;
+  letter-spacing: -0.04em; color: var(--giz-100);
+}
+.viz-stage-line {
+  width: 100%; max-width: 180px;
+  height: 2px; background: var(--arco);
+  animation: pulseLine 2.0s var(--ease-pulso) infinite;
+  transform-origin: left;
+}
+.viz-stage-line.fast {
+  animation-duration: 0.8s;
+}
+.viz-arc {
+  display: flex; justify-content: center;
+}
+.viz-arc svg { width: 160px; height: 160px; }
+.viz-chart {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; align-items: end; height: 100px;
+  width: 100%; max-width: 220px;
+}
+.viz-chart > div { background: var(--linha-500); }
+.viz-chart .arc { background: var(--arco); }
+.viz-chart .warn { background: var(--atencao); }
+.viz-note {
+  font-size: 13px; color: var(--giz-100); opacity: 0.78;
+  line-height: 1.5;
+}
+.viz-note strong { color: var(--giz-100); opacity: 1; font-weight: 600; }
+
+/* ───── §5 Motion ───── */
+.motion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.motion-card {
+  background: var(--aco-700);
+  border-left: 3px solid var(--arco);
+  padding: 24px 28px;
+}
+.motion-num {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--arco); letter-spacing: 0.22em;
+  margin-bottom: 10px;
+}
+.motion-title {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 20px; color: var(--giz-100);
+  text-transform: uppercase; letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.motion-spec {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--cinza-300); margin-top: 10px;
+}
+.motion-spec b { color: var(--giz-100); font-weight: 500; }
+.motion-spec .arc-text { color: var(--arco); }
+
+/* Arming flash demo */
+.armflash {
+  margin-top: 14px;
+  height: 56px; background: var(--vazio);
+  position: relative; overflow: hidden;
+}
+.armflash::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--arco);
+  animation: armingflash 2.6s ease-in-out infinite;
+}
+@keyframes armingflash {
+  0%, 65%, 100% { opacity: 0; }
+  70%, 80% { opacity: 1; }
+  85% { opacity: 0; }
+}
+.armflash .label {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; padding: 0 16px;
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 18px; text-transform: uppercase;
+  color: var(--giz-100); z-index: 2;
+  letter-spacing: -0.02em;
+}
+
+/* ───── §6 Atmosphere ───── */
+.atmos-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.atmos-card {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  padding: 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.atmos-card h4 {
+  font-family: var(--f-display); font-weight: 900;
+  font-size: 18px; text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.atmos-card p {
+  font-size: 14px; color: var(--giz-100);
+  opacity: 0.82; line-height: 1.55;
+}
+.atmos-card p strong { color: var(--giz-100); opacity: 1; font-weight: 600; }
+.depth-scale {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-top: 12px;
+}
+.depth-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 14px;
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--giz-100);
+}
+.depth-row .swatch {
+  width: 28px; height: 28px;
+  border: 1px solid var(--linha-500);
+}
+.depth-row .label {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.04em; min-width: 80px;
+}
+.depth-row .hex {
+  font-family: var(--f-mono); font-size: 10px;
+  color: var(--cinza-300); margin-left: auto;
+}
+
+/* ───── §7 Product feel ───── */
+.feel-block {
+  background: var(--aco-700);
+  border: 1px solid var(--linha-500);
+  border-left: 3px solid var(--arco);
+  padding: 48px 56px;
+  max-width: 880px;
+}
+.feel-text {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: 22px; line-height: 1.45;
+  color: var(--giz-100);
+}
+.feel-text strong { color: var(--arco); font-weight: 600; }
+
+/* ───── Footer ───── */
+footer {
+  padding: 56px 64px 80px;
+  border-top: 1px solid var(--linha-500);
+  margin-top: 96px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cinza-300);
+}
+footer strong { color: var(--giz-100); }
+footer a { color: var(--arco); text-decoration: none; border-bottom: 1px solid var(--arco); }
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .screens-grid { grid-template-columns: 1fr; }
+  .screen-card.feature { grid-template-columns: 1fr; }
+  .viz-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 800px) {
+  .container { padding: 0 32px; }
+  .identity-grid { grid-template-columns: 1fr; }
+  .lockup-variants { grid-template-columns: 1fr; }
+  .atmos-grid { grid-template-columns: 1fr; }
+  .viz-grid { grid-template-columns: 1fr; }
+  .motion-grid { grid-template-columns: 1fr; }
+  .mark-construction { flex-direction: column; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  section { page-break-inside: avoid; }
+  .pulse, .ticker-track, .s-home .ticker-inner, .s-recal .ticker-inner,
+  .armflash::after, .viz-stage-line { animation: none !important; }
+}
+</style>
+
+<style id="mobile-fallback">
+/* Leitura no celular: sem rolagem lateral da página; tabelas rolam dentro do próprio bloco */
+@media (max-width: 720px) {
+  html, body { overflow-x: clip; }
+  body { overflow-wrap: anywhere; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+  pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; }
+  [class*="grid"]:not([class*="ticker"]) { grid-template-columns: minmax(0, 1fr) !important; }
+  [class*="card"] { max-width: 100%; min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ §0 COVER ═══════════════════ -->
+<section class="cover">
+  <div class="cover-top">
+    <div class="cover-mark"><strong>NutriHero</strong> · Identidade Visual · Pulso</div>
+    <div class="cover-status">Identidade comprometida — Execução</div>
+  </div>
+
+  <div class="cover-middle">
+    <div class="wordmark">NUTR<span class="wordmark-i">I</span>HERO</div>
+    <div class="cover-snapshot">
+      Logo, app icon, cinco telas em alta fidelidade <em>e a coisa que faz lembrar pra sempre.</em> Tokens executados conforme o sistema travado em 03-visual-system.
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta-grid">
+      <div><span>Documento</span><strong>04 · Identidade</strong></div>
+      <div><span>Direção</span><strong>Pulso</strong></div>
+      <div><span>Versão</span><strong>v1 · 2026-05-19</strong></div>
+      <div><span>Companion</span><strong>04-visual-identity.md</strong></div>
+    </div>
+    <div>Scroll ↓</div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>LOGO</span><span>APP ICON</span><span>5 TELAS</span><span>DOMAIN VIZ</span><span>MOTION</span><span>ATMOSFERA</span><span>FEEL</span><span>LOGO</span><span>APP ICON</span><span>5 TELAS</span><span>DOMAIN VIZ</span><span>MOTION</span><span>ATMOSFERA</span><span>FEEL</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §1 LOGO ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§1 · Sistema de logo</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Wordmark <em>+</em> Mark. Irmãos, não <em>concorrentes.</em></h2>
+    <p class="section-lede">
+      O <strong>Mark</strong> é a destilação do componente-assinatura do produto — uma linha vertical com uma batida no meio. O <strong>Wordmark</strong> usa o "I" central em Arco como assinatura tipográfica. Os dois coexistem sem competir.
+    </p>
+
+    <!-- Mark construction -->
+    <div class="mark-construction">
+      <div class="construction-grid">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+          <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+          <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+        </svg>
+      </div>
+      <div class="construction-notes">
+        <h4>O Mark · Construção</h4>
+        <ul>
+          <li>Frame de referência: <b>64×64 unidades</b></li>
+          <li>Stroke vertical: <b>x:29-35, y:8-56</b> (largura 6, altura 48)</li>
+          <li>Disco central: <b>cx:32, cy:32, r:9</b></li>
+          <li>Cor única: <b>Arco #FF5B1F</b></li>
+          <li>Cantos: <b>retos</b> · sem arredondamento (regra Pulso)</li>
+          <li>Origem conceitual: a Pulso de Recalibração <b>vertical</b>, com a batida capturada no centro</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Lockup variants -->
+    <h3 style="font-family: var(--f-display); font-weight: 900; font-size: 24px; text-transform: uppercase; letter-spacing: -0.01em; margin: 56px 0 24px;">Variantes do lockup</h3>
+
+    <div class="lockup-variants">
+      <div class="lockup-card dark-bg">
+        <div class="lockup-card-meta">Primary · Dark</div>
+        <div class="lockup-display">
+          <svg class="mark-svg" viewBox="0 0 64 64" width="72" height="72">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+          <div class="lockup-display-wordmark" style="color:var(--giz-100)">NUTR<span style="color:var(--arco)">I</span>HERO</div>
+        </div>
+        <div class="lockup-card-meta">Background Vazio · Default 95% dos usos</div>
+      </div>
+
+      <div class="lockup-card light-bg">
+        <div class="lockup-card-meta">Primary · Light (forçado)</div>
+        <div class="lockup-display">
+          <svg class="mark-svg" viewBox="0 0 64 64" width="72" height="72">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+          <div class="lockup-display-wordmark" style="color:var(--vazio)">NUTR<span style="color:var(--arco)">I</span>HERO</div>
+        </div>
+        <div class="lockup-card-meta">Background Giz · Apenas papel / parceria forçada</div>
+      </div>
+
+      <div class="lockup-card arco-bg">
+        <div class="lockup-card-meta">Reversed · Alta intensidade</div>
+        <div class="lockup-display">
+          <svg class="mark-svg" viewBox="0 0 64 64" width="72" height="72">
+            <rect x="29" y="8" width="6" height="48" fill="#06070A"/>
+            <circle cx="32" cy="32" r="9" fill="#06070A"/>
+          </svg>
+          <div class="lockup-display-wordmark" style="color:var(--vazio)">NUTR<span style="color:var(--vazio)">I</span>HERO</div>
+        </div>
+        <div class="lockup-card-meta">Background Arco · Paywall · Plano mudou full-screen</div>
+      </div>
+
+      <div class="lockup-card dark-bg">
+        <div class="lockup-card-meta">Stacked · Compact use</div>
+        <div class="lockup-display stacked">
+          <svg class="mark-svg" viewBox="0 0 64 64" width="84" height="84">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+          <div class="lockup-display-wordmark" style="color:var(--giz-100); font-size: 30px;">NUTR<span style="color:var(--arco)">I</span>HERO</div>
+        </div>
+        <div class="lockup-card-meta">Splash · loading state · mark > wordmark hierarchy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §2 APP ICON ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§2 · App icon</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Sobrevive <em>até 16px.</em></h2>
+    <p class="section-lede">
+      Vazio sólido + Mark centrado a 60% da altura. Sem máscara aplicada — o OS aplica a sua. <strong>O teste é em 16px:</strong> mesmo quando o disco vira parte do stroke, a barra vertical Arco contra Vazio continua distintiva — nenhum concorrente no nicho tem essa cara em 16px.
+    </p>
+
+    <div class="appicon-row">
+      <div class="appicon appicon-1024">
+        <div class="appicon-square">
+          <svg viewBox="0 0 64 64" width="80%" height="80%">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+        </div>
+        <div class="appicon-label">1024px · App Store</div>
+      </div>
+      <div class="appicon appicon-180">
+        <div class="appicon-square">
+          <svg viewBox="0 0 64 64" width="80%" height="80%">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+        </div>
+        <div class="appicon-label">180px · iOS @3x</div>
+      </div>
+      <div class="appicon appicon-60">
+        <div class="appicon-square">
+          <svg viewBox="0 0 64 64" width="80%" height="80%">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+        </div>
+        <div class="appicon-label">60px · iOS @1x</div>
+      </div>
+      <div class="appicon appicon-32">
+        <div class="appicon-square">
+          <svg viewBox="0 0 64 64" width="80%" height="80%">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+        </div>
+        <div class="appicon-label">32px · tab grande</div>
+      </div>
+      <div class="appicon appicon-16">
+        <div class="appicon-square">
+          <svg viewBox="0 0 64 64" width="80%" height="80%">
+            <rect x="29" y="8" width="6" height="48" fill="#FF5B1F"/>
+            <circle cx="32" cy="32" r="9" fill="#FF5B1F"/>
+          </svg>
+        </div>
+        <div class="appicon-label">16px · favicon</div>
+      </div>
+    </div>
+
+    <div class="icon-context">
+      <div class="icon-context-header">
+        <div class="icon-context-title">Comportamento por plataforma</div>
+        <span class="appicon-label">Spec resumida</span>
+      </div>
+      <div class="icon-context-row">
+        <span class="text"><b>iOS</b> · <span class="muted">Rounded square mask aplicado pelo iOS · Vazio full-bleed · Mark centrado a 60%</span></span>
+      </div>
+      <div class="icon-context-row">
+        <span class="text"><b>Android adaptive</b> · <span class="muted">Foreground layer: Mark a 60% · Background layer: Vazio solid · Android decide o crop</span></span>
+      </div>
+      <div class="icon-context-row">
+        <span class="text"><b>macOS</b> · <span class="muted">Squircle padrão · Vazio + Mark</span></span>
+      </div>
+      <div class="icon-context-row">
+        <span class="text"><b>Web favicon</b> · <span class="muted">SVG inline · 16×16 e 32×32 versions · em 16px o disco vira parte do stroke</span></span>
+      </div>
+      <div class="icon-context-row">
+        <span class="text"><b>Android monochrome (notification)</b> · <span class="muted">Stroke + disco em branco silhueta · Vazio transparente · Android tinta automaticamente</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>HOME · DAILY DASHBOARD</span><span>RECALIBRATE STATE</span><span>BODY PROJECTION</span><span>MEAL LOG ENTRY</span><span>WEEKLY PATTERN</span><span>HOME · DAILY DASHBOARD</span><span>RECALIBRATE STATE</span><span>BODY PROJECTION</span><span>MEAL LOG ENTRY</span><span>WEEKLY PATTERN</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §3 SCREENS ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§3 · Cinco telas</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Cinco cenas. <em>Mesma marca.</em></h2>
+    <p class="section-lede">
+      Cada tela tem <strong>um elemento memorável próprio</strong> que ninguém em apps de dieta tem hoje. Daily Dashboard: a linha pulsando. Recalibrate: o "MUDOU." gigante. Projection: o fio Arco no eu futuro. Meal Log: a foto em P&B. Weekly: a única barra Arco no meio da semana neutra.
+    </p>
+
+    <div class="screens-grid">
+
+      <!-- Screen 01: Home -->
+      <div class="screen-card feature">
+        <div class="screen-card-content">
+          <div class="screen-num">TELA 01</div>
+          <div class="screen-title">Daily <em>Dashboard.</em></div>
+          <div class="screen-sub">
+            <strong>A tela mais usada do app.</strong> Número-manchete 80pt edge-to-edge + Pulso de Recalibração ao vivo + macros em mono tabular + ticker contínuo no rodapé + CTA Arco.
+          </div>
+          <div class="screen-meta">
+            <div class="screen-meta-row"><span class="label">Dominante</span><span class="val">O número `2.184` em data-xl</span></div>
+            <div class="screen-meta-row"><span class="label">Standout</span><span class="val">A linha laranja pulsando — único no nicho</span></div>
+            <div class="screen-meta-row"><span class="label">Type</span><span class="val">data-xl + display-3 + ticker-md + data + data-xs</span></div>
+            <div class="screen-meta-row"><span class="label">Acentos Arco</span><span class="val">4 (linha + ticker + CTA + "no plano" dot)</span></div>
+            <div class="screen-meta-row"><span class="label">Loading</span><span class="val">Skeleton com pulse line acelerada (0.8s) — não shimmer</span></div>
+          </div>
+        </div>
+        <div class="phone-frame">
+          <div class="phone-screen s-home">
+            <div class="phone-statusbar">
+              <span>9:41</span><span class="right">●●● ◓</span>
+            </div>
+            <div class="eyebrow">
+              <span>TER · 19 MAI</span>
+              <span class="live">● NO PLANO</span>
+            </div>
+            <div class="hero-num">2.184</div>
+            <div class="hero-sub">/ 2.496 KCAL · 88%</div>
+            <div class="pulse"></div>
+            <div class="macros">
+              <div class="macro-row"><span>PROTEÍNA</span><b>168 / 196</b></div>
+              <div class="macro-row"><span>CARBOS</span><b>211 / 248</b></div>
+              <div class="macro-row"><span>GORDURA</span><b>64 / 78</b></div>
+              <div class="macro-row"><span>% GORDURA · REV 14</span><b>18,4</b></div>
+              <div class="macro-row"><span>SEQUÊNCIA</span><b>14 DIAS</b></div>
+            </div>
+            <div class="ticker-wrap">
+              <div class="ticker-inner">
+                <span>+180 KCAL @ 19:30</span><span>+24G P</span><span>RENIVELAR 21:40</span><span>+180 KCAL @ 19:30</span><span>+24G P</span><span>RENIVELAR 21:40</span>
+              </div>
+            </div>
+            <div class="cta">Recalibrar jantar</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 02: Recalibrate -->
+      <div class="screen-card">
+        <div class="screen-num">TELA 02</div>
+        <div class="screen-title">Recalibrate <em>State.</em></div>
+        <div class="screen-sub">
+          <strong>O momento mais alto do produto.</strong> "PLANO MUDOU." em display-1 (56pt) · arming flash 600ms ANTES da tela aparecer · ticker laranja correndo · diagnóstico em mono.
+        </div>
+        <div class="phone-frame">
+          <div class="phone-screen s-recal">
+            <div class="phone-statusbar">
+              <span>9:41</span><span class="right">●●● ◓</span>
+            </div>
+            <div class="eyebrow"><span>RECALIBRANDO</span><span>● ARMANDO</span></div>
+            <div class="title">Plano<br><em>mudou.</em></div>
+            <div class="ticker">
+              <div class="ticker-inner">
+                <span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE</span><span>RENIVELAR 21:40</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span>
+              </div>
+            </div>
+            <div class="body">
+              Você pulou o café. <b>O jantar fica maior.</b><br>
+              O plano ainda bate a meta da semana.<br><br>
+              Δ café manhã · <b>−510 kcal</b><br>
+              Δ jantar · <b>+330 kcal</b><br>
+              Δ lanche · <b>−180 kcal</b><br>
+              Meta semanal · <b>intacta</b>
+            </div>
+            <div class="cta-group">
+              <div class="btn">Aceitar</div>
+              <div class="btn ghost">O que mudou?</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-meta">
+          <div class="screen-meta-row"><span class="label">Standout</span><span class="val">"MUDOU." em Arco 56pt</span></div>
+          <div class="screen-meta-row"><span class="label">Pre-entry</span><span class="val">Arming flash 600ms Arco na tela anterior</span></div>
+        </div>
+      </div>
+
+      <!-- Screen 03: Body Projection -->
+      <div class="screen-card">
+        <div class="screen-num">TELA 03</div>
+        <div class="screen-title">Body <em>Projection.</em></div>
+        <div class="screen-sub">
+          <strong>O gancho de paywall.</strong> Grid 2 fotos B&W · fio Arco 3px na borda direita da foto do futuro · "−4,1KG" em display-1 · sem dissolve, hard cut + flash de 1 frame em Giz.
+        </div>
+        <div class="phone-frame">
+          <div class="phone-screen s-proj">
+            <div class="phone-statusbar">
+              <span>9:41</span><span class="right">●●● ◓</span>
+            </div>
+            <div class="eyebrow"><span>+12 SEM · PROJEÇÃO</span><span><b>26 MAI</b></span></div>
+            <div class="bodies">
+              <div class="body"><span class="lbl">AGORA</span></div>
+              <div class="body future"><span class="lbl">+12 SEM</span></div>
+            </div>
+            <div class="delta">−4,1<em>kg</em></div>
+            <div class="delta-sub">↑ Massa magra +1,4kg · gordura −5,5kg</div>
+            <div class="cta-group">
+              <div class="btn">Começar o plano</div>
+              <div class="btn ghost">Mostrar 6 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-meta">
+          <div class="screen-meta-row"><span class="label">Standout</span><span class="val">Fio Arco 3px à direita do futuro</span></div>
+          <div class="screen-meta-row"><span class="label">Reveal</span><span class="val">Hard cut + 40ms Giz flash · zero dissolve</span></div>
+        </div>
+      </div>
+
+      <!-- Screen 04: Meal Log (NEW) -->
+      <div class="screen-card">
+        <div class="screen-num">TELA 04</div>
+        <div class="screen-title">Meal Log <em>Entry.</em></div>
+        <div class="screen-sub">
+          <strong>A foto vira P&B no instante da captura.</strong> Nenhum outro app de dieta faz isso — todos mantêm colorida para apetite. NutriHero não é feed; é instrumento. P&B = "vamos analisar, não admirar."
+        </div>
+        <div class="phone-frame">
+          <div class="phone-screen s-meal">
+            <div class="phone-statusbar">
+              <span>9:41</span><span class="right">●●● ◓</span>
+            </div>
+            <div class="topbar">
+              <span class="x">✕</span>
+              <span>REGISTRAR · ALMOÇO</span>
+              <span class="time">12:14</span>
+            </div>
+            <div class="photo">
+              <div class="photo-chip">612 KCAL · P38 · C64 · F18</div>
+            </div>
+            <div class="items">
+              <div class="item">
+                <span class="name">Arroz integral · <span style="color:var(--cinza-300);font-family:var(--f-mono)">120g</span></span>
+                <span class="meta">132 kcal <span class="edit">editar</span></span>
+              </div>
+              <div class="item">
+                <span class="name">Frango grelhado · <span style="color:var(--cinza-300);font-family:var(--f-mono)">180g</span></span>
+                <span class="meta">296 kcal <span class="edit">editar</span></span>
+              </div>
+              <div class="item">
+                <span class="name">Brócolis · <span style="color:var(--cinza-300);font-family:var(--f-mono)">80g</span></span>
+                <span class="meta">28 kcal <span class="edit">editar</span></span>
+              </div>
+              <div class="item">
+                <span class="name">Azeite · <span style="color:var(--cinza-300);font-family:var(--f-mono)">1 colher</span></span>
+                <span class="meta">120 kcal <span class="edit">editar</span></span>
+              </div>
+            </div>
+            <div class="cta-group">
+              <div class="btn">Salvar refeição</div>
+              <div class="btn ghost">Registrar manual</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-meta">
+          <div class="screen-meta-row"><span class="label">Standout</span><span class="val">Foto em P&B desde captura</span></div>
+          <div class="screen-meta-row"><span class="label">IA chip</span><span class="val">"ANÁLISE 1.4s" → "612 KCAL · macros" em Arco</span></div>
+        </div>
+      </div>
+
+      <!-- Screen 05: Weekly Pattern -->
+      <div class="screen-card">
+        <div class="screen-num">TELA 05</div>
+        <div class="screen-title">Weekly <em>Pattern.</em></div>
+        <div class="screen-sub">
+          <strong>A única barra Arco no meio da semana neutra.</strong> Sem legenda, sem tooltip, sem cor codificada por categoria. Leitura instantânea: algo aconteceu sexta.
+        </div>
+        <div class="phone-frame">
+          <div class="phone-screen s-week">
+            <div class="phone-statusbar">
+              <span>9:41</span><span class="right">●●● ◓</span>
+            </div>
+            <div class="eyebrow"><span>SEMANA 14</span><span class="arc">DOM · FECHANDO</span></div>
+            <div class="title">Sexta é<br><em>tarde.</em></div>
+            <div class="chart">
+              <div class="bar" style="height:30%"></div>
+              <div class="bar" style="height:48%"></div>
+              <div class="bar" style="height:42%"></div>
+              <div class="bar" style="height:38%"></div>
+              <div class="bar arc" style="height:92%"></div>
+              <div class="bar warn" style="height:64%"></div>
+              <div class="bar" style="height:36%"></div>
+            </div>
+            <div class="days">
+              <span>S</span><span>T</span><span>Q</span><span>Q</span><span class="arc">S</span><span class="warn">S</span><span>D</span>
+            </div>
+            <div class="diag">
+              Jantar médio sex · <b>22:14</b>.<br>
+              Movendo <strong>280 kcal</strong> para a âncora 19:30.<br><br>
+              <strong>Recomendação:</strong> antecipar lanche tarde para 16:30 nas próximas 2 semanas. Validar resultado dia 7.
+            </div>
+            <div class="cta">Aplicar</div>
+          </div>
+        </div>
+        <div class="screen-meta">
+          <div class="screen-meta-row"><span class="label">Standout</span><span class="val">Barra Arco solitária + Atenção amarelo (1×/sem)</span></div>
+          <div class="screen-meta-row"><span class="label">Regra</span><span class="val">Atenção aparece exatamente 1× — sábado</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §4 DOMAIN VIZ ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§4 · Visualizações de domínio</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">A linha é <em>a marca.</em></h2>
+    <p class="section-lede">
+      Três visualizações dominam o produto. A Pulso de Recalibração (linha) é a peça-mãe — aparece em 8 das 23 telas. O Arc Gauge substitui rosca/dial para composição corporal. O Bar Chart semanal mostra padrões com 7 barras sempre, sem exceção.
+    </p>
+
+    <div class="viz-grid">
+      <div class="viz-card">
+        <div class="viz-label">Pulso de Recalibração — NO PLANO</div>
+        <div class="viz-stage">
+          <div class="viz-stage-num">2.184</div>
+          <div class="viz-stage-line"></div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:var(--cinza-300);letter-spacing:0.18em;text-transform:uppercase;text-align:center">● 2.0s / loop · ease-pulso</div>
+        </div>
+        <div class="viz-note">
+          <strong>2.0s/loop</strong> · estado padrão. A linha bate devagar, vivo, ambiente. Largura match do número-manchete.
+        </div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-label">Pulso de Recalibração — FORA DO PLANO</div>
+        <div class="viz-stage">
+          <div class="viz-stage-num">2.184</div>
+          <div class="viz-stage-line fast"></div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:var(--arco);letter-spacing:0.18em;text-transform:uppercase;text-align:center">● 0.8s / loop · acelerado</div>
+        </div>
+        <div class="viz-note">
+          <strong>0.8s/loop</strong> · usuário fora do plano. Mesma cor, mesma forma — só ritmo muda. Você <strong>sente</strong> antes de ler o número.
+        </div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-label">Arc Gauge · % Gordura</div>
+        <div class="viz-stage">
+          <div class="viz-arc">
+            <svg viewBox="0 0 200 200">
+              <path d="M30,160 A 80,80 0 1,1 170,160" fill="none" stroke="#2A2E3A" stroke-width="14" stroke-linecap="round"/>
+              <path d="M30,160 A 80,80 0 1,1 158,118" fill="none" stroke="#FF5B1F" stroke-width="14" stroke-linecap="round"/>
+              <text x="100" y="108" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="44" fill="#EEEBE3" letter-spacing="-2">18,4</text>
+              <text x="100" y="136" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#8F8B81" letter-spacing="2">% GORDURA</text>
+            </svg>
+          </div>
+        </div>
+        <div class="viz-note">
+          <strong>270° arc</strong>, abertura para baixo. Substitui donut/dial. Number central em Archivo Black 44pt. Label em Mono caps abaixo.
+        </div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-label">Bar Chart Semanal — Padrão Sexta</div>
+        <div class="viz-stage">
+          <div class="viz-chart">
+            <div style="height:30%"></div>
+            <div style="height:48%"></div>
+            <div style="height:42%"></div>
+            <div style="height:38%"></div>
+            <div class="arc" style="height:92%"></div>
+            <div class="warn" style="height:64%"></div>
+            <div style="height:36%"></div>
+          </div>
+          <div style="font-family:var(--f-mono);font-size:10px;color:var(--cinza-300);letter-spacing:0.2em;text-transform:uppercase;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:100%;max-width:220px;text-align:center">
+            <span>S</span><span>T</span><span>Q</span><span>Q</span><span style="color:var(--arco)">S</span><span style="color:var(--atencao)">S</span><span>D</span>
+          </div>
+        </div>
+        <div class="viz-note">
+          <strong>7 barras, sempre.</strong> Linha-500 default · Arco em alerta · Atenção em indulgência. Sem legenda — a cor é a legenda.
+        </div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-label">Arc Gauge · Sem dados</div>
+        <div class="viz-stage">
+          <div class="viz-arc">
+            <svg viewBox="0 0 200 200">
+              <path d="M30,160 A 80,80 0 1,1 170,160" fill="none" stroke="#2A2E3A" stroke-width="14" stroke-linecap="round"/>
+              <text x="100" y="108" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="44" fill="#5A5E68" letter-spacing="-2">—</text>
+              <text x="100" y="136" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#5A5E68" letter-spacing="2">SEM MEDIDA</text>
+            </svg>
+          </div>
+        </div>
+        <div class="viz-note">
+          Arc em Linha-500 vazio. Número central é "—" em Cinza-400. <strong>Sem skeleton shimmer.</strong>
+        </div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-label">FORBIDDEN — não usar</div>
+        <div class="viz-stage" style="background:transparent;border:1px dashed var(--cinza-400);gap:8px;padding:18px">
+          <div style="font-family:var(--f-display);font-weight:900;font-size:14px;color:var(--cinza-300);text-transform:uppercase;letter-spacing:0.04em">❌ Pizza / Donut</div>
+          <div style="font-family:var(--f-display);font-weight:900;font-size:14px;color:var(--cinza-300);text-transform:uppercase;letter-spacing:0.04em">❌ Stacked Bar</div>
+          <div style="font-family:var(--f-display);font-weight:900;font-size:14px;color:var(--cinza-300);text-transform:uppercase;letter-spacing:0.04em">❌ Line Chart Trend</div>
+          <div style="font-family:var(--f-display);font-weight:900;font-size:14px;color:var(--cinza-300);text-transform:uppercase;letter-spacing:0.04em">❌ Heatmap calendário</div>
+          <div style="font-family:var(--f-display);font-weight:900;font-size:14px;color:var(--cinza-300);text-transform:uppercase;letter-spacing:0.04em">❌ Velocímetro analógico</div>
+          <div style="font-family:var(--f-display);font-weight:900;font-size:14px;color:var(--cinza-300);text-transform:uppercase;letter-spacing:0.04em">❌ Horizonte Calórico (era Telemetria)</div>
+        </div>
+        <div class="viz-note">
+          Tudo isso pertence a outras direções ou a apps genéricos. <strong>Pulso é Pulso line + Arc + Bar.</strong> Três visualizações. Não mais.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §5 MOTION ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§5 · Motion design</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Sete <em>movimentos.</em></h2>
+    <p class="section-lede">
+      Motion serve a função, não a si mesmo. Cada interação tem trigger, feeling, timing, o que move e <strong>por que importa</strong>. Se não passa o "por que importa", sai.
+    </p>
+
+    <div class="motion-grid">
+      <div class="motion-card">
+        <div class="motion-num">MOTION 01 · SIGNATURE</div>
+        <div class="motion-title">Pulso de Recalibração</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Linha 2px Arco sob o número-manchete pulsando continuamente. 2.0s/loop no plano, 0.8s/loop fora do plano. Nunca para enquanto a tela está viva.</div>
+        <div class="motion-spec">
+          <div>Trigger: <b>mount de qualquer tela com número-manchete</b></div>
+          <div>Feeling: <b>lento, vivo, ambiente</b></div>
+          <div>Timing: <b>2.0s/loop · ease-pulso</b></div>
+          <div class="arc-text">Por que: É a marca em movimento. Sem ela, identidade quebra.</div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-num">MOTION 02</div>
+        <div class="motion-title">Arming Flash · Plano Mudou</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Antes da tela "Plano mudou" aparecer, a tela atual flash em Arco por 600ms. Depois, novo plano entra batendo em 320ms.</div>
+        <div class="armflash">
+          <div class="label">PLANO MUDOU.</div>
+        </div>
+        <div class="motion-spec">
+          <div>Trigger: <b>tap em "Recalibrar jantar"</b></div>
+          <div>Timing: <b>flash 600ms · entrada 320ms</b></div>
+          <div class="arc-text">Por que: O usuário precisa SENTIR a transição, não só ver.</div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-num">MOTION 03</div>
+        <div class="motion-title">Body Projection · Hard Cut</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Skeleton → flash Giz 40ms (1 frame a 24fps) → 2 fotos B&W aparecem simultâneo. ZERO dissolve.</div>
+        <div class="motion-spec">
+          <div>Trigger: <b>análise da IA completa</b></div>
+          <div>Feeling: <b>cinema, ruptura</b></div>
+          <div>Timing: <b>flash 40ms</b></div>
+          <div class="arc-text">Por que: Dissolve = "loading bonito". Hard cut = "filme."</div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-num">MOTION 04</div>
+        <div class="motion-title">Meal Saved · Sem celebração</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Meal card entra com translateY(20px→0) + opacity. Border-left muda de Linha-500 para Arco. Sem confetti, sem som.</div>
+        <div class="motion-spec">
+          <div>Trigger: <b>tap "Salvar refeição"</b></div>
+          <div>Timing: <b>200ms · ease-pulso</b></div>
+          <div class="arc-text">Por que: Registrar refeição é operação, não achievement.</div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-num">MOTION 05</div>
+        <div class="motion-title">Erro · Sem alarme</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Chip Atenção amarelo aparece com "RECONECTAR · 0:14". Botão ghost de retry. Sem red alert, sem shake.</div>
+        <div class="motion-spec">
+          <div>Trigger: <b>sync falha, IA falha</b></div>
+          <div>Timing: <b>320ms entrada</b></div>
+          <div class="arc-text">Por que: Pulso não pune. Erro é informação.</div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-num">MOTION 06</div>
+        <div class="motion-title">Skeleton → Conteúdo</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Skeleton tem Pulso line acelerado (0.8s) no lugar do número-manchete. Quando dado chega: count-up de 0 ao valor final em 320ms.</div>
+        <div class="motion-spec">
+          <div>Trigger: <b>mount inicial</b></div>
+          <div>Timing: <b>skeleton &lt;80ms · count-up 320ms</b></div>
+          <div class="arc-text">Por que: Loading reaproveita o signature. Coerência total.</div>
+        </div>
+      </div>
+
+      <div class="motion-card" style="grid-column: span 2">
+        <div class="motion-num">MOTION 07 · MOMENT-DE-AMIGO</div>
+        <div class="motion-title">Ticker pensando em tempo real</div>
+        <div style="font-size:13px;color:var(--giz-100);opacity:0.78;line-height:1.5">Durante a recalibração, o ticker no topo rola conteúdo em tempo real — cada delta calculado entra como item novo. Se delta é grande, vira Atenção por 1.2s antes de voltar para Arco. O usuário vê o "pensamento" da IA acontecendo, não "loading..."</div>
+        <div class="motion-spec">
+          <div>Trigger: <b>durante estado Recalibrar</b></div>
+          <div>Update rate: <b>cada 600ms novo item entra · marquise 24s/loop</b></div>
+          <div class="arc-text">Por que: "Cara, o app fica vivo, parece que está pensando" — esse é o moment-de-amigo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §6 ATMOSFERA ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§6 · Atmosfera visual</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Plana. <em>Flat-shaded.</em> Sem fonte de luz.</h2>
+    <p class="section-lede">
+      Pulso assume que está numa tela, não num mundo físico. Nada de highlight no topo de botões. Nada de shadow embaixo de cards. <strong>Tipografia faz o trabalho que sombras fariam.</strong>
+    </p>
+
+    <div class="atmos-grid">
+      <div class="atmos-card">
+        <h4>Background</h4>
+        <p>Solid <strong>Vazio #06070A</strong> em toda página. <strong>Zero gradient decorativo.</strong> Zero noise. Zero radial glow ambiente. Pulso é flat.</p>
+        <p>Único uso aceitável de gradient: vinheta intrínseca em fotos B&W (escurecer cantos), não overlay.</p>
+      </div>
+
+      <div class="atmos-card">
+        <h4>Texture / Grain</h4>
+        <p><strong>Em UI: zero.</strong></p>
+        <p>Em fotos do produto (corpo + refeição): grão analógico ligado, intensity 18%, scale 1.4×, blend mode overlay. O grão diferencia foto real de "render."</p>
+      </div>
+
+      <div class="atmos-card" style="grid-column: span 2">
+        <h4>Modelo de profundidade · Elevação por cor, não por sombra</h4>
+        <p>Cinco camadas. Cada uma é uma cor de fundo distinta — devs leem profundidade pela cor, não pela sombra. <strong>Zero box-shadow em qualquer componente.</strong></p>
+        <div class="depth-scale">
+          <div class="depth-row">
+            <div class="swatch" style="background:var(--vazio)"></div>
+            <span class="label">z-0 · page</span>
+            <span>Vazio</span>
+            <span class="hex">#06070A</span>
+          </div>
+          <div class="depth-row">
+            <div class="swatch" style="background:var(--aco-800)"></div>
+            <span class="label">z-1 · panel</span>
+            <span>Aço-800 · containers grandes</span>
+            <span class="hex">#0D0F14</span>
+          </div>
+          <div class="depth-row">
+            <div class="swatch" style="background:var(--aco-700)"></div>
+            <span class="label">z-2 · card</span>
+            <span>Aço-700 · meal card, hero card</span>
+            <span class="hex">#13151C</span>
+          </div>
+          <div class="depth-row">
+            <div class="swatch" style="background:var(--linha-600)"></div>
+            <span class="label">z-3 · hover</span>
+            <span>Linha-600 · elevated, hover state</span>
+            <span class="hex">#1E212A</span>
+          </div>
+          <div class="depth-row">
+            <div class="swatch" style="background:var(--linha-600);border-color:var(--linha-500)"></div>
+            <span class="label">z-4 · modal</span>
+            <span>Linha-600 + border Linha-500</span>
+            <span class="hex">#1E212A + 1px #2A2E3A</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §7 PRODUCT FEEL ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§7 · Product feel</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Dez minutos <em>usando.</em></h2>
+    <p class="section-lede">
+      O parágrafo abaixo é o benchmark de QA. Toda tela do produto precisa ser consistente com esta sensação. Se não é, refazer.
+    </p>
+
+    <div class="feel-block">
+      <p class="feel-text">
+        Você abre o app e vê um número grande — <strong>2.184</strong> — com uma linha laranja fina batendo abaixo dele, lenta. Você sabe imediatamente: estou no plano. Você toca em "Almoço" e tira foto. A foto vira preto-e-branco no segundo da captura — não tem festa de cor, não tem confetti, a IA processa em 1,4 segundos e o app diz <strong>612 KCAL</strong>. Você salva. Volta para a tela inicial. O número agora é <strong>1.572</strong>, e ele animou contando de 2.184 até esse valor em meio segundo — sem fade, sem balão de comemoração. A linha continua batendo embaixo, no mesmo ritmo de antes. Em algum momento você sai do plano — comeu um lanche maior que o previsto — e a linha acelera. Você sente antes de ler. Toca o botão <strong>"Recalibrar jantar."</strong> A tela inteira pisca laranja por 600 milissegundos, e quando estabiliza, está escrito <strong>"PLANO MUDOU."</strong> em laranja gigante. Embaixo, um ticker rola: <strong>+180 KCAL @ 19:30 · +24G PROTEÍNA · PULAR LANCHE TARDE</strong>. Você aceita. A linha volta a bater devagar. Em 10 minutos, você registrou 1 refeição, foi recalibrado uma vez, e tocou exatamente 4 botões. Você não sorriu. <strong>Mas voltaria amanhã.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div><strong>NutriHero</strong> · Identidade Visual · Pulso · 04 Execução</div>
+    <div style="margin-top:8px;text-transform:none;letter-spacing:0;color:var(--cinza-400);font-size:11px;font-family:var(--f-display)">Spec textual: <a href="04-visual-identity.md">04-visual-identity.md</a> · Sistema de tokens: <a href="03-visual-system.md">03-visual-system.md</a> · Direção: <a href="02-brand-direction-visual.html">02-brand-direction-visual.html</a> · v1 · 2026-05-19</div>
+  </div>
+  <div>
+    <div>Próximo passo</div>
+    <div style="color:var(--arco);margin-top:6px"><strong>Exportar SVG do logo + handoff pro dev</strong></div>
+  </div>
+</footer>
+
+</body>
+</html>

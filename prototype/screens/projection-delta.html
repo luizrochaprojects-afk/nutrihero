@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Projeção · Delta</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .proj {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .proj .top { display: flex; flex-direction: column; gap: var(--s-2); }
+    .proj .top .eyebrow { color: var(--c-cinza-400); }
+    .proj .top .title-display-3 { margin-top: var(--s-1); }
+
+    .delta-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      flex: 1;
+      justify-content: center;
+    }
+    .delta-pulso {
+      width: 60%;
+      max-width: 220px;
+    }
+    .delta-number {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 96px;
+      letter-spacing: -0.05em;
+      line-height: 0.86;
+      color: var(--c-arco);
+      font-feature-settings: 'tnum';
+    }
+    .delta-caption {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+      margin-top: var(--s-1);
+    }
+
+    .trajectory-line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s-3);
+      padding: var(--s-3) 0;
+      border-top: 1px solid var(--c-linha-500);
+      border-bottom: 1px solid var(--c-linha-500);
+    }
+    .trajectory-line .point {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .trajectory-line .point.future { align-items: flex-end; }
+    .trajectory-line .point .v {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      color: var(--c-giz-100);
+      font-feature-settings: 'tnum';
+    }
+    .trajectory-line .point.future .v { color: var(--c-arco); }
+    .trajectory-line .point .l {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .trajectory-line .arrow {
+      flex: 1;
+      height: 1px;
+      background: var(--c-linha-500);
+      align-self: center;
+      position: relative;
+    }
+    .trajectory-line .arrow::after {
+      content: '';
+      position: absolute;
+      right: -1px;
+      top: -3px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid var(--c-cinza-300);
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+    }
+
+    .footer-cta { margin-top: auto; }
+
+    @media (max-height: 700px) {
+      .proj { gap: var(--s-4); }
+      .delta-number { font-size: 84px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="proj">
+    <a class="back-btn" href="bf-method-measure-first.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">03 / 05 · PROJEÇÃO</span>
+      <h1 class="title-display-3">Em 90 dias,<br />você perde</h1>
+    </div>
+
+    <div class="delta-block">
+      <div class="pulso-line delta-pulso" aria-hidden="true"></div>
+      <div>
+        <div class="delta-number" data-bf="delta">−0.0</div>
+        <div class="delta-caption">pontos de gordura</div>
+      </div>
+    </div>
+
+    <div class="trajectory-line">
+      <div class="point">
+        <span class="v" data-bf="current">24.3%</span>
+        <span class="l">hoje</span>
+      </div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="point future">
+        <span class="v" data-bf="future">19.8%</span>
+        <span class="l">90 dias</span>
+      </div>
+    </div>
+
+    <a href="paywall-post-projection.html" data-nh-next="afterProjection" class="cta-primary footer-cta">Manter ritmo</a>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const S = window.NH_STATE || { bf_current: 24.3, bf_projected_90d: 19.8 };
+    const bfCur = Number(S.bf_current) || 24.3;
+    const bf90 = Number(S.bf_projected_90d) || 19.8;
+    const totalDelta = bf90 - bfCur;
+
+    function fmtBf(v) { return v.toFixed(1) + '%'; }
+    function fmtDelta(v) {
+      const s = v < 0 ? '−' : (v > 0 ? '+' : '');
+      return s + Math.abs(v).toFixed(1);
+    }
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animateNumber(el, from, to, dur, fmt) {
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - start) / dur);
+        el.textContent = fmt(from + (to - from) * easeOutCubic(t));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const currentEl = document.querySelector('[data-bf="current"]');
+    const futureEl  = document.querySelector('[data-bf="future"]');
+    const deltaEl   = document.querySelector('[data-bf="delta"]');
+    currentEl.textContent = fmtBf(bfCur);
+    futureEl.textContent  = fmtBf(bfCur);
+    deltaEl.textContent   = '−0.0';
+
+    requestAnimationFrame(() => {
+      animateNumber(deltaEl,  0,     totalDelta, 700, fmtDelta);
+      animateNumber(futureEl, bfCur, bf90,       700, fmtBf);
+    });
+  </script>
+</body>
+</html>

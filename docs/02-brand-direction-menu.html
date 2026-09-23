@@ -1,0 +1,1856 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NutriHero — Direção de Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500;1,6..72,600&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;600;800;900&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#15110E;
+    --paper:#F3EEE5;
+    --paper-2:#EAE3D6;
+    --rule:#231E18;
+    --muted:#7A7268;
+    --ember:#E4572E;
+    --bronze:#8C5A2B;
+    /* neutral doc tokens (used in cover, briefing, comparison) */
+    --neutral-page:#F4F2EE;
+    --neutral-ink:#1B1B1B;
+    --neutral-muted:#6C6A66;
+    --neutral-accent:#1B1B1B;
+    --neutral-rule:#1B1B1B;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--neutral-page);
+    color:var(--neutral-ink);
+    font-family:'Geist', system-ui, sans-serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding-left:56px;padding-right:56px}
+  .rule{height:1px;background:var(--ink);opacity:.9;width:100%}
+  .rule-thin{height:1px;background:var(--ink);opacity:.18}
+  .eyebrow{
+    font-family:'Geist Mono', monospace;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .eyebrow.muted{color:var(--muted)}
+  .num{font-family:'JetBrains Mono', monospace;font-feature-settings:"tnum"}
+  .ital{font-family:'Newsreader', serif;font-style:italic;font-weight:300}
+  h1,h2,h3,h4{margin:0;font-weight:400}
+  p{margin:0}
+
+  /* ───────── COVER ───────── */
+  .cover{
+    min-height:100vh;
+    padding:48px 56px 56px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    background:var(--neutral-page);
+    color:var(--neutral-ink);
+    border-bottom:1px solid var(--neutral-ink);
+  }
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .mark{display:flex;align-items:center;gap:12px;font-family:'Geist Mono', monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-ink)}
+  .mark::before{
+    content:"";display:inline-block;width:14px;height:14px;border:1.5px solid var(--neutral-ink);
+    box-shadow:none;background:transparent;
+  }
+  .doc-meta{font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:right;line-height:1.7;color:var(--neutral-ink)}
+  .doc-meta b{font-weight:600}
+  .cover-title{
+    font-family:'Geist', sans-serif;
+    font-weight:500;
+    font-size:clamp(64px, 10vw, 156px);
+    line-height:.92;
+    letter-spacing:-.04em;
+    color:var(--neutral-ink);
+  }
+  .cover-title em{font-style:normal;font-weight:300;color:var(--neutral-muted)}
+  .cover-sub{
+    display:grid;grid-template-columns:1.2fr .9fr;gap:64px;align-items:end;
+    padding-top:32px;border-top:1px solid var(--neutral-ink);
+  }
+  .cover-statement{
+    font-family:'Geist', sans-serif;font-weight:400;font-style:normal;
+    font-size:clamp(17px,1.55vw,21px);line-height:1.5;color:var(--neutral-ink);
+    text-wrap:pretty;max-width:58ch;
+  }
+  .cover-list{display:grid;grid-template-columns:1fr 1fr;gap:18px 36px}
+  .cover-list .item{display:flex;flex-direction:column;gap:4px}
+  .cover-list .item b{font-family:'Geist', sans-serif;font-weight:600;font-size:14px;color:var(--neutral-ink)}
+  .cover-list .item span{font-family:'Geist Mono', monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-muted)}
+
+  /* ───────── SECTION CHROME ───────── */
+  section{padding:160px 0 120px;border-bottom:1px solid var(--ink)}
+  .section-head{display:grid;grid-template-columns:160px 1fr;gap:48px;margin-bottom:56px}
+  .section-head .idx{font-family:'Geist Mono', monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-muted)}
+  .section-head h2{
+    font-family:'Geist', sans-serif;font-weight:500;font-style:normal;
+    font-size:clamp(36px,4.4vw,60px);line-height:1.05;letter-spacing:-.025em;
+    text-wrap:balance;color:var(--neutral-ink);
+  }
+  .section-head h2 em{font-style:normal;font-weight:300;color:var(--neutral-muted)}
+
+  /* Neutral section wrapper — for cover/briefing/comparison */
+  .neutral-section{background:var(--neutral-page);color:var(--neutral-ink);border-bottom:1px solid var(--neutral-ink)}
+
+  /* ───────── BRIEF ───────── */
+  .brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+  .brief-grid p{font-size:16px;line-height:1.6;color:var(--neutral-ink);text-wrap:pretty}
+  .brief-grid p b{font-weight:600}
+  .brief-grid p + p{margin-top:18px}
+  .tensions{margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .tension{padding:32px 26px 28px;background:transparent;border:1px solid var(--neutral-ink);display:flex;flex-direction:column;gap:18px;min-height:220px}
+  .tension .n{font-family:'Geist Mono', monospace;font-style:normal;font-weight:500;font-size:14px;line-height:1;color:var(--neutral-muted);letter-spacing:.12em}
+  .tension h4{font-family:'Geist', sans-serif;font-weight:600;font-size:17px;color:var(--neutral-ink);margin-top:8px}
+  .tension p{font-size:14px;color:var(--neutral-ink);line-height:1.55}
+
+  /* ───────── DIRECTION CARD ───────── */
+  .direction{padding:160px 0 140px;border-bottom:1px solid var(--ink);position:relative}
+  .dir-head{display:grid;grid-template-columns:160px 1fr 1fr;gap:48px;align-items:end;margin-bottom:64px}
+  .dir-head .idx{font-family:'Geist Mono', monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .dir-head .title-name{font-size:clamp(64px,9vw,130px);line-height:.88;letter-spacing:-.02em;margin:0}
+  .dir-head .one-liner{font-family:'Newsreader', serif;font-style:italic;font-weight:300;font-size:22px;line-height:1.3;color:#3a342c;text-wrap:pretty;align-self:end;padding-bottom:8px}
+
+  .dir-body{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+  .dir-col{display:flex;flex-direction:column;gap:36px}
+  .field{display:grid;grid-template-columns:140px 1fr;gap:24px;padding-top:18px;border-top:1px solid rgba(21,17,14,.12)}
+  .field .lbl{font-family:'Geist Mono', monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .field .val{font-size:14.5px;line-height:1.5;color:#231e18;text-wrap:pretty}
+  .field .val b{font-weight:600}
+
+  /* swatch row */
+  .swatch-row{display:flex;gap:0;border:1px solid var(--ink);overflow:hidden}
+  .sw{flex:1;height:96px;position:relative;display:flex;align-items:flex-end;padding:8px 10px}
+  .sw .code{font-family:'Geist Mono', monospace;font-size:9.5px;letter-spacing:.06em;color:rgba(255,255,255,.85);mix-blend-mode:difference}
+  .sw.light .code{color:rgba(0,0,0,.7);mix-blend-mode:normal}
+
+  /* type spec */
+  .type-spec{border:1px solid var(--ink);padding:24px;background:#FFFAF1;display:flex;flex-direction:column;gap:18px}
+  .type-spec .pair{display:flex;flex-direction:column;gap:6px}
+  .type-spec .pair .meta{font-family:'Geist Mono', monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  /* ───────── DIRECTION 01 — TELEMETRY ───────── */
+  .d01{background:#0B0D0F;color:#E6E4DF;border-bottom:1px solid #000}
+  .d01 .dir-head .idx,.d01 .dir-head .one-liner,.d01 .val,.d01 .field{color:#cfccc4}
+  .d01 .field{border-top-color:rgba(255,255,255,.10)}
+  .d01 .lbl{color:#9a9690}
+  .d01 .title-name{font-family:'Instrument Sans', sans-serif;font-weight:500;letter-spacing:-.03em;color:#F2EFE8}
+  .d01 .one-liner{font-family:'Instrument Serif', serif;font-style:italic;color:#C8FF3D}
+  .d01 .vizpanel{background:#0F1215;border:1px solid #1f2429}
+  .d01-numerals{font-family:'JetBrains Mono', monospace;color:#C8FF3D}
+  .d01 .type-spec{background:#0F1215;border-color:#1f2429;color:#E6E4DF}
+  .d01 .type-spec .meta{color:#7d8087}
+
+  /* ───────── DIRECTION 02 — MIRROR ───────── */
+  .d02{background:#F1EBE2;color:#1A1715}
+  .d02 .title-name{font-family:'Newsreader', serif;font-weight:300;font-style:italic;color:#1A1715}
+  .d02 .title-name span{color:var(--ember)}
+  .d02 .one-liner{color:#3a3024}
+  .d02 .type-spec{background:#FAF4EA;border-color:#1A1715}
+
+  /* ───────── DIRECTION 03 — PULSE ───────── */
+  .d03{background:#06070A;color:#EEEBE3}
+  .d03 .dir-head .idx,.d03 .one-liner,.d03 .val,.d03 .field{color:#bdb9af}
+  .d03 .field{border-top-color:rgba(255,255,255,.10)}
+  .d03 .lbl{color:#8f8b81}
+  .d03 .title-name{font-family:'Archivo', sans-serif;font-weight:900;letter-spacing:-.04em;text-transform:uppercase;color:#EEEBE3;line-height:.82}
+  .d03 .title-name em{font-style:normal;color:#FF5B1F}
+  .d03 .one-liner{font-family:'Archivo Narrow', sans-serif;font-style:normal;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:#F7D74C;font-size:18px}
+  .d03 .type-spec{background:#0D0F14;border-color:#1c2028;color:#EEEBE3}
+  .d03 .type-spec .meta{color:#8f8b81}
+
+  /* visual panels (compact mocks) */
+  .viz{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  .vizpanel{background:#FFFAF1;border:1px solid var(--ink);padding:22px;aspect-ratio:1/1.05;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+  .vizpanel.tall{aspect-ratio:auto;min-height:340px}
+  .vizpanel .vizhead{display:flex;justify-content:space-between;align-items:center;font-family:'Geist Mono', monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+
+  /* — Telemetry mocks — */
+  .gauge{position:relative;flex:1;display:flex;align-items:center;justify-content:center}
+  .gauge svg{width:100%;height:100%}
+  .telem-stack{display:grid;grid-template-columns:1fr;gap:4px}
+  .telem-row{display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:11px;border-top:1px dashed rgba(200,255,61,.25);padding-top:6px;color:#cfccc4}
+  .telem-row b{color:#C8FF3D;font-weight:500}
+  .horizon{height:140px;background:
+    repeating-linear-gradient(to right, rgba(200,255,61,.12) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(to bottom, rgba(200,255,61,.06) 0 1px, transparent 1px 22px);
+    border:1px solid rgba(200,255,61,.25);position:relative}
+  .horizon svg{position:absolute;inset:0;width:100%;height:100%}
+
+  /* — Mirror mocks — */
+  .portal{
+    flex:1;background:
+      linear-gradient(135deg, rgba(140,90,43,.18), rgba(228,87,46,.12)),
+      repeating-linear-gradient(45deg, rgba(26,23,21,.06) 0 2px, transparent 2px 8px),
+      #E6DDCB;
+    border:1px solid #1A1715;
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .portal::after{
+    content:"EU DO FUTURO · 12 SEM";position:absolute;left:14px;bottom:12px;
+    font-family:'Geist Mono', monospace;font-size:9px;letter-spacing:.18em;color:#1A1715;
+  }
+  .portal .frame{
+    width:54%;aspect-ratio:3/4;border:1px solid #1A1715;background:
+      linear-gradient(180deg, rgba(26,23,21,.04), rgba(26,23,21,.18)),
+      repeating-linear-gradient(0deg, rgba(26,23,21,.08) 0 1px, transparent 1px 6px);
+    position:relative;
+  }
+  .portal .frame::before{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(180deg, transparent, rgba(228,87,46,.25))}
+  .portal .frame::after{content:"";position:absolute;inset:0;border:1px dashed rgba(228,87,46,.6);margin:8px}
+  .dial{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .dial .d{aspect-ratio:1/1;border:1px solid #1A1715;background:#FAF4EA;display:flex;align-items:center;justify-content:center;position:relative}
+  .dial .d::before{content:"";position:absolute;inset:14%;border:1px solid #1A1715;border-radius:50%}
+  .dial .d::after{content:attr(data-l);position:absolute;font-family:'Newsreader', serif;font-style:italic;font-size:28px;color:#1A1715}
+
+  /* — Pulse mocks — */
+  .ticker{
+    flex:1;display:flex;align-items:center;border-top:1px solid rgba(255,91,31,.5);border-bottom:1px solid rgba(255,91,31,.5);
+    background:linear-gradient(180deg, rgba(255,91,31,.04), rgba(255,91,31,0));
+    overflow:hidden;position:relative
+  }
+  .ticker-track{display:flex;gap:36px;white-space:nowrap;font-family:'Archivo', sans-serif;font-weight:900;font-size:34px;letter-spacing:-.02em;color:#FF5B1F;text-transform:uppercase;animation:tick 22s linear infinite}
+  .ticker-track span{display:inline-flex;align-items:center;gap:18px}
+  .ticker-track span::after{content:"●";color:#F7D74C;font-size:14px;vertical-align:middle}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .arc{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+  .arc svg{width:100%;height:100%}
+  .big-stat{font-family:'Archivo', sans-serif;font-weight:900;font-size:84px;line-height:.85;letter-spacing:-.04em;color:#EEEBE3}
+  .big-stat em{font-style:normal;color:#FF5B1F}
+  .small-stat{display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:11px;color:#8f8b81;border-top:1px solid rgba(255,255,255,.08);padding-top:8px}
+
+  /* risks/uses chips */
+  .chiprow{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-family:'Geist Mono', monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border:1px solid currentColor;border-radius:999px;opacity:.85}
+
+  /* ───────── COMPARISON ───────── */
+  .compare{padding-top:180px;padding-bottom:140px;background:var(--neutral-page);color:var(--neutral-ink)}
+  .compare > p{color:var(--neutral-ink)}
+  .compare table{width:100%;border-collapse:collapse;font-family:'Geist', sans-serif;margin-top:8px}
+  .compare th, .compare td{padding:24px 18px;border-bottom:1px solid rgba(27,27,27,.18);text-align:left;vertical-align:top;font-size:14.5px;line-height:1.5}
+  .compare thead th{font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-muted);padding:16px 18px;border-bottom:1.5px solid var(--neutral-ink)}
+  .compare thead th:not(:first-child){font-family:'Geist', sans-serif;font-style:normal;font-weight:500;font-size:18px;letter-spacing:-.01em;color:var(--neutral-ink);text-transform:none}
+  .compare td:first-child{font-family:'Geist', sans-serif;font-weight:600;font-size:15px;letter-spacing:0;color:var(--neutral-ink);width:28%;text-transform:none}
+  .compare td:not(:first-child){font-size:13.5px;color:var(--neutral-ink)}
+  .compare tbody tr:hover{background:rgba(27,27,27,.025)}
+  .score{display:inline-flex;gap:5px;align-items:center}
+  .score i{width:11px;height:11px;background:var(--neutral-ink);display:inline-block;border-radius:50%}
+  .score i.off{background:transparent;border:1px solid var(--neutral-ink);opacity:.3}
+  .compare td .score + div{margin-top:10px;color:var(--neutral-muted);font-size:13px;line-height:1.45}
+  .compare tbody tr:last-child td{border-bottom:none;border-top:1.5px solid var(--neutral-ink);padding-top:22px;background:transparent}
+  .compare tbody tr:last-child td:first-child{font-family:'Geist', sans-serif;font-style:normal;font-weight:600;font-size:16px;color:var(--neutral-ink)}
+  .compare tbody tr:last-child td:not(:first-child) b{font-family:'JetBrains Mono', monospace;font-weight:600;font-size:18px;color:var(--neutral-ink);letter-spacing:.02em}
+  .win{}
+  .win td{}
+
+  /* ───────── DECISION ───────── */
+  .decision{padding:140px 0;background:
+    radial-gradient(900px 600px at 20% 20%, rgba(228,87,46,.10), transparent 60%),
+    var(--paper);
+    border-bottom:1px solid var(--ink)}
+  .decision .stamp{
+    display:inline-flex;align-items:center;gap:12px;
+    padding:8px 14px;border:1px solid var(--ember);border-radius:999px;color:var(--ember);
+    font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  }
+  .decision h2{font-family:'Newsreader', serif;font-weight:300;font-style:italic;font-size:clamp(80px,11vw,176px);line-height:.86;letter-spacing:-.02em;margin:24px 0 28px}
+  .decision h2 em{font-style:italic;color:var(--ember)}
+  .decision .lead{font-family:'Newsreader', serif;font-style:italic;font-weight:300;font-size:28px;line-height:1.3;max-width:32ch;color:#231e18;text-wrap:pretty}
+  .decision-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:end;margin-top:56px}
+  .decision-grid p{font-size:15.5px;line-height:1.55;color:#2b2620}
+  .decision-grid p + p{margin-top:14px}
+
+  /* ───────── BRIEF DETAIL ───────── */
+  .brief-detail{padding:160px 0 140px}
+  .brief-block{display:grid;grid-template-columns:200px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--ink)}
+  .brief-block:last-child{border-bottom:1px solid var(--ink)}
+  .brief-block .lbl{font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+  .brief-block .lbl small{display:block;font-family:'Geist Mono', monospace;font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.08em;text-transform:none}
+  .brief-block .body{font-size:15.5px;line-height:1.6;color:#2b2620;text-wrap:pretty}
+  .brief-block .body h4{font-family:'Newsreader', serif;font-style:italic;font-weight:400;font-size:24px;margin-bottom:8px;color:var(--ink)}
+  .brief-block .body p + p, .brief-block .body p + ul{margin-top:12px}
+  .brief-block ul{margin:0;padding:0;list-style:none}
+  .brief-block ul li{padding:8px 0 8px 24px;border-top:1px dashed rgba(21,17,14,.18);position:relative}
+  .brief-block ul li::before{content:"";position:absolute;left:0;top:15px;width:6px;height:6px;border-radius:50%;background:var(--ember)}
+  .brief-block ul li b{font-weight:600}
+  .principles{display:grid;grid-template-columns:1fr 1fr;gap:14px 36px}
+
+  .palette{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--ink)}
+  .pal{aspect-ratio:1/1.05;padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+  .pal .role{font-family:'Geist Mono', monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}
+  .pal .meta{display:flex;flex-direction:column;gap:2px}
+  .pal .meta .name{font-family:'Newsreader', serif;font-style:italic;font-weight:400;font-size:18px;line-height:1}
+  .pal .meta .hex{font-family:'Geist Mono', monospace;font-size:10px;letter-spacing:.04em}
+  .pal.dark{color:#F1EBE2}
+  .pal.dark .role,.pal.dark .hex,.pal.dark .name{color:#F1EBE2}
+
+  .type-show{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end}
+  .type-show .display{font-family:'Newsreader', serif;font-style:italic;font-weight:300;font-size:clamp(64px,8vw,124px);line-height:.9;letter-spacing:-.01em;color:var(--ink)}
+  .type-show .display em{color:var(--ember)}
+  .type-specs{display:flex;flex-direction:column;gap:14px}
+  .ts-row{display:grid;grid-template-columns:140px 1fr;gap:18px;padding-top:12px;border-top:1px dashed rgba(21,17,14,.2);align-items:baseline}
+  .ts-row .meta{font-family:'Geist Mono', monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .ts-newsreader{font-family:'Newsreader', serif;font-style:italic;font-weight:400;font-size:30px;color:var(--ink)}
+  .ts-geist{font-family:'Geist', sans-serif;font-weight:500;font-size:20px;color:var(--ink)}
+  .ts-geist-mono{font-family:'Geist Mono', monospace;font-weight:500;font-size:16px;color:var(--ink)}
+
+  /* ───────── SCREENS ───────── */
+  .screens{padding:160px 0 160px;background:var(--paper-2);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .screen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .screen-wrap{display:flex;flex-direction:column;position:relative;padding-top:28px;min-width:0}
+  .screen{background:#0E0C0A;color:#F1EBE2;border:1px solid var(--ink);height:clamp(440px,42vw,580px);padding:18px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;border-radius:32px;width:100%;min-width:0}
+  .screen.light{background:#F1EBE2;color:#1A1715}
+  .screen.cream{background:#E6DDCB;color:#1A1715}
+  .screen .scr-meta{display:flex;justify-content:space-between;align-items:center;font-family:'Geist Mono', monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+  .screen .scr-title{font-family:'Newsreader', serif;font-style:italic;font-weight:300;font-size:30px;line-height:.95;letter-spacing:-.01em;text-wrap:balance}
+  .screen .scr-title em{color:var(--ember)}
+  .screen .scr-body{font-size:11px;line-height:1.4;opacity:.85;text-wrap:pretty}
+  .screen .scr-cta{margin-top:auto;display:flex;flex-direction:column;gap:6px}
+  .screen .btn{padding:10px 12px;border-radius:999px;background:#F1EBE2;color:#1A1715;text-align:center;font-family:'Geist', sans-serif;font-weight:600;font-size:11px}
+  .screen.light .btn{background:#1A1715;color:#F1EBE2}
+  .screen.cream .btn{background:#1A1715;color:#F1EBE2}
+  .screen .btn.ghost{background:transparent;border:1px solid currentColor;color:currentColor}
+  .screen .label{font-family:'Geist Mono', monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;position:absolute;top:-22px;left:0}
+  .screen-wrap{position:relative;padding-top:28px}
+  .screen-wrap .label{font-family:'Geist Mono', monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:.7;position:absolute;top:0;left:0}
+
+  /* mini visual elements */
+  .mini-frame{aspect-ratio:3/4;border:1px solid currentColor;position:relative;background:
+    linear-gradient(180deg, rgba(241,235,226,.04), rgba(241,235,226,.16)),
+    repeating-linear-gradient(0deg, rgba(241,235,226,.10) 0 1px, transparent 1px 5px);
+    margin:6px 0;display:flex;align-items:flex-end;justify-content:space-between;padding:8px}
+  .mini-frame::after{content:"";position:absolute;inset:6px;border:1px dashed rgba(228,87,46,.55)}
+  .mini-frame .tag{font-family:'Geist Mono', monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;background:#E4572E;color:#0E0C0A;padding:3px 6px;z-index:1}
+  .mini-frame .tag.ghost{background:transparent;border:1px solid currentColor;color:currentColor}
+
+  .ring{position:relative;width:100%;aspect-ratio:1/1}
+  .ring svg{width:100%;height:100%}
+  .ring .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .center .v{font-family:'Newsreader', serif;font-style:italic;font-weight:300;font-size:38px;line-height:1}
+  .ring .center .u{font-family:'Geist Mono', monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:2px}
+
+  .bar-row{display:flex;flex-direction:column;gap:6px}
+  .bar-row .b{display:grid;grid-template-columns:60px 1fr 40px;gap:8px;align-items:center;font-family:'Geist Mono', monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+  .bar-row .b .track{height:6px;background:rgba(241,235,226,.16);position:relative}
+  .bar-row .b .fill{height:6px;background:#E4572E;position:absolute;inset:0 auto 0 0}
+
+  .footer{padding:56px;display:flex;justify-content:space-between;align-items:center;font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  /* ── themed deep-dive (Telemetry · dark · lime) ── */
+  .theme-telemetry{background:#0B0D0F;color:#E6E4DF;border-top:1px solid #000}
+  .theme-telemetry .section-head h2{color:#F2EFE8;font-family:'Instrument Serif', serif}
+  .theme-telemetry .section-head h2 em{color:#C8FF3D}
+  .theme-telemetry .section-head .idx{color:#9a9690}
+  .theme-telemetry .brief-block{border-top-color:rgba(255,255,255,.18)}
+  .theme-telemetry .brief-block:last-child{border-bottom-color:rgba(255,255,255,.18)}
+  .theme-telemetry .brief-block .lbl{color:#E6E4DF}
+  .theme-telemetry .brief-block .lbl small{color:#7d8087}
+  .theme-telemetry .brief-block .body{color:#cfccc4}
+  .theme-telemetry .brief-block .body h4{color:#F2EFE8;font-family:'Instrument Serif', serif}
+  .theme-telemetry .brief-block ul li{border-top-color:rgba(255,255,255,.14)}
+  .theme-telemetry .brief-block ul li::before{background:#C8FF3D}
+  .theme-telemetry .brief-block ul li b{color:#F2EFE8}
+  .theme-telemetry .palette{border-color:rgba(255,255,255,.18)}
+  .theme-telemetry .ts-row{border-top-color:rgba(255,255,255,.14)}
+  .theme-telemetry .ts-row .meta{color:#7d8087}
+  .theme-telemetry .ts-newsreader,.theme-telemetry .ts-geist,.theme-telemetry .ts-geist-mono{color:#F2EFE8}
+  .theme-telemetry .type-show .display{color:#F2EFE8;font-family:'Instrument Sans', sans-serif;font-style:normal;font-weight:500;letter-spacing:-.02em}
+  .theme-telemetry .type-show .display em{color:#C8FF3D;font-family:'Instrument Serif', serif;font-style:italic;font-weight:400}
+  .theme-telemetry .principles b{color:#F2EFE8}
+  /* Telemetry screens */
+  .theme-telemetry.screens{background:#0F1215;border-top-color:#000;border-bottom-color:#000}
+  .theme-telemetry.screens .section-head h2{color:#F2EFE8}
+  .theme-telemetry.screens .screen{background:#0B0D0F;color:#F2EFE8;border-color:#1f2429;height:clamp(440px,42vw,580px)}
+  .theme-telemetry.screens .screen.light{background:#161A1E;color:#E6E4DF;border-color:#2a3036}
+  .theme-telemetry.screens .screen .btn{background:#C8FF3D;color:#0B0D0F}
+  .theme-telemetry.screens .screen .btn.ghost{background:transparent;border:1px solid rgba(242,239,232,.45);color:#E6E4DF}
+  .theme-telemetry.screens .screen-wrap .label{color:#cfccc4}
+
+  /* ── themed deep-dive (Pulse · void · arc) ── */
+  .theme-pulse{background:#06070A;color:#EEEBE3;border-top:1px solid #000}
+  .theme-pulse .section-head h2{color:#EEEBE3;font-family:'Archivo', sans-serif;font-weight:900;font-style:normal;text-transform:uppercase;letter-spacing:-.03em;line-height:.88}
+  .theme-pulse .section-head h2 em{color:#FF5B1F;font-style:normal}
+  .theme-pulse .section-head .idx{color:#8f8b81}
+  .theme-pulse .brief-block{border-top-color:rgba(255,255,255,.16)}
+  .theme-pulse .brief-block:last-child{border-bottom-color:rgba(255,255,255,.16)}
+  .theme-pulse .brief-block .lbl{color:#EEEBE3}
+  .theme-pulse .brief-block .lbl small{color:#8f8b81}
+  .theme-pulse .brief-block .body{color:#bdb9af}
+  .theme-pulse .brief-block .body h4{color:#EEEBE3;font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em}
+  .theme-pulse .brief-block ul li{border-top-color:rgba(255,255,255,.12)}
+  .theme-pulse .brief-block ul li::before{background:#FF5B1F}
+  .theme-pulse .brief-block ul li b{color:#EEEBE3}
+  .theme-pulse .palette{border-color:rgba(255,255,255,.16)}
+  .theme-pulse .ts-row{border-top-color:rgba(255,255,255,.14)}
+  .theme-pulse .ts-row .meta{color:#8f8b81}
+  .theme-pulse .ts-newsreader,.theme-pulse .ts-geist,.theme-pulse .ts-geist-mono{color:#EEEBE3}
+  .theme-pulse .type-show .display{color:#EEEBE3;font-family:'Archivo', sans-serif;font-weight:900;font-style:normal;text-transform:uppercase;letter-spacing:-.04em;line-height:.85}
+  .theme-pulse .type-show .display em{color:#FF5B1F;font-style:normal}
+  .theme-pulse .principles b{color:#EEEBE3}
+  /* Pulse screens */
+  .theme-pulse.screens{background:#0D0F14;border-top-color:#000;border-bottom-color:#000}
+  .theme-pulse.screens .section-head h2{color:#EEEBE3}
+  .theme-pulse.screens .screen{background:#06070A;color:#EEEBE3;border-color:#1c2028;border-radius:18px;height:clamp(440px,42vw,580px)}
+  .theme-pulse.screens .screen.light{background:#161821;color:#EEEBE3;border-color:#2a2e3a}
+  .theme-pulse.screens .screen.cream{background:#13151C;color:#EEEBE3;border-color:#2a2e3a}
+  .theme-pulse.screens .screen .btn{background:#FF5B1F;color:#06070A;font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.04em;border-radius:4px}
+  .theme-pulse.screens .screen .btn.ghost{background:transparent;border:1px solid rgba(238,235,227,.4);color:#EEEBE3}
+  .theme-pulse.screens .screen-wrap .label{color:#bdb9af}
+  .theme-pulse.screens .screen .scr-title{font-family:'Archivo', sans-serif;font-weight:900;font-style:normal;text-transform:uppercase;letter-spacing:-.03em;font-size:30px}
+  .theme-pulse.screens .screen .scr-title em{color:#FF5B1F;font-style:normal}
+
+  /* ── direction divider banners ── */
+  .dir-divider{padding:140px 56px;border-top:1px solid #000;border-bottom:1px solid #000;display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:62vh;position:relative}
+  .dir-divider .dd-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .dir-divider .dd-top .num{font-family:'Geist Mono', monospace}
+  .dir-divider .dd-title{font-size:clamp(110px,18vw,260px);line-height:.85;letter-spacing:-.04em;margin:0}
+  .dir-divider .dd-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-top:24px;border-top:1px solid currentColor}
+  .dir-divider .dd-foot .lead{font-size:clamp(20px,2vw,26px);line-height:1.25;max-width:42ch;text-wrap:pretty}
+  .dir-divider .dd-foot .meta{font-family:'Geist Mono', monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-align:right;line-height:1.7;flex-shrink:0}
+
+  /* Telemetry divider */
+  .dd-telemetry{background:#0B0D0F;color:#E6E4DF}
+  .dd-telemetry .dd-top{color:#9a9690}
+  .dd-telemetry .dd-top b{color:#C8FF3D}
+  .dd-telemetry .dd-title{font-family:'Instrument Sans', sans-serif;font-weight:500;color:#F2EFE8}
+  .dd-telemetry .dd-title em{font-family:'Instrument Serif', serif;font-style:italic;color:#C8FF3D;font-weight:400}
+  .dd-telemetry .dd-foot{border-top-color:rgba(255,255,255,.18)}
+  .dd-telemetry .dd-foot .lead{font-family:'Instrument Serif', serif;font-style:italic;font-weight:300;color:#E6E4DF}
+  .dd-telemetry .dd-foot .lead em{color:#C8FF3D}
+  .dd-telemetry .dd-foot .meta{color:#7d8087}
+  .dd-telemetry .dd-foot .meta b{color:#F2EFE8}
+
+  /* Mirror divider */
+  .dd-mirror{background:#F1EBE2;color:#1A1715}
+  .dd-mirror .dd-top{color:var(--muted)}
+  .dd-mirror .dd-top b{color:var(--ember)}
+  .dd-mirror .dd-title{font-family:'Newsreader', serif;font-weight:300;font-style:italic;color:#1A1715;letter-spacing:-.02em}
+  .dd-mirror .dd-title em{font-style:italic;color:var(--ember)}
+  .dd-mirror .dd-foot{border-top-color:#1A1715}
+  .dd-mirror .dd-foot .lead{font-family:'Newsreader', serif;font-style:italic;font-weight:300;color:#231e18}
+  .dd-mirror .dd-foot .lead em{color:var(--ember)}
+  .dd-mirror .dd-foot .meta{color:var(--muted)}
+  .dd-mirror .dd-foot .meta b{color:#1A1715}
+
+  /* Pulse divider */
+  .dd-pulse{background:#06070A;color:#EEEBE3}
+  .dd-pulse .dd-top{color:#8f8b81}
+  .dd-pulse .dd-top b{color:#FF5B1F}
+  .dd-pulse .dd-title{font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.05em;color:#EEEBE3;line-height:.82}
+  .dd-pulse .dd-title em{font-style:normal;color:#FF5B1F}
+  .dd-pulse .dd-foot{border-top-color:rgba(255,255,255,.18)}
+  .dd-pulse .dd-foot .lead{font-family:'Archivo', sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:22px;color:#EEEBE3;line-height:1.05}
+  .dd-pulse .dd-foot .lead em{font-style:normal;color:#FF5B1F}
+  .dd-pulse .dd-foot .meta{color:#8f8b81}
+  .dd-pulse .dd-foot .meta b{color:#EEEBE3}
+
+  @media (max-width:980px){
+    .dir-divider{padding:80px 28px;min-height:auto}
+    .dir-divider .dd-foot{flex-direction:column;align-items:flex-start;gap:18px}
+    .dir-divider .dd-foot .meta{text-align:left}
+  }
+
+  /* selection/scroll polish */
+  ::selection{background:#1A1715;color:#F1EBE2}
+
+  @media (max-width: 980px){
+    .wrap{padding-left:28px;padding-right:28px}
+    .cover{padding:32px 28px}
+    .cover-sub,.brief-grid,.dir-body,.decision-grid{grid-template-columns:1fr;gap:32px}
+    .tensions{grid-template-columns:1fr 1fr}
+    .screen-grid{grid-template-columns:1fr 1fr}
+    .dir-head{grid-template-columns:1fr;gap:18px}
+    .brief-block{grid-template-columns:1fr;gap:14px}
+    .section-head{grid-template-columns:1fr;gap:14px}
+    .palette{grid-template-columns:repeat(3,1fr)}
+  }
+
+  /* ───────── DEEP-DIVE THEME — TELEMETRY ───────── */
+  .theme-tel{background:#0B0D0F;color:#E6E4DF;border-top:1px solid #000;border-bottom:1px solid #000}
+  .theme-tel .section-head h2{color:#F2EFE8;font-family:'Instrument Serif', serif;font-style:italic}
+  .theme-tel .section-head h2 em{color:#C8FF3D}
+  .theme-tel .section-head .idx{color:#7d8087}
+  .theme-tel .brief-block{border-top-color:rgba(255,255,255,.12)}
+  .theme-tel .brief-block:last-child{border-bottom-color:rgba(255,255,255,.12)}
+  .theme-tel .brief-block .lbl{color:#E6E4DF}
+  .theme-tel .brief-block .lbl small{color:#7d8087}
+  .theme-tel .brief-block .body{color:#bdbcb5}
+  .theme-tel .brief-block .body h4{color:#C8FF3D;font-family:'Instrument Serif', serif;font-style:italic;font-weight:400}
+  .theme-tel .brief-block ul li{border-top-color:rgba(255,255,255,.10)}
+  .theme-tel .brief-block ul li::before{background:#C8FF3D}
+  .theme-tel .palette{border-color:rgba(255,255,255,.2)}
+  .theme-tel .principles div{color:#bdbcb5}
+  .theme-tel .principles div b{color:#F2EFE8}
+  .theme-tel .ts-row{border-top-color:rgba(255,255,255,.18)}
+  .theme-tel .ts-row .meta{color:#7d8087}
+  .theme-tel.screens{background:#0F1215;border-color:#000}
+  .theme-tel .screen-wrap .label{color:#cfccc4;opacity:1}
+  .theme-tel .screen{background:#0B0D0F;color:#E6E4DF;border:1px solid #1f2429;border-radius:22px}
+  .theme-tel .screen.signal{background:#0F1215}
+  .theme-tel .screen .scr-title{font-family:'Instrument Sans', sans-serif;font-weight:500;color:#F2EFE8;letter-spacing:-.02em;font-style:normal}
+  .theme-tel .screen .scr-title em{font-family:'Instrument Serif', serif;font-style:italic;color:#C8FF3D;font-weight:400}
+  .theme-tel .screen .btn{background:#C8FF3D;color:#0B0D0F;border-radius:0;font-family:'Instrument Sans', sans-serif;font-weight:600}
+  .theme-tel .screen .btn.ghost{background:transparent;border:1px solid #C8FF3D;color:#C8FF3D}
+
+  /* ───────── DEEP-DIVE THEME — PULSE ───────── */
+  .theme-pul{background:#06070A;color:#EEEBE3;border-top:1px solid #000;border-bottom:1px solid #000}
+  .theme-pul .section-head h2{color:#EEEBE3;font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;font-style:normal;letter-spacing:-.03em;line-height:.92}
+  .theme-pul .section-head h2 em{font-style:normal;color:#FF5B1F}
+  .theme-pul .section-head .idx{color:#8f8b81}
+  .theme-pul .brief-block{border-top-color:rgba(255,255,255,.12)}
+  .theme-pul .brief-block:last-child{border-bottom-color:rgba(255,255,255,.12)}
+  .theme-pul .brief-block .lbl{color:#EEEBE3}
+  .theme-pul .brief-block .lbl small{color:#8f8b81}
+  .theme-pul .brief-block .body{color:#bdb9af}
+  .theme-pul .brief-block .body h4{color:#FF5B1F;font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;font-style:normal;letter-spacing:-.02em;line-height:.92}
+  .theme-pul .brief-block ul li{border-top-color:rgba(255,255,255,.10)}
+  .theme-pul .brief-block ul li::before{background:#FF5B1F;border-radius:0}
+  .theme-pul .palette{border-color:rgba(255,255,255,.2)}
+  .theme-pul .principles div{color:#bdb9af}
+  .theme-pul .principles div b{color:#EEEBE3}
+  .theme-pul .ts-row{border-top-color:rgba(255,255,255,.18)}
+  .theme-pul .ts-row .meta{color:#8f8b81}
+  .theme-pul.screens{background:#0D0F14;border-color:#000}
+  .theme-pul .screen-wrap .label{color:#bdb9af;opacity:1}
+  .theme-pul .screen{background:#06070A;color:#EEEBE3;border:1px solid #1c2028;border-radius:22px}
+  .theme-pul .screen.steel{background:#0D0F14}
+  .theme-pul .screen .scr-title{font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;color:#EEEBE3;font-style:normal;line-height:.86}
+  .theme-pul .screen .scr-title em{font-style:normal;color:#FF5B1F}
+  .theme-pul .screen .btn{background:#FF5B1F;color:#06070A;border-radius:0;font-family:'Archivo', sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.04em;font-size:11px}
+  .theme-pul .screen .btn.ghost{background:transparent;border:1px solid #EEEBE3;color:#EEEBE3}
+</style>
+
+<style id="mobile-fallback">
+/* Leitura no celular: sem rolagem lateral da página; tabelas rolam dentro do próprio bloco */
+@media (max-width: 720px) {
+  html, body { overflow-x: clip; }
+  body { overflow-wrap: anywhere; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+  pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; }
+  [class*="grid"]:not([class*="ticker"]) { grid-template-columns: minmax(0, 1fr) !important; }
+  [class*="card"] { max-width: 100%; min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────── COVER ────────────────────────── -->
+<header class="cover" data-screen-label="00 Capa">
+  <div class="cover-top">
+    <div class="mark">NutriHero · Estúdio de Marca</div>
+    <div class="doc-meta">
+      <div>Documento · <b>BR-001</b></div>
+      <div>Etapa · <b>Conjunto de Direções</b></div>
+      <div>Emitido · <b>19 mai 2026</b></div>
+      <div>Para · <b>Fundadores / Design</b></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="eyebrow muted" style="margin-bottom:18px">Direção de Marca · Três opções com o mesmo peso</div>
+    <h1 class="cover-title">Seu nutricionista<br/><em>de bolso,</em><br/>renderizado.</h1>
+  </div>
+
+  <div class="cover-sub">
+    <p class="cover-statement">
+      Um briefing operacional para a marca visual da NutriHero — um app de IA para recomposição corporal que transforma dados do corpo em um plano alimentar e o recalibra na vida real. Por dentro: três direções opinativas, cada uma desenvolvida na mesma profundidade — brief completo e telas aplicadas — para que os fundadores escolham em pé de igualdade.
+    </p>
+    <div class="cover-list">
+      <div class="item"><span>Direção 01</span><b>Telemetria</b></div>
+      <div class="item"><span>Direção 02</span><b>Espelho</b></div>
+      <div class="item"><span>Direção 03</span><b>Pulso</b></div>
+      <div class="item"><span>Decisão</span><b>Dos fundadores</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- ────────────────────────── THE BRIEF ────────────────────────── -->
+<section class="wrap" data-screen-label="01 O Briefing">
+  <div class="section-head">
+    <div class="idx">01 · O Briefing</div>
+    <h2>Um app de dieta que se adapta à <em>vida real</em> — e que parece saber exatamente o que está fazendo.</h2>
+  </div>
+
+  <div class="brief-grid">
+    <div>
+      <p><b>O produto, em uma frase.</b> A NutriHero substitui a matemática calórica baseada em IMC por um planejamento ciente da composição corporal. O plano não é um PDF fixo — ele recalibra diariamente a partir das refeições registradas, escapadas de fim de semana, álcool, cafés da manhã pulados, comilança noturna e padrões semanais. Uma foto do "eu do futuro" projeta como você ficará em 1, 2, 6 e 12 meses.</p>
+      <p><b>Audiência.</b> Pessoas que se importam com físico. Letradas em academia, próximas de suplementos, expostas a influenciadores, dispostas a pagar. Céticas com linguagem suave de wellness e cansadas de UIs de bro‑contador‑de‑calorias.</p>
+    </div>
+    <div>
+      <p><b>O trabalho da marca.</b> Conquistar conversão paga já no primeiro onboarding parecendo precisa, confiável e aspiracional ao mesmo tempo. Parecer nativa no feed de um influenciador de fisiculturismo sem virar marca de loja de suplemento.</p>
+      <p><b>Lista de proibições.</b> Gradientes roxos. Roboto / Inter / Space Grotesk. Verde‑wellness padrão. Pastéis de app de meditação. Clones da paleta do Apple Health. Neon de academia. Agressão preto/vermelho de suplemento. Gamificação caricata. Cromados de hospital. Qualquer coisa parecida com MyFitnessPal.</p>
+    </div>
+  </div>
+
+  <div class="tensions">
+    <div class="tension">
+      <span class="n">01</span>
+      <h4>Precisão científica</h4>
+      <p>% de gordura corporal, zonas calóricas, recalibração adaptativa. Os números precisam parecer autorais, não gerados.</p>
+    </div>
+    <div class="tension">
+      <span class="n">02</span>
+      <h4>Indulgência cotidiana</h4>
+      <p>Refeições puladas, fins de semana, vinho. A marca precisa falar com o deslize, não puni‑lo.</p>
+    </div>
+    <div class="tension">
+      <span class="n">03</span>
+      <h4>Transformação visual</h4>
+      <p>A foto do "eu do futuro" é o gancho de conversão. A marca precisa enquadrar um corpo sem objetificá‑lo.</p>
+    </div>
+    <div class="tension">
+      <span class="n">04</span>
+      <h4>Energia nativa de fitness</h4>
+      <p>Nativa da cultura de academia; elevada o bastante para ser lida como tech de consumo séria, não como bro‑science.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── DIRECTION 01 — TELEMETRY ────────────────────────── -->
+<section class="direction d01" data-screen-label="02 Direção 01 — Telemetria">
+  <div class="wrap">
+    <div class="dir-head">
+      <div class="idx">Direção · 01 / 03</div>
+      <h1 class="title-name">Telemetria</h1>
+      <p class="one-liner">O corpo como um <em>instrumento</em>. Uma leitura de precisão para atletas que querem que os números pareçam autorais.</p>
+    </div>
+
+    <div class="dir-body">
+      <div class="dir-col">
+        <div class="field"><div class="lbl">Conceito central</div><div class="val">Um cockpit, não uma clínica. Cada tela é uma leitura calibrada — manômetros, linhas de horizonte, traços de sinal — construída em torno da metáfora do corpo como instrumento de precisão. A ação de "recalcular" é um re‑zeramento do manômetro, não uma animação feliz. Planos parecem planos de voo.</div></div>
+        <div class="field"><div class="lbl">Por que serve</div><div class="val">% de gordura, balanço calórico e recalibração adaptativa são funcionalidades de <b>medição</b>. Telemetria vende essa história sem apelar para clichês de jaleco. Também transforma o "preciso" da promessa no sinal mais alto — contrabalanceando a associação suave de wellness que usuários têm com apps de dieta.</div></div>
+        <div class="field"><div class="lbl">Personalidade</div><div class="val">Silenciosa, exata, levemente cinematográfica. A sensação de uma ferramenta pro — Leica, Teenage Engineering, um calibre Patek — não de um app de consumo.</div></div>
+        <div class="field"><div class="lbl">Sistema de cor</div><div class="val"><b>Tinta #0B0D0F</b> profunda como página. <b>Osso #F2EFE8</b> para texto e fios. Um único acento de sinal — <b>lima elétrico #C8FF3D</b> — reservado exclusivamente para dados ao vivo e recalibração. Secundário opcional: ciano frio para estados diagnósticos. Sem gradientes. A paleta funciona porque o sinal parece precioso quando é escasso.</div></div>
+        <div class="field"><div class="lbl">Tipografia</div><div class="val"><b>Instrument Sans</b> para títulos (geométrica, mecânica), <b>Instrument Serif itálica</b> para momentos editoriais (humanidade no cromado), <b>JetBrains Mono</b> tabular para cada número. O itálico serifado é o único gesto emocional.</div></div>
+        <div class="field"><div class="lbl">Composição de UI</div><div class="val">Fios capilares, tabelas de dados densas, manômetros estilo dial, gráficos com linha de horizonte, estados modais de "zeramento" para recálculo. Módulos de foto usam tons de cinza + overlay lima para ler como análise, não selfie. CTAs quadrados com um único fio. Navegação é uma trilha inferior de rótulos monoespaçados.</div></div>
+        <div class="field"><div class="lbl">Movimento</div><div class="val">Agulhas buscam e estabilizam (passam do alvo, amortecem). Números avançam em cadência monoespaçada. Recalibração mostra uma varredura sobre o manômetro antes de resolver. A projeção de foto transmuta como um slider de tempo calibrado, não como dissolve mágico.</div></div>
+        <div class="field"><div class="lbl">Motivo assinatura</div><div class="val">O <b>Horizonte Calórico</b> — uma única linha horizontal que curva, mergulha e renivela à medida que você registra refeições ao longo do dia. Substitui o gráfico de rosca.</div></div>
+        <div class="field"><div class="lbl">Riscos</div><div class="val">Lê como <b>fria ou masculinizada</b> se o itálico editorial for retirado. Sem calor, desliza para um terminal Bloomberg fingindo ser um app de dieta. Audiências majoritariamente femininas podem evadir.</div></div>
+        <div class="field"><div class="lbl">Brilha em</div><div class="val">
+          <div class="chiprow" style="margin-top:6px">
+            <span class="chip">Onboarding</span><span class="chip">Captura corporal</span><span class="chip">Recalibração</span><span class="chip">Revisão semanal</span>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="dir-col">
+        <div class="swatch-row">
+          <div class="sw" style="background:#0B0D0F"><span class="code">#0B0D0F · TINTA</span></div>
+          <div class="sw" style="background:#1A1F23"><span class="code">#1A1F23 · CARBONO</span></div>
+          <div class="sw" style="background:#C8FF3D"><span class="code" style="color:#0B0D0F;mix-blend-mode:normal">#C8FF3D · SINAL</span></div>
+          <div class="sw light" style="background:#F2EFE8"><span class="code">#F2EFE8 · OSSO</span></div>
+          <div class="sw" style="background:#6FB3FF"><span class="code" style="color:#0B0D0F;mix-blend-mode:normal">#6FB3FF · DIAG</span></div>
+        </div>
+
+        <div class="type-spec">
+          <div class="pair">
+            <span class="meta">Display · Instrument Sans 500</span>
+            <span style="font-family:'Instrument Sans', sans-serif;font-weight:500;font-size:42px;letter-spacing:-.02em;line-height:.95">Plano recalibrado · 14:02</span>
+          </div>
+          <div class="pair">
+            <span class="meta">Editorial · Instrument Serif itálica</span>
+            <span style="font-family:'Instrument Serif', serif;font-style:italic;font-size:30px;line-height:1;color:#C8FF3D">uma correção pequena e exata.</span>
+          </div>
+          <div class="pair">
+            <span class="meta">Numerais · JetBrains Mono 500</span>
+            <span style="font-family:'JetBrains Mono', monospace;font-size:22px;color:#cfccc4">2,184 kcal · P 168 · C 211 · F 64</span>
+          </div>
+        </div>
+
+        <div class="viz">
+          <div class="vizpanel">
+            <div class="vizhead"><span>Horizonte Calórico</span><span>· AO VIVO</span></div>
+            <div class="horizon">
+              <svg viewBox="0 0 400 140" preserveAspectRatio="none">
+                <path d="M0,90 C 40,60 70,100 110,75 S 180,40 220,80 S 300,120 360,60 L 400,55" fill="none" stroke="#C8FF3D" stroke-width="1.5"/>
+                <path d="M0,70 L 400,70" stroke="#C8FF3D" stroke-width=".5" stroke-dasharray="2 4" opacity=".5"/>
+                <circle cx="220" cy="80" r="3.5" fill="#C8FF3D"/>
+              </svg>
+            </div>
+            <div class="telem-stack">
+              <div class="telem-row"><span>AGORA</span><b>−312 kcal</b></div>
+              <div class="telem-row"><span>ALVO</span><b>0 ± 80</b></div>
+              <div class="telem-row"><span>ETA RENIVELAR</span><b>21:40</b></div>
+            </div>
+          </div>
+          <div class="vizpanel">
+            <div class="vizhead"><span>Composição Corporal</span><span>· REV 14</span></div>
+            <div class="gauge">
+              <svg viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="84" fill="none" stroke="#1f2429" stroke-width="14"/>
+                <circle cx="100" cy="100" r="84" fill="none" stroke="#C8FF3D" stroke-width="14" stroke-dasharray="320 528" stroke-dashoffset="0" transform="rotate(-90 100 100)" stroke-linecap="butt"/>
+                <text x="100" y="92" text-anchor="middle" font-family="Instrument Sans" font-size="36" fill="#F2EFE8">18.4</text>
+                <text x="100" y="116" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7d8087" letter-spacing="2">% GORDURA</text>
+              </svg>
+            </div>
+            <div class="telem-stack">
+              <div class="telem-row"><span>MASSA MAGRA</span><b>64,2 kg</b></div>
+              <div class="telem-row"><span>MASSA GORDA</span><b>14,4 kg</b></div>
+              <div class="telem-row"><span>Δ 30d</span><b>−1,1 kg / +0,4 MM</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vizpanel" style="aspect-ratio:auto;min-height:120px">
+          <div class="vizhead"><span>Motivo · O Horizonte Calórico</span><span>—</span></div>
+          <p style="font-family:'Instrument Serif', serif;font-style:italic;font-size:22px;line-height:1.25;color:#E6E4DF">"Uma linha, o dia todo. Ela curva quando você come, mergulha quando você pula, e você passa a noite trazendo‑a de volta ao nível."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── DIRECTION 02 — MIRROR ────────────────────────── -->
+<section class="direction d02" data-screen-label="03 Direção 02 — Espelho">
+  <div class="wrap">
+    <div class="dir-head">
+      <div class="idx">Direção · 02 / 03</div>
+      <h1 class="title-name">Espelho<span>.</span></h1>
+      <p class="one-liner">Um <em>estúdio de retrato</em> para o seu corpo futuro. Editorial, fotográfico, pronto para o paywall.</p>
+    </div>
+
+    <div class="dir-body">
+      <div class="dir-col">
+        <div class="field"><div class="lbl">Conceito central</div><div class="val">Tratar o app como um estúdio editorial de retrato. O corpo é o assunto; o dado é a legenda. A projeção do "eu do futuro" não é uma feature enterrada na semana dois — é a imagem de capa da marca. Recomposição vira uma história de <b>antes, hoje e a versão de você que o plano está compondo</b>.</div></div>
+        <div class="field"><div class="lbl">Por que serve</div><div class="val">A mecânica mais emocional e comercial da NutriHero é a projeção em foto. Espelho a centraliza. Design fotografia‑primeiro também lê nativo em feeds de influencer sem copiar estéticas de academia, e o registro editorial sinaliza "premium" no paywall sem dizer "premium".</div></div>
+        <div class="field"><div class="lbl">Personalidade</div><div class="val">Aspiracional sem ser falsa. Quente, levemente cinematográfica, editorial de revista. Confiante mas não barulhenta. Mais próxima de uma casa de moda / perfumaria do que de uma marca de fitness.</div></div>
+        <div class="field"><div class="lbl">Sistema de cor</div><div class="val"><b>Osso #F1EBE2</b> como página (quente, papel). <b>Tinta #1A1715</b> para texto. <b>Bronze oxidado #8C5A2B</b> para momentos pensados (selos, preenchimentos de anel). <b>Brasa #E4572E</b> como cor de ação — usada <b>somente</b> no botão recalibrar, no quadro do "eu do futuro" e em deltas ao vivo. A paleta é quente mas limpa — lê premium porque o branco não é branco.</div></div>
+        <div class="field"><div class="lbl">Tipografia</div><div class="val"><b>Newsreader itálica</b> como voz display (humana, literária, voltada ao corpo), <b>Geist</b> como sans burra‑de‑carga, <b>Geist Mono</b> tabular para numerais. O itálico carrega o peso emocional; o sans faz o trabalho diário.</div></div>
+        <div class="field"><div class="lbl">Composição de UI</div><div class="val">Margens generosas, fotografia em página cheia, fios capilares, grandes pull‑quotes editoriais dentro de telas utilitárias. Cartões com cantos retos e moldura em fio capilar. Gráficos são silenciosos — pequenos arrays de barras e medidores em anel, nunca rosca + emoji. A captura de foto tem o cenário de uma cabine de passaporte.</div></div>
+        <div class="field"><div class="lbl">Movimento</div><div class="val">Imagens fazem crossfade como um projetor de slides. O quadro do "eu do futuro" respira — zoom lento de ±1% em repouso. A recalibração usa revelação tipográfica (a linha em itálico é digitada, depois o plano resolve). Deltas sobem em monoespaçada tabular.</div></div>
+        <div class="field"><div class="lbl">Motivo assinatura</div><div class="val">O <b>Quadro do Eu do Futuro</b> — um quadro retrato alto, em fio capilar, com borda tracejada em brasa e um carimbo de data. Aparece na splash, no paywall, na home diária e na revisão semanal. Vira a "silhueta da Apple" da marca.</div></div>
+        <div class="field"><div class="lbl">Riscos</div><div class="val">Lê como <b>app de moda</b> se a fotografia for fraca. Se usuários não tirarem foto do corpo, a assinatura inteira colapsa. Exige um guia rígido de direção de arte e uma voz editorial de copy que o time precisa sustentar.</div></div>
+        <div class="field"><div class="lbl">Brilha em</div><div class="val">
+          <div class="chiprow" style="margin-top:6px;color:var(--ink)">
+            <span class="chip">Splash</span><span class="chip">Paywall</span><span class="chip">Captura de foto</span><span class="chip">Preview do eu futuro</span><span class="chip">Revisão semanal</span>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="dir-col">
+        <div class="swatch-row">
+          <div class="sw light" style="background:#F1EBE2"><span class="code">#F1EBE2 · OSSO</span></div>
+          <div class="sw light" style="background:#E6DDCB"><span class="code">#E6DDCB · LINHO</span></div>
+          <div class="sw" style="background:#8C5A2B"><span class="code">#8C5A2B · BRONZE</span></div>
+          <div class="sw" style="background:#E4572E"><span class="code">#E4572E · BRASA</span></div>
+          <div class="sw" style="background:#1A1715"><span class="code">#1A1715 · TINTA</span></div>
+        </div>
+
+        <div class="type-spec">
+          <div class="pair">
+            <span class="meta">Display · Newsreader itálica 300</span>
+            <span style="font-family:'Newsreader', serif;font-weight:300;font-style:italic;font-size:54px;line-height:.95;letter-spacing:-.01em">um você mais magro,<br/><em style="color:var(--ember)">em doze semanas.</em></span>
+          </div>
+          <div class="pair">
+            <span class="meta">Burra de carga · Geist 500</span>
+            <span style="font-family:'Geist', sans-serif;font-weight:500;font-size:20px">Recalibrar jantar · faltam 612 kcal</span>
+          </div>
+          <div class="pair">
+            <span class="meta">Numerais · Geist Mono 500</span>
+            <span style="font-family:'Geist Mono', monospace;font-size:18px">2,184 · 168P · 211C · 64F</span>
+          </div>
+        </div>
+
+        <div class="viz">
+          <div class="vizpanel" style="background:#FAF4EA">
+            <div class="vizhead" style="color:#1A1715"><span>Quadro do Eu do Futuro</span><span>· 12 sem</span></div>
+            <div class="portal"><div class="frame"></div></div>
+          </div>
+          <div class="vizpanel" style="background:#FAF4EA">
+            <div class="vizhead" style="color:#1A1715"><span>Prato de hoje</span><span>· REV 4</span></div>
+            <div class="dial">
+              <div class="d" data-l="P"></div>
+              <div class="d" data-l="C"></div>
+              <div class="d" data-l="F"></div>
+              <div class="d" data-l="kc"></div>
+            </div>
+            <div style="font-family:'Newsreader', serif;font-style:italic;font-size:18px;color:#1A1715;border-top:1px solid #1A1715;padding-top:10px">"Você pulou o café da manhã. <em style="color:var(--ember)">O jantar fica maior.</em>"</div>
+          </div>
+        </div>
+
+        <div class="vizpanel" style="background:#FAF4EA;aspect-ratio:auto;min-height:120px">
+          <div class="vizhead" style="color:#1A1715"><span>Motivo · O Quadro do Eu do Futuro</span><span>—</span></div>
+          <p style="font-family:'Newsreader', serif;font-style:italic;font-size:22px;line-height:1.25;color:#1A1715">"Um retrato em fio capilar, datado. O mesmo quadro aparece na splash, no paywall e em cada revisão de domingo. Na semana quatro, o quadro é a marca."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── DIRECTION 03 — PULSE ────────────────────────── -->
+<section class="direction d03" data-screen-label="04 Direção 03 — Pulso">
+  <div class="wrap">
+    <div class="dir-head">
+      <div class="idx">Direção · 03 / 03</div>
+      <h1 class="title-name">Pulso<em>.</em></h1>
+      <p class="one-liner">A recalibração como um sinal ao vivo. Tipo alto, ticker rápido, energia nativa de academia — sem virar neon.</p>
+    </div>
+
+    <div class="dir-body">
+      <div class="dir-col">
+        <div class="field"><div class="lbl">Conceito central</div><div class="val">A marca é um <b>ticker ao vivo</b>. A mecânica de recalibração é a coisa mais cinética do produto, então torne‑a visível em todo lugar: uma marquise fina de deltas rolando, um batimento sob o total diário, uma sirene tipográfica quando o plano se move. O app parece assistir a uma corrida, não preencher uma planilha.</div></div>
+        <div class="field"><div class="lbl">Por que serve</div><div class="val">Captura as partes "adaptativa" e "nativa‑fitness" da promessa. Lê em um feed de Reels em 0,6 segundo. O registro cinético deixa a marca parecer sport‑premium (pense em telemetria de corrida, On Running) em vez de loja de suplemento.</div></div>
+        <div class="field"><div class="lbl">Personalidade</div><div class="val">Direta, cinética, levemente desafiadora. Feita para o malhador que detesta ser sermoneado. A voz editorial itálica do Espelho é substituída por uma voz display condensada e enorme.</div></div>
+        <div class="field"><div class="lbl">Sistema de cor</div><div class="val"><b>Vazio #06070A</b> como página. <b>Giz #EEEBE3</b> para texto. <b>Arco laranja #FF5B1F</b> como sinal primário (deltas, recalibração, CTAs). <b>Atenção amarelo #F7D74C</b> como único estado de aviso — álcool, fissuras noturnas, escapadas de fim de semana. Sem verde. Sem brilho neon.</div></div>
+        <div class="field"><div class="lbl">Tipografia</div><div class="val"><b>Archivo Black 900</b> para display (geométrica, esporte, próxima de condensada), <b>Archivo Narrow</b> para tickers e rótulos, <b>JetBrains Mono</b> para numerais. O tamanho do tipo faz o trabalho emocional — não há voz itálica aqui.</div></div>
+        <div class="field"><div class="lbl">Composição de UI</div><div class="val">Tipografia de borda a borda. Números de 96–140pt na tela inicial. Tickers no topo de toda tela utilitária. Módulos de foto são duros: P&B de alto contraste com um fio laranja. Botões são largura total com sublinhado cinético que anima ao toque.</div></div>
+        <div class="field"><div class="lbl">Movimento</div><div class="val">Tipo conta para cima. Tickers rolam continuamente. A recalibração toca um pulso de "armar" de 600ms antes do novo plano entrar batendo. A projeção de foto transmuta como corte duro + flash de 1 frame.</div></div>
+        <div class="field"><div class="lbl">Motivo assinatura</div><div class="val">O <b>Pulso de Recalibração</b> — uma linha laranja fina que vive sob o número de kcal diário e bate visivelmente mais rápido quando o usuário sai do plano. Vira som também.</div></div>
+        <div class="field"><div class="lbl">Riscos</div><div class="val">Fácil escorregar para <b>agressão de loja de suplemento</b> se o laranja for sobreutilizado ou o tipo ficar mais durão. O onboarding pode intimidar; mulheres / usuários mais velhos podem não se ver. Difícil de amaciar nas mensagens de "indulgência".</div></div>
+        <div class="field"><div class="lbl">Brilha em</div><div class="val">
+          <div class="chiprow" style="margin-top:6px">
+            <span class="chip">Dashboard inicial</span><span class="chip">Recalibração</span><span class="chip">Log diário</span><span class="chip">Comunidade</span><span class="chip">Marketing</span>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="dir-col">
+        <div class="swatch-row">
+          <div class="sw" style="background:#06070A"><span class="code">#06070A · VAZIO</span></div>
+          <div class="sw" style="background:#13151C"><span class="code">#13151C · AÇO</span></div>
+          <div class="sw" style="background:#FF5B1F"><span class="code">#FF5B1F · ARCO</span></div>
+          <div class="sw" style="background:#F7D74C"><span class="code" style="color:#06070A;mix-blend-mode:normal">#F7D74C · ATENÇÃO</span></div>
+          <div class="sw light" style="background:#EEEBE3"><span class="code">#EEEBE3 · GIZ</span></div>
+        </div>
+
+        <div class="type-spec">
+          <div class="pair">
+            <span class="meta">Display · Archivo Black 900</span>
+            <span style="font-family:'Archivo', sans-serif;font-weight:900;font-size:64px;letter-spacing:-.04em;text-transform:uppercase;line-height:.85;color:#EEEBE3">Plano <em style="font-style:normal;color:#FF5B1F">mudou.</em></span>
+          </div>
+          <div class="pair">
+            <span class="meta">Ticker · Archivo Narrow 500</span>
+            <span style="font-family:'Archivo Narrow', sans-serif;font-weight:500;font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:#F7D74C">·  jantar tarde  ·  −180kcal  ·  +14g P  ·  re‑nivelar 21:40  ·</span>
+          </div>
+          <div class="pair">
+            <span class="meta">Numerais · JetBrains Mono 500</span>
+            <span style="font-family:'JetBrains Mono', monospace;font-size:18px;color:#bdb9af">2,184 / 2,496 kcal · 88%</span>
+          </div>
+        </div>
+
+        <div class="viz">
+          <div class="vizpanel" style="background:#0D0F14;border-color:#1c2028">
+            <div class="vizhead" style="color:#bdb9af"><span>Pulso de Recalibração</span><span>· AO VIVO</span></div>
+            <div class="big-stat"><em>−312</em>kcal</div>
+            <div class="ticker">
+              <div class="ticker-track">
+                <span>RENIVELAR · 21:40</span>
+                <span>+14g PROTEÍNA</span>
+                <span>PULAR LANCHE TARDE</span>
+                <span>VINHO REGISTRADO · 1u</span>
+                <span>RENIVELAR · 21:40</span>
+                <span>+14g PROTEÍNA</span>
+                <span>PULAR LANCHE TARDE</span>
+                <span>VINHO REGISTRADO · 1u</span>
+              </div>
+            </div>
+            <div class="small-stat"><span>AGORA</span><span>21:04</span></div>
+          </div>
+          <div class="vizpanel" style="background:#0D0F14;border-color:#1c2028">
+            <div class="vizhead" style="color:#bdb9af"><span>Medidor de Arco</span><span>· DIA 14</span></div>
+            <div class="arc">
+              <svg viewBox="0 0 200 200">
+                <path d="M30,160 A 80,80 0 1,1 170,160" fill="none" stroke="#1c2028" stroke-width="14" stroke-linecap="round"/>
+                <path d="M30,160 A 80,80 0 1,1 158,118" fill="none" stroke="#FF5B1F" stroke-width="14" stroke-linecap="round"/>
+                <text x="100" y="110" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="46" fill="#EEEBE3">88</text>
+                <text x="100" y="138" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8f8b81" letter-spacing="2">% DA META</text>
+              </svg>
+            </div>
+            <div class="small-stat"><span>SEQUÊNCIA</span><span>14 D</span></div>
+          </div>
+        </div>
+
+        <div class="vizpanel" style="background:#0D0F14;border-color:#1c2028;aspect-ratio:auto;min-height:120px">
+          <div class="vizhead" style="color:#bdb9af"><span>Motivo · O Pulso de Recalibração</span><span>—</span></div>
+          <p style="font-family:'Archivo', sans-serif;font-weight:600;font-size:22px;line-height:1.25;color:#EEEBE3;text-transform:uppercase;letter-spacing:-.01em">"Uma linha laranja fina sob o número diário. Lenta quando você está no plano. Mais rápida quando não está. No segundo mês, o usuário sente."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── COMPARISON ────────────────────────── -->
+<section class="wrap compare" data-screen-label="05 Comparação">
+  <div class="section-head">
+    <div class="idx">04 · Lado a Lado</div>
+    <h2>Onde cada direção é <em>mais forte</em>, sem rodeios.</h2>
+  </div>
+
+  <p style="max-width:60ch;margin-bottom:36px;color:#3a342c;font-size:15.5px;line-height:1.55;text-wrap:pretty">Uma leitura neutra em sete critérios que importam especificamente para a NutriHero. As notas são observações, não um veredito — cada direção ganha a nota máxima em algo que as outras não conseguem.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Critério</th>
+        <th>Telemetria</th>
+        <th>Espelho</th>
+        <th>Pulso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Conversão no onboarding</td>
+        <td><span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Lê como séria; falta puxão emocional.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">O quadro do eu do futuro é o motor de conversão.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Alta e direta; arrisca intimidar quem não treina.</div></td>
+      </tr>
+      <tr>
+        <td>Confiança em dados corporais / nutricionais</td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">A estética de medição vence por padrão.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">O registro editorial lê premium e crível.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">A energia pode passar como vibe acima de rigor.</div></td>
+      </tr>
+      <tr>
+        <td>Diferenciação de apps de dieta</td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Visual de laboratório é novidade aqui, mas existe em finanças.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Nenhum app de dieta mainstream se parece com isso.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Distinta, mas adjacente a marcas de academia/esporte.</div></td>
+      </tr>
+      <tr>
+        <td>Apoia a feature de foto do corpo futuro</td>
+        <td><span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Trata o corpo como dado, não como retrato.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Construída em torno disso. O motivo É a feature.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Foto como asset cru; menos reverente.</div></td>
+      </tr>
+      <tr>
+        <td>Utilidade diária sem fadiga</td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Cromado calmo; denso, mas legível.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Cromado editorial aguenta em escala.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Risco de fadiga de alta energia ao longo de meses.</div></td>
+      </tr>
+      <tr>
+        <td>Combina com aquisição via influencer</td>
+        <td><span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Bonita, mas discreta num Reel.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Uma marca fotografia‑primeiro JÁ É nativa de feed.</div></td>
+        <td><span class="score"><i></i><i></i><i></i><i></i><i></i></span><div style="margin-top:6px;color:var(--muted);font-size:12.5px">Engenhada para o feed.</div></td>
+      </tr>
+      <tr>
+        <td><b>Total</b></td>
+        <td><b>20 / 30</b></td>
+        <td><b>27 / 30</b></td>
+        <td><b>22 / 30</b></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ────────────────────────── DIRECTION DIVIDER · TELEMETRY ────────────────────────── -->
+<section class="dir-divider dd-telemetry" data-screen-label="05a Telemetria — Abertura">
+  <div class="dd-top">
+    <span>Direção <b>01 / 03</b> · A direção completa começa abaixo</span>
+    <span class="num">BR‑001 · §05–06</span>
+  </div>
+  <h2 class="dd-title">Tele<em>metria.</em></h2>
+  <div class="dd-foot">
+    <p class="lead">O corpo como um <em>instrumento.</em> Brief, paleta, sistema tipográfico e oito telas aplicadas — no registro próprio de Telemetria.</p>
+    <div class="meta">Superfície · <b>Tinta #0B0D0F</b><br/>Sinal · <b>Lima #C8FF3D</b><br/>Display · <b>Instrument Sans</b></div>
+  </div>
+</section>
+
+<!-- ────────────────────────── FINAL BRIEF · TELEMETRY ────────────────────────── -->
+<section class="brief-detail theme-telemetry" data-screen-label="05 Telemetria — Brief">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="idx">05 · Telemetria — Direção completa</div>
+      <h2>O corpo como <em>instrumento,</em> de uma só leitura.</h2>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Nome da direção<small>Registro de marca de trabalho</small></div>
+      <div class="body">
+        <h4>Telemetria</h4>
+        <p>Uma leitura de precisão para recomposição corporal. O celular é um instrumento calibrado; o usuário é um atleta checando seus manômetros. Números são autorais, não gerados; o sinal é escasso; tudo silencioso, exceto o dado ao vivo.</p>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Ideia de marca em uma linha</div>
+      <div class="body">
+        <h4 style="font-size:34px;line-height:1.05">"Uma correção pequena e exata — em cada refeição do resto da sua vida."</h4>
+        <p>Forma curta interna: <i>O plano, em instrumentos.</i></p>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Personalidade<small>Seis adjetivos que estamos dispostos a defender</small></div>
+      <div class="body">
+        <div class="principles">
+          <div><b>Exata.</b> Numerais tabulares, linguagem calibrada.</div>
+          <div><b>Cinematográfica.</b> Cromado silencioso, sinal dramático.</div>
+          <div><b>Composta.</b> Nunca ansiosa. Nunca barulhenta.</div>
+          <div><b>Engenharia.</b> Lê como ferramenta feita por atletas, não por marketing de lifestyle.</div>
+          <div><b>Indulgente (no copy).</b> O serifado itálico é onde mora o calor.</div>
+          <div><b>Pro‑grade.</b> Mais próximo de um calibre Patek do que de um app de wellness.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Princípios visuais<small>Segure essas linhas</small></div>
+      <div class="body">
+        <ul>
+          <li><b>O sinal é sagrado.</b> Lima <code>#C8FF3D</code> aparece apenas em dados ao vivo, na ação de recalibrar e na agulha ativa do manômetro. Nunca no cromado.</li>
+          <li><b>Instrumentos, não cards.</b> Toda unidade de dado é um instrumento com moldura em fio capilar e número de série no canto superior direito (REV 14, RIG 02), não um cartão arredondado com sombra.</li>
+          <li><b>Os números são a manchete.</b> Numerais são 1,4× o tamanho de qualquer rótulo que os descreve. Só Mono tabular.</li>
+          <li><b>Fios capilares e tracejados.</b> Sem preenchimentos sólidos. Tracejado lima é para alvo / projeção; lima sólido é para dado ao vivo.</li>
+          <li><b>Fotografia é análise.</b> Toda foto de corpo é convertida em tons de cinza + um único overlay lima (grade, contorno). Selfies não são permitidas; quadros de análise sim.</li>
+          <li><b>Itálico serifado é a única voz emocional.</b> Reserve Instrument Serif itálica para momentos que pedem calor — abertura do onboarding, revisão semanal, copy de "você pulou o café da manhã".</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Paleta de cores<small>Papéis, não valores</small></div>
+      <div class="body">
+        <div class="palette">
+          <div class="pal dark" style="background:#0B0D0F"><span class="role">Superfície · Página</span><div class="meta"><span class="name">Tinta</span><span class="hex">#0B0D0F</span></div></div>
+          <div class="pal dark" style="background:#1A1F23"><span class="role">Superfície · Nível 2</span><div class="meta"><span class="name">Carbono</span><span class="hex">#1A1F23</span></div></div>
+          <div class="pal" style="background:#F2EFE8"><span class="role">Texto · Padrão</span><div class="meta"><span class="name">Osso</span><span class="hex">#F2EFE8</span></div></div>
+          <div class="pal" style="background:#C8FF3D"><span class="role">Sinal · Ao vivo</span><div class="meta"><span class="name">Sinal</span><span class="hex">#C8FF3D</span></div></div>
+          <div class="pal dark" style="background:#6FB3FF"><span class="role">Diagnóstico</span><div class="meta"><span class="name">Ciano</span><span class="hex">#6FB3FF</span></div></div>
+          <div class="pal dark" style="background:#6E7178"><span class="role">Apagado · Cromado</span><div class="meta"><span class="name">Cinza</span><span class="hex">#6E7178</span></div></div>
+        </div>
+        <p style="margin-top:14px"><b>Regras.</b> O lima de sinal aparece em no máximo dois elementos por tela. O ciano diagnóstico só em modos de calibração / medição (escaneamento corporal, captura de foto). A página nunca clareia além de Carbono — Telemetria não tem tema claro. Osso é só para texto.</p>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Tipografia<small>Três vozes, não mais</small></div>
+      <div class="body">
+        <div class="type-show">
+          <div class="display">2.184 <em>kcal</em><br/>168 P · 211 C · 64 G<br/><em>uma correção pequena e exata.</em></div>
+          <div class="type-specs">
+            <div class="ts-row"><span class="meta">Display</span><span class="ts-newsreader" style="font-family:'Instrument Sans', sans-serif;font-style:normal;font-weight:500">Instrument Sans · 500 / 600</span></div>
+            <div class="ts-row"><span class="meta">Editorial</span><span class="ts-newsreader" style="font-family:'Instrument Serif', serif">Instrument Serif Itálica</span></div>
+            <div class="ts-row"><span class="meta">Numerais</span><span class="ts-geist-mono">JetBrains Mono · 500 (tabular)</span></div>
+            <div class="ts-row"><span class="meta">Regras</span><span style="font-size:13px;color:#7d8087">Sans para cromado. Serifada itálica para calor. Mono para cada dígito. Nunca componha números no sans.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Princípios do sistema de UI</div>
+      <div class="body">
+        <ul>
+          <li><b>Grade de instrumento.</b> Grade mobile de 8 colunas com calhas internas justas. A página sangra até a borda; os instrumentos não.</li>
+          <li><b>Horizonte Calórico é a home.</b> Uma linha horizontal, o dia todo. Substitui a rosca. Curva quando o usuário come, mergulha quando pula, renivela à noite.</li>
+          <li><b>Manômetros, não anéis.</b> Composição corporal é um dial com agulha, não um anel de porcentagem. % de gordura fica num arco calibrado.</li>
+          <li><b>Recalibração é uma varredura.</b> O estado de recalibrar é um instrumento em tela cheia que varre da esquerda para a direita antes de resolver no novo plano. Sem confete, sem celebração.</li>
+          <li><b>Um sinal por tela.</b> Um único elemento lima por tela — a leitura ao vivo. Todo o resto é osso ou cinza.</li>
+          <li><b>Indulgência na serifada.</b> Quando o plano muda, a linha em itálico é digitada primeiro. Os números atualizam por baixo dela.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Princípios de movimento</div>
+      <div class="body">
+        <ul>
+          <li><b>Buscar‑e‑estabilizar da agulha.</b> Todos os manômetros passam 4% e depois amortecem de volta. 520ms no total. Tem cara de instrumento real.</li>
+          <li><b>Tique monoespaçado.</b> Os numerais avançam coluna a coluna — nunca borram. <code>font-variant-numeric: tabular-nums</code> obrigatório.</li>
+          <li><b>Varredura, não fade.</b> Mudanças de plano varrem a tela da esquerda para a direita com uma linha lima de 1px que desaparece ao passar.</li>
+          <li><b>Morph de foto como slider de tempo.</b> A projeção do eu do futuro é um slider calibrado com cinco marcas (agora, 1, 2, 6, 12 m). Sem dissolve mágico.</li>
+          <li><b>Cubic‑bezier(.2,.7,.2,1)</b>, 320–520ms. Nada quica.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Estilo de ícone / ilustração / foto</div>
+      <div class="body">
+        <ul>
+          <li><b>Fotografia.</b> Toda foto de corpo é renderizada em tons de cinza com contorno lima ou overlay de grade. A marca nunca mostra foto de corpo em cor cheia. Corpos são <i>lidos</i>, não exibidos.</li>
+          <li><b>Ilustração.</b> Nenhuma. Placeholders usam um caractere Mono a 240pt, ou um único círculo em fio capilar.</li>
+          <li><b>Ícones.</b> Traço de 1px, cor osso, terminações quadradas. O ícone de recalibrar é um pequeno manômetro com seta de varredura, não um círculo de refresh.</li>
+          <li><b>Gráficos.</b> Linhas de horizonte, manômetros tipo dial, dispersões em fio capilar. Sem barras, sem roscas, sem preenchimentos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">O que evitar<small>Não negociáveis</small></div>
+      <div class="body">
+        <ul>
+          <li>Qualquer verde que não seja lima <code>#C8FF3D</code>. Sem sálvia, hortelã, floresta.</li>
+          <li>Preenchimentos sólidos em dados. Tudo é linha, fio, tracejado.</li>
+          <li>Fotografias coloridas de corpos. Nunca.</li>
+          <li>Retângulos arredondados, sombras suaves, glassmorphism.</li>
+          <li>"Herói", "campeão", "streak", "fire". A voz é calibrada, não motivacional.</li>
+          <li>Itálico sans‑serifado. Itálico só aparece em Instrument Serif.</li>
+          <li>Modo claro. Telemetria é só escuro.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── SCREEN CONCEPTS · TELEMETRY ────────────────────────── -->
+<section class="screens theme-telemetry" data-screen-label="06 Telemetria — Aplicada">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="idx">06 · Telemetria — Aplicada</div>
+      <h2>Telemetria, em oito telas. <em>Calibrada</em> desde o primeiro segundo.</h2>
+    </div>
+
+    <div class="screen-grid">
+
+      <!-- 1 SPLASH -->
+      <div class="screen-wrap">
+        <div class="label">01 · Splash / hero</div>
+        <div class="screen">
+          <div class="scr-meta"><span>NutriHero · RIG 01</span><span>PRÉ‑VOO</span></div>
+          <div class="scr-title" style="font-family:'Instrument Sans', sans-serif;font-style:normal;font-weight:500;text-transform:none;letter-spacing:-.02em;font-size:36px;color:#F2EFE8;line-height:.95">Seu corpo,<br/>em <span style="font-family:'Instrument Serif', serif;font-style:italic;color:#C8FF3D">instrumentos.</span></div>
+          <div style="border:1px solid rgba(200,255,61,.4);padding:12px;display:flex;flex-direction:column;gap:6px">
+            <div style="font-family:'JetBrains Mono', monospace;font-size:9px;color:#C8FF3D;letter-spacing:.14em">CHECAGEM DE SISTEMA</div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;display:flex;justify-content:space-between"><span>SENSORES</span><span style="color:#C8FF3D">● PRONTO</span></div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;display:flex;justify-content:space-between"><span>LINHA DE BASE</span><span style="color:#C8FF3D">● PRONTO</span></div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;display:flex;justify-content:space-between"><span>PROJEÇÃO</span><span style="color:#6FB3FF">● 12 SEM</span></div>
+          </div>
+          <div class="scr-cta">
+            <div class="btn">Iniciar calibração · 60s</div>
+            <div class="btn ghost">Retomar sessão</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 ONBOARDING -->
+      <div class="screen-wrap">
+        <div class="label">02 · Abertura do onboarding</div>
+        <div class="screen">
+          <div class="scr-meta"><span>PASSO 01 / 06</span><span>00:42</span></div>
+          <div class="scr-title" style="font-family:'Instrument Serif', serif;font-style:italic;font-weight:300;color:#F2EFE8;font-size:28px;line-height:1">me diga seu <em style="color:#C8FF3D">alvo,</em><br/>não seu peso.</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+            <div style="border:1px solid #C8FF3D;padding:8px 10px;font-family:'JetBrains Mono', monospace;font-size:10px;display:flex;justify-content:space-between;color:#F2EFE8"><span>PERDER GORDURA · MANTER MÚSCULO</span><span style="color:#C8FF3D">●</span></div>
+            <div style="border:1px solid #2a3036;padding:8px 10px;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4">GANHAR MASSA MAGRA</div>
+            <div style="border:1px solid #2a3036;padding:8px 10px;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4">RECOMPOSIÇÃO</div>
+            <div style="border:1px solid #2a3036;padding:8px 10px;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4">MANTER · COMER MELHOR</div>
+          </div>
+          <div class="scr-cta"><div class="btn">Calibrar →</div></div>
+        </div>
+      </div>
+
+      <!-- 3 BODY PHOTO CAPTURE -->
+      <div class="screen-wrap">
+        <div class="label">03 · Captura de foto corporal</div>
+        <div class="screen">
+          <div class="scr-meta"><span>SCAN · FRENTE</span><span style="color:#6FB3FF">● ALINHADO</span></div>
+          <div class="scr-title" style="font-family:'Instrument Sans', sans-serif;font-weight:500;font-style:normal;text-transform:none;font-size:22px;color:#F2EFE8;line-height:1">Em pé, alinhado.<br/>Segure por 3s.</div>
+          <div style="flex:1;border:1px solid rgba(200,255,61,.35);position:relative;background:repeating-linear-gradient(0deg, rgba(200,255,61,.10) 0 1px, transparent 1px 14px),repeating-linear-gradient(90deg, rgba(200,255,61,.06) 0 1px, transparent 1px 14px)">
+            <div style="position:absolute;inset:14% 22%;border:1px dashed rgba(200,255,61,.7)"></div>
+            <div style="position:absolute;top:8px;left:8px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#C8FF3D;letter-spacing:.12em">RIG 02 · F · REV 1</div>
+            <div style="position:absolute;bottom:8px;right:8px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#6FB3FF;letter-spacing:.12em">3.0s ●</div>
+          </div>
+          <div style="font-family:'JetBrains Mono', monospace;font-size:8.5px;color:#7d8087;letter-spacing:.14em">FOTOS FICAM NO APARELHO · CRIPTOGRAFADAS</div>
+          <div class="scr-cta"><div class="btn">Capturar</div></div>
+        </div>
+      </div>
+
+      <!-- 4 FUTURE-SELF PREVIEW -->
+      <div class="screen-wrap">
+        <div class="label">04 · Projeção do corpo futuro</div>
+        <div class="screen">
+          <div class="scr-meta"><span>PROJEÇÃO · REV 1</span><span>26 MAI</span></div>
+          <div style="flex:1;border:1px solid rgba(200,255,61,.35);position:relative;background:repeating-linear-gradient(0deg, rgba(200,255,61,.10) 0 1px, transparent 1px 14px)">
+            <div style="position:absolute;left:50%;top:6%;bottom:6%;width:1px;background:rgba(200,255,61,.4)"></div>
+            <div style="position:absolute;left:8px;bottom:8px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#C8FF3D;letter-spacing:.12em">AGORA · 22,1%</div>
+            <div style="position:absolute;right:8px;bottom:8px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#C8FF3D;letter-spacing:.12em">+12 SEM · 16,4%</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:9px;color:#7d8087;letter-spacing:.1em;padding:0 2px"><span>AGORA</span><span>1M</span><span>2M</span><span>6M</span><span>12M</span></div>
+          <div style="height:2px;background:#1f2429;position:relative;margin:0 2px"><div style="position:absolute;left:0;top:0;height:2px;width:18%;background:#C8FF3D"></div><div style="position:absolute;left:18%;top:-4px;width:10px;height:10px;border:1px solid #C8FF3D;background:#0B0D0F;border-radius:50%"></div></div>
+          <div class="scr-cta"><div class="btn">Travar a projeção</div></div>
+        </div>
+      </div>
+
+      <!-- 5 DAILY DASHBOARD -->
+      <div class="screen-wrap">
+        <div class="label">05 · Dashboard de dieta diária</div>
+        <div class="screen">
+          <div class="scr-meta"><span>TER · 19 MAI · 14:02</span><span style="color:#C8FF3D">● AO VIVO</span></div>
+          <div style="font-family:'Instrument Sans', sans-serif;font-weight:500;font-size:32px;color:#F2EFE8;line-height:.95;letter-spacing:-.02em">−312<span style="font-family:'JetBrains Mono', monospace;font-size:11px;color:#7d8087;letter-spacing:.14em;margin-left:6px">KCAL · AGORA</span></div>
+          <div style="height:80px;background:repeating-linear-gradient(to right, rgba(200,255,61,.10) 0 1px, transparent 1px 22px);border:1px solid rgba(200,255,61,.18);position:relative">
+            <svg viewBox="0 0 200 80" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">
+              <path d="M0,46 C 25,30 45,58 70,40 S 120,22 150,46 S 185,66 200,30" fill="none" stroke="#C8FF3D" stroke-width="1.4"/>
+              <path d="M0,40 L 200,40" stroke="#C8FF3D" stroke-width=".4" stroke-dasharray="2 4" opacity=".6"/>
+              <circle cx="150" cy="46" r="2.5" fill="#C8FF3D"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;border-top:1px dashed rgba(200,255,61,.25);padding-top:5px"><span>PROTEÍNA</span><span style="color:#C8FF3D">168 / 196</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;border-top:1px dashed rgba(200,255,61,.25);padding-top:5px"><span>CARBOS</span><span style="color:#C8FF3D">211 / 248</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;border-top:1px dashed rgba(200,255,61,.25);padding-top:5px"><span>GORDURA</span><span style="color:#C8FF3D">64 / 78</span></div>
+          </div>
+          <div class="scr-cta"><div class="btn">Recalibrar jantar</div></div>
+        </div>
+      </div>
+
+      <!-- 6 RECALCULATE STATE -->
+      <div class="screen-wrap">
+        <div class="label">06 · Estado recalibrar</div>
+        <div class="screen">
+          <div class="scr-meta"><span>RECALIBRANDO · REV 14</span><span style="color:#C8FF3D">● VARREDURA</span></div>
+          <div class="scr-title" style="font-family:'Instrument Serif', serif;font-style:italic;font-weight:300;color:#F2EFE8;font-size:26px;line-height:1.05">Você pulou<br/>o café da manhã.<br/><em style="color:#C8FF3D">O jantar fica maior.</em></div>
+          <div style="border-top:1px solid rgba(200,255,61,.35);border-bottom:1px solid rgba(200,255,61,.35);padding:8px 0;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4"><span>ÂNCORA · 19:30</span><span style="color:#C8FF3D">+180 KCAL</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4"><span>PROTEÍNA</span><span style="color:#C8FF3D">+24 G</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4"><span>RENIVELAR</span><span style="color:#C8FF3D">21:40</span></div>
+          </div>
+          <div class="scr-cta"><div class="btn">Aceitar novo plano</div><div class="btn ghost">Mostrar o que mudou</div></div>
+        </div>
+      </div>
+
+      <!-- 7 WEEKLY PATTERN -->
+      <div class="screen-wrap">
+        <div class="label">07 · Revisão de padrão semanal</div>
+        <div class="screen">
+          <div class="scr-meta"><span>SEMANA 14 · DOM</span><span>—</span></div>
+          <div class="scr-title" style="font-family:'Instrument Serif', serif;font-style:italic;font-weight:300;color:#F2EFE8;font-size:26px;line-height:1.05">uma assinatura<br/>de <em style="color:#C8FF3D">sexta tarde.</em></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;align-items:end;height:80px;margin:6px 0">
+            <div style="background:#1f2429;height:30%;border-top:1px solid #C8FF3D"></div>
+            <div style="background:#1f2429;height:48%;border-top:1px solid #C8FF3D"></div>
+            <div style="background:#1f2429;height:42%;border-top:1px solid #C8FF3D"></div>
+            <div style="background:#1f2429;height:38%;border-top:1px solid #C8FF3D"></div>
+            <div style="background:#C8FF3D;height:92%"></div>
+            <div style="background:#1f2429;height:64%;border-top:1px solid #C8FF3D"></div>
+            <div style="background:#1f2429;height:36%;border-top:1px solid #C8FF3D"></div>
+          </div>
+          <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:#cfccc4;line-height:1.5">Jantar médio sex · <span style="color:#C8FF3D">22:14</span>. Na próxima semana o plano move <span style="color:#C8FF3D">280 kcal</span> para uma refeição‑âncora às 19:30.</div>
+          <div class="scr-cta"><div class="btn">Aplicar na próxima semana</div></div>
+        </div>
+      </div>
+
+      <!-- 8 PAYWALL -->
+      <div class="screen-wrap">
+        <div class="label">08 · Paywall / trial</div>
+        <div class="screen">
+          <div class="scr-meta"><span>TRIAL · 7 DIAS GRÁTIS</span><span>R$ 49,90/mês</span></div>
+          <div class="scr-title" style="font-family:'Instrument Sans', sans-serif;font-weight:500;font-style:normal;text-transform:none;letter-spacing:-.02em;font-size:30px;color:#F2EFE8;line-height:.95">Desbloqueie a<br/>projeção de<br/><span style="font-family:'Instrument Serif', serif;font-style:italic;color:#C8FF3D">12 semanas.</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:9.5px;color:#cfccc4;border-top:1px dashed rgba(200,255,61,.25);padding-top:6px"><span>EU DO FUTURO</span><span style="color:#C8FF3D">1 · 2 · 6 · 12 M</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:9.5px;color:#cfccc4;border-top:1px dashed rgba(200,255,61,.25);padding-top:6px"><span>RECALIBRAÇÃO</span><span style="color:#C8FF3D">ILIMITADA</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:9.5px;color:#cfccc4;border-top:1px dashed rgba(200,255,61,.25);padding-top:6px"><span>LOG WHATSAPP</span><span style="color:#C8FF3D">INCLUSO</span></div>
+          </div>
+          <div class="scr-cta"><div class="btn">Começar trial de 7 dias</div><div class="btn ghost">Talvez depois</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── DIRECTION DIVIDER · MIRROR ────────────────────────── -->
+<section class="dir-divider dd-mirror" data-screen-label="07a Espelho — Abertura">
+  <div class="dd-top">
+    <span>Direção <b>02 / 03</b> · A direção completa começa abaixo</span>
+    <span class="num">BR‑001 · §07–08</span>
+  </div>
+  <h2 class="dd-title">Espelho<em>.</em></h2>
+  <div class="dd-foot">
+    <p class="lead">Um <em>estúdio de retrato</em> para o seu corpo futuro. Brief, paleta, sistema tipográfico e oito telas aplicadas — no registro próprio de Espelho.</p>
+    <div class="meta">Superfície · <b>Osso #F1EBE2</b><br/>Ação · <b>Brasa #E4572E</b><br/>Display · <b>Newsreader Itálica</b></div>
+  </div>
+</section>
+
+<!-- ────────────────────────── FINAL BRIEF · MIRROR ────────────────────────── -->
+<section class="brief-detail wrap" data-screen-label="07 Espelho — Brief">
+  <div class="section-head">
+    <div class="idx">07 · Espelho — Direção completa</div>
+    <h2>O estúdio editorial de retrato, de uma só <em>leitura.</em></h2>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Nome da direção<small>Registro de marca de trabalho</small></div>
+    <div class="body">
+      <h4>Espelho</h4>
+      <p>Um estúdio editorial de retrato para recomposição corporal. O corpo é o assunto, o dado é a legenda, e o quadro do eu do futuro é a imagem recorrente da marca.</p>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Ideia de marca em uma linha</div>
+    <div class="body">
+      <h4 style="font-size:34px;line-height:1.05;color:var(--ink)">"Veja a versão de você que o plano está compondo — e coma o caminho até lá."</h4>
+      <p>Forma curta interna: <i>O plano, e o retrato.</i></p>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Personalidade<small>Cinco adjetivos que estamos dispostos a defender</small></div>
+    <div class="body">
+      <div class="principles">
+        <div><b>Composta.</b> Plano‑autoral, nunca ansiosa.</div>
+        <div><b>Aspiracional.</b> Olha para o eu do futuro, nunca fake.</div>
+        <div><b>Indulgente.</b> Fala com o deslize, não com a sequência.</div>
+        <div><b>Exata.</b> Os números são tabulares e merecidos.</div>
+        <div><b>Quente‑moderna.</b> Papel editorial, não branco de laboratório.</div>
+        <div><b>Letrada em corpo.</b> Sabe que a audiência treina, bebe e come.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Princípios visuais<small>Segure essas linhas</small></div>
+    <div class="body">
+      <ul>
+        <li><b>Foto primeiro, cromado depois.</b> Toda tela‑chave deve sobreviver a um screenshot no Reels. Se uma tela não tem momento fotográfico, dê a ela um pull‑quote editorial generoso.</li>
+        <li><b>O itálico é sagrado.</b> O Newsreader itálica é o único lugar onde a emoção mora. O sans cuida da utilidade. Nunca componha itálico no sans.</li>
+        <li><b>Brasa é para ação.</b> Reserve brasa para o CTA de recalibrar, para o quadro do eu do futuro e para deltas ao vivo. Nada mais. A escassez é a marca.</li>
+        <li><b>Fios capilares, não caixas.</b> Fios de tinta de 1px separam as coisas; não empilhamos cards arredondados.</li>
+        <li><b>Números são autorais.</b> Apenas Geist Mono tabular. Sem dígitos proporcionais em nenhum lugar onde apareça dado.</li>
+        <li><b>Branco é osso.</b> A página é #F1EBE2. Nunca compomos em branco puro. Branco puro lê SaaS.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Paleta de cores<small>Papéis, não valores</small></div>
+    <div class="body">
+      <div class="palette">
+        <div class="pal" style="background:#F1EBE2"><span class="role">Superfície / Página</span><div class="meta"><span class="name">Osso</span><span class="hex">#F1EBE2</span></div></div>
+        <div class="pal" style="background:#E6DDCB"><span class="role">Superfície / Nível 2</span><div class="meta"><span class="name">Linho</span><span class="hex">#E6DDCB</span></div></div>
+        <div class="pal dark" style="background:#1A1715"><span class="role">Texto / Tinta</span><div class="meta"><span class="name">Tinta</span><span class="hex">#1A1715</span></div></div>
+        <div class="pal dark" style="background:#8C5A2B"><span class="role">Acento pensado</span><div class="meta"><span class="name">Bronze</span><span class="hex">#8C5A2B</span></div></div>
+        <div class="pal dark" style="background:#E4572E"><span class="role">Ação · dado ao vivo</span><div class="meta"><span class="name">Brasa</span><span class="hex">#E4572E</span></div></div>
+        <div class="pal" style="background:#C9C2B3"><span class="role">Apagado / cromado</span><div class="meta"><span class="name">Cinza</span><span class="hex">#C9C2B3</span></div></div>
+      </div>
+      <p style="margin-top:14px"><b>Regras.</b> Brasa aparece em no máximo um elemento por tela. Bronze nunca toca em brasa (choque de quentes). Em momentos escuros — paywall, splash, captura de foto — inverta para página <b>Tinta #1A1715</b> com texto Osso; brasa segue escassa.</p>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Tipografia<small>Três vozes, não mais</small></div>
+    <div class="body">
+      <div class="type-show">
+        <div class="display"><em>doze</em> semanas<br/>até a versão<br/>que você vem <em>compondo.</em></div>
+        <div class="type-specs">
+          <div class="ts-row">
+            <span class="meta">Display</span>
+            <span class="ts-newsreader">Newsreader Itálica · 300 / 400</span>
+          </div>
+          <div class="ts-row">
+            <span class="meta">Burra de carga</span>
+            <span class="ts-geist">Geist · 400 / 500 / 600</span>
+          </div>
+          <div class="ts-row">
+            <span class="meta">Numerais</span>
+            <span class="ts-geist-mono">Geist Mono · 500 (tabular)</span>
+          </div>
+          <div class="ts-row">
+            <span class="meta">Regras</span>
+            <span style="font-size:13px;color:#2b2620">Itálico só para momentos emocionais. Sans para todo o resto. Mono para qualquer dígito que se atualiza.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Princípios do sistema de UI</div>
+    <div class="body">
+      <ul>
+        <li><b>Grade editorial.</b> Grade mobile de 12 colunas com margens externas generosas (24pt). Manchetes podem sangrar para fora do ritmo de coluna.</li>
+        <li><b>Enquadramento em fio capilar.</b> Fios de tinta de 1px e o quadro de retrato em brasa tracejado são os únicos motivos de "container".</li>
+        <li><b>Uma brasa por tela.</b> Um — e apenas um — elemento brasa por tela.</li>
+        <li><b>Prato, não rosca.</b> Substitua o gráfico de rosca por quatro pequenos medidores em anel rotulados com letras itálicas (P · C · G · kc).</li>
+        <li><b>Recalibrar é um momento.</b> O estado de recalibrar é tela cheia, itálico, e usa o único ticker cinético que nos permitimos. Três segundos, depois resolve.</li>
+        <li><b>A indulgência mora no copy.</b> O momento "você pulou o café da manhã" é composto em itálico, dirigido ao usuário, nunca punitivo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Princípios de movimento</div>
+    <div class="body">
+      <ul>
+        <li><b>Crossfade como projetor.</b> Transições de foto são dissolves lentos, nunca zooms.</li>
+        <li><b>Revelação tipográfica.</b> Quando o plano muda, a linha itálica é digitada (220ms), depois o dado resolve por baixo.</li>
+        <li><b>Quadro que respira.</b> O quadro do eu do futuro repousa a ±1% de escala (loop de 4s).</li>
+        <li><b>Tique tabular.</b> Numerais avançam monoespaçados (CSS <code>font-variant-numeric: tabular-nums</code>). Sem overshoot de mola em dígitos.</li>
+        <li><b>Sem quicar.</b> Sem mola do iOS no cromado editorial. Cubic‑bezier(.2,.7,.2,1), 280–420ms.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">Estilo de ícone / ilustração / foto</div>
+    <div class="body">
+      <ul>
+        <li><b>Fotografia.</b> Luz natural, tons quentes, janela de meio da manhã. Corpos enquadrados da cintura para cima e dos ombros para cima; nunca clichês fitness com rosto cortado. O quadro do eu do futuro é em orientação retrato, alto (3:4).</li>
+        <li><b>Ilustração.</b> Nenhuma. Se precisarmos de placeholder, use uma chapa tipográfica (uma letra Newsreader a 240pt) em vez de ilustração.</li>
+        <li><b>Ícones.</b> Traço de 1,25px, cor tinta, terminações quadradas, sem cantos arredondados. O ícone de recalibrar é o contorno de um quadro de retrato com uma pequena seta, nunca um círculo de refresh.</li>
+        <li><b>Gráficos.</b> Arrays de barras, medidores em anel e um único gráfico de linha editorial para tendência de peso/massa magra. Sem roscas, sem pizzas, sem gradientes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="brief-block">
+    <div class="lbl">O que evitar<small>Não negociáveis</small></div>
+    <div class="body">
+      <ul>
+        <li>Branco puro em qualquer lugar. Use Osso.</li>
+        <li>Roxo, hortelã, sálvia ou qualquer pastel.</li>
+        <li>Gráficos de rosca e macros com emoji.</li>
+        <li>Microinterações iOS com mola que quica.</li>
+        <li>"Streak" gritado, emojis de fogo, cromado de leaderboard.</li>
+        <li>Banco de fotos fitness (suor, gym bro, beauty shot de halter).</li>
+        <li>Roboto / Inter / Space Grotesk. Ponto.</li>
+        <li>Copy "bem‑vindo de volta, herói". A marca respeita o usuário; não o bajula.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── SCREEN CONCEPTS · MIRROR ────────────────────────── -->
+<section class="screens" data-screen-label="08 Espelho — Aplicado">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="idx">08 · Espelho — Aplicado</div>
+      <h2>Espelho, em oito telas. Retrato editorial, <em>software de verdade.</em></h2>
+    </div>
+
+    <div class="screen-grid">
+
+      <!-- 1 SPLASH -->
+      <div class="screen-wrap">
+        <div class="label">01 · Splash / hero</div>
+        <div class="screen cream">
+          <div class="scr-meta"><span>NutriHero</span><span>·</span></div>
+          <div class="scr-title">seu nutricionista<br/><em>de bolso,</em><br/>composto.</div>
+          <div class="mini-frame"><span class="tag">12 SEM</span><span></span></div>
+          <div class="scr-cta">
+            <div class="btn">Começar · 60s</div>
+            <div class="btn ghost">Já tenho uma conta</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 ONBOARDING -->
+      <div class="screen-wrap">
+        <div class="label">02 · Abertura do onboarding</div>
+        <div class="screen light">
+          <div class="scr-meta"><span>PASSO 01 / 06</span><span>0:42</span></div>
+          <div class="scr-title">me diga seu <em>objetivo</em>, não seu peso.</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+            <div style="border:1px solid #1A1715;padding:8px 10px;font-size:11px;display:flex;justify-content:space-between"><span>Perder gordura, manter músculo</span><span style="color:var(--ember)">●</span></div>
+            <div style="border:1px solid #1A1715;padding:8px 10px;font-size:11px">Ganhar massa magra</div>
+            <div style="border:1px solid #1A1715;padding:8px 10px;font-size:11px">Recomposição (ambos)</div>
+            <div style="border:1px solid #1A1715;padding:8px 10px;font-size:11px">Manter &amp; comer melhor</div>
+          </div>
+          <div class="scr-cta"><div class="btn">Continuar</div></div>
+        </div>
+      </div>
+
+      <!-- 3 BODY PHOTO CAPTURE -->
+      <div class="screen-wrap">
+        <div class="label">03 · Captura de foto corporal</div>
+        <div class="screen">
+          <div class="scr-meta"><span>CORPO · CAPTURA</span><span>FRENTE</span></div>
+          <div class="scr-title" style="color:#F1EBE2"><em>em pé</em>, alinhado.<br/>braços soltos.</div>
+          <div class="mini-frame" style="flex:1;border-color:#F1EBE2"><span class="tag ghost">3:4</span><span class="tag" style="background:#E4572E;color:#0E0C0A">FRENTE</span></div>
+          <div style="font-family:'Geist Mono', monospace;font-size:9px;color:#bdb9af;letter-spacing:.14em">FOTOS FICAM NO APARELHO · CRIPTOGRAFADAS</div>
+          <div class="scr-cta"><div class="btn">Capturar frente</div></div>
+        </div>
+      </div>
+
+      <!-- 4 FUTURE-SELF PREVIEW -->
+      <div class="screen-wrap">
+        <div class="label">04 · Preview do corpo futuro</div>
+        <div class="screen cream">
+          <div class="scr-meta"><span>PROJEÇÃO</span><span>12 SEM · 26 MAI</span></div>
+          <div class="mini-frame" style="flex:1"><span class="tag">+12 SEM</span><span class="tag" style="background:transparent;border:1px solid #1A1715;color:#1A1715">−4,1KG GORDURA</span></div>
+          <div class="scr-title">a versão de você que o <em>plano compõe.</em></div>
+          <div class="scr-cta"><div class="btn">Começar o plano</div><div class="btn ghost">Me mostre 6 meses</div></div>
+        </div>
+      </div>
+
+      <!-- 5 DAILY DIET DASHBOARD -->
+      <div class="screen-wrap">
+        <div class="label">05 · Dashboard de dieta diária</div>
+        <div class="screen light">
+          <div class="scr-meta"><span>TER · 19 MAI</span><span>2.184 / 2.496</span></div>
+          <div class="ring">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#1A1715" stroke-width=".6" opacity=".25"/>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#E4572E" stroke-width="3" stroke-dasharray="232 264" transform="rotate(-90 50 50)" stroke-linecap="butt"/>
+            </svg>
+            <div class="center"><div class="v">88%</div><div class="u">no plano</div></div>
+          </div>
+          <div class="bar-row" style="margin-top:auto;color:#1A1715">
+            <div class="b"><span>Proteína</span><div class="track" style="background:rgba(26,23,21,.1)"><div class="fill" style="background:#1A1715;width:78%"></div></div><span>168g</span></div>
+            <div class="b"><span>Carbos</span><div class="track" style="background:rgba(26,23,21,.1)"><div class="fill" style="background:#1A1715;width:62%"></div></div><span>211g</span></div>
+            <div class="b"><span>Gordura</span><div class="track" style="background:rgba(26,23,21,.1)"><div class="fill" style="background:#1A1715;width:54%"></div></div><span>64g</span></div>
+          </div>
+          <div class="scr-cta"><div class="btn">Recalibrar jantar</div></div>
+        </div>
+      </div>
+
+      <!-- 6 RECALCULATE STATE -->
+      <div class="screen-wrap">
+        <div class="label">06 · Estado recalibrar</div>
+        <div class="screen">
+          <div class="scr-meta"><span>RECALIBRANDO</span><span>14:02</span></div>
+          <div class="scr-title">você pulou o café.<br/><em>o jantar fica maior.</em></div>
+          <div style="border-top:1px solid rgba(241,235,226,.4);border-bottom:1px solid rgba(241,235,226,.4);padding:8px 0;font-family:'Geist Mono', monospace;font-size:10px;color:#E4572E;letter-spacing:.12em;text-transform:uppercase">·  +180 kcal às 19:30  ·  +24g P  ·  trocar lanche por iogurte grego  ·  renivelar 21:40  ·</div>
+          <div class="scr-body" style="color:#cfccc4">Uma correção pequena e exata. O plano ainda bate sua meta semanal.</div>
+          <div class="scr-cta"><div class="btn">Aceitar novo plano</div><div class="btn ghost">Mostrar o que mudou</div></div>
+        </div>
+      </div>
+
+      <!-- 7 WEEKLY PATTERN -->
+      <div class="screen-wrap">
+        <div class="label">07 · Revisão de padrão semanal</div>
+        <div class="screen light">
+          <div class="scr-meta"><span>SEMANA 14 · DOM</span><span>—</span></div>
+          <div class="scr-title">você come <em>tarde</em> nas sextas.</div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;align-items:end;height:80px;margin:6px 0">
+            <div style="background:#1A1715;height:30%"></div>
+            <div style="background:#1A1715;height:48%"></div>
+            <div style="background:#1A1715;height:42%"></div>
+            <div style="background:#1A1715;height:38%"></div>
+            <div style="background:#E4572E;height:92%"></div>
+            <div style="background:#1A1715;height:64%"></div>
+            <div style="background:#1A1715;height:36%"></div>
+          </div>
+          <div class="scr-body" style="color:#1A1715">Jantar médio sex: 22:14. Na próxima semana o plano move 280 kcal para uma refeição‑âncora às 19:30 para você não atrasar na proteína.</div>
+          <div class="scr-cta"><div class="btn">Aplicar na próxima semana</div></div>
+        </div>
+      </div>
+
+      <!-- 8 PAYWALL -->
+      <div class="screen-wrap">
+        <div class="label">08 · Paywall / trial</div>
+        <div class="screen cream">
+          <div class="scr-meta"><span>TRIAL · 7 DIAS GRÁTIS</span><span>R$ 49,90/mês depois</span></div>
+          <div class="mini-frame" style="height:120px;flex:none"><span class="tag">+12 SEM</span><span></span></div>
+          <div class="scr-title">desbloqueie a versão de você de <em>doze semanas.</em></div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:10.5px">
+            <li style="display:flex;justify-content:space-between;border-top:1px dashed rgba(26,23,21,.3);padding-top:6px"><span>Projeções do eu do futuro</span><span>1 · 2 · 6 · 12 m</span></li>
+            <li style="display:flex;justify-content:space-between;border-top:1px dashed rgba(26,23,21,.3);padding-top:6px"><span>Recalibração diária</span><span>ilimitada</span></li>
+            <li style="display:flex;justify-content:space-between;border-top:1px dashed rgba(26,23,21,.3);padding-top:6px"><span>Log de refeições no WhatsApp</span><span>incluso</span></li>
+          </ul>
+          <div class="scr-cta"><div class="btn">Começar trial de 7 dias</div><div class="btn ghost">Talvez depois</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── DIRECTION DIVIDER · PULSE ────────────────────────── -->
+<section class="dir-divider dd-pulse" data-screen-label="09a Pulso — Abertura">
+  <div class="dd-top">
+    <span>Direção <b>03 / 03</b> · A direção completa começa abaixo</span>
+    <span class="num">BR‑001 · §09–10</span>
+  </div>
+  <h2 class="dd-title">Pulso<em>.</em></h2>
+  <div class="dd-foot">
+    <p class="lead">Recalibração como <em>sinal ao vivo.</em> Brief, paleta, sistema tipográfico e oito telas aplicadas — no registro próprio de Pulso.</p>
+    <div class="meta">Superfície · <b>Vazio #06070A</b><br/>Sinal · <b>Arco #FF5B1F</b><br/>Display · <b>Archivo Black</b></div>
+  </div>
+</section>
+
+<!-- ────────────────────────── FINAL BRIEF · PULSE ────────────────────────── -->
+<section class="brief-detail theme-pulse" data-screen-label="09 Pulso — Brief">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="idx">09 · Pulso — Direção completa</div>
+      <h2>Recalibração como <em>sinal ao vivo,</em> de uma só leitura.</h2>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Nome da direção<small>Registro de marca de trabalho</small></div>
+      <div class="body">
+        <h4>Pulso</h4>
+        <p>A marca é um ticker ao vivo. A recalibração é o momento mais alto do produto, então vira o momento mais alto da marca — tipo cinético, deltas rolando, uma linha laranja que bate visivelmente sob o número do dia. Esporte premium, nunca loja de suplemento.</p>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Ideia de marca em uma linha</div>
+      <div class="body">
+        <h4 style="font-size:34px;line-height:1">"Seu plano está em movimento. Acompanhe."</h4>
+        <p style="font-family:'Newsreader', serif;font-style:italic;color:#bdb9af">Forma curta interna: <i>O plano, em movimento.</i></p>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Personalidade<small>Seis adjetivos que estamos dispostos a defender</small></div>
+      <div class="body">
+        <div class="principles">
+          <div><b>Cinética.</b> As coisas se movem. Números contam para cima. Planos entram batendo.</div>
+          <div><b>Direta.</b> Sem amaciar. O plano mudou — aqui está o novo.</div>
+          <div><b>Nativa de esporte.</b> Lê num feed de academia sem tentar.</div>
+          <div><b>Desafiadora.</b> O usuário está aqui para mudar, não para ser confortado.</div>
+          <div><b>Confiante.</b> Números a 140pt. É sério.</div>
+          <div><b>Premium.</b> Telemetria de corrida, não corredor de suplemento.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Princípios visuais<small>Segure essas linhas</small></div>
+      <div class="body">
+        <ul>
+          <li><b>Os números são o design.</b> O kcal do dia é a manchete em toda home, 96–140pt, Archivo Black.</li>
+          <li><b>Um ticker por tela.</b> O Pulso de Recalibração aparece uma vez por tela — sob o número hero ou no rodapé. Nunca dois.</li>
+          <li><b>Arco laranja é sinal, não decoração.</b> <code>#FF5B1F</code> aparece apenas na ação de recalibrar, no delta ao vivo e na linha de batimento.</li>
+          <li><b>Tipo de borda a borda.</b> O tipo display sangra até a borda. Margens externas de 16pt, nunca 24+.</li>
+          <li><b>Amarelo atenção é o único estado de aviso.</b> Álcool, fissuras noturnas, escapadas de fim de semana. Usado uma vez por semana, não uma vez por dia.</li>
+          <li><b>Fotografia é dura.</b> P&amp;B de alto contraste, um único fio laranja na borda direita. Nunca fotografia colorida.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Paleta de cores<small>Papéis, não valores</small></div>
+      <div class="body">
+        <div class="palette">
+          <div class="pal dark" style="background:#06070A"><span class="role">Superfície · Página</span><div class="meta"><span class="name">Vazio</span><span class="hex">#06070A</span></div></div>
+          <div class="pal dark" style="background:#13151C"><span class="role">Superfície · Nível 2</span><div class="meta"><span class="name">Aço</span><span class="hex">#13151C</span></div></div>
+          <div class="pal" style="background:#EEEBE3"><span class="role">Texto · Padrão</span><div class="meta"><span class="name">Giz</span><span class="hex">#EEEBE3</span></div></div>
+          <div class="pal dark" style="background:#FF5B1F"><span class="role">Sinal · Ação</span><div class="meta"><span class="name">Arco</span><span class="hex">#FF5B1F</span></div></div>
+          <div class="pal" style="background:#F7D74C"><span class="role">Aviso · Deslize</span><div class="meta"><span class="name">Atenção</span><span class="hex">#F7D74C</span></div></div>
+          <div class="pal dark" style="background:#5A5E68"><span class="role">Apagado · Cromado</span><div class="meta"><span class="name">Cinza</span><span class="hex">#5A5E68</span></div></div>
+        </div>
+        <p style="margin-top:14px"><b>Regras.</b> Arco em no máximo dois elementos por tela. Atenção em no máximo um. Sem verdes. Sem azuis. Nunca outro acento — Pulso é monocromático + arco + atenção. A página nunca clareia além de Aço — Pulso é só escuro.</p>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Tipografia<small>Três vozes, não mais</small></div>
+      <div class="body">
+        <div class="type-show">
+          <div class="display">2.184<br/><em>kcal</em></div>
+          <div class="type-specs">
+            <div class="ts-row"><span class="meta">Display</span><span class="ts-newsreader" style="font-family:'Archivo', sans-serif;font-style:normal;font-weight:900;text-transform:uppercase">Archivo Black · 900</span></div>
+            <div class="ts-row"><span class="meta">Tickers / Rótulos</span><span class="ts-newsreader" style="font-family:'Archivo Narrow', sans-serif;font-style:normal;font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:22px">Archivo Narrow · 500</span></div>
+            <div class="ts-row"><span class="meta">Numerals</span><span class="ts-geist-mono" style="font-family:'JetBrains Mono', monospace">JetBrains Mono · 500 (tabular)</span></div>
+            <div class="ts-row"><span class="meta">Rules</span><span style="font-size:13px;color:#8f8b81">Display sempre em caixa alta. Narrow sempre em caixa alta + espaçada. Mono só para dígitos que se atualizam.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Princípios do sistema de UI</div>
+      <div class="body">
+        <ul>
+          <li><b>Número hero, toda home.</b> O kcal restante do dia é o maior objeto da home. Macros ficam embaixo como linhas monoespaçadas.</li>
+          <li><b>A linha de pulso mora sob o número.</b> Uma linha de arco de 2px sob o número da manchete que pulsa — devagar quando no plano, mais rápido fora do plano. É um indicador ambiente, não um gráfico.</li>
+          <li><b>Medidor de Arco para composição corporal.</b> Um arco de 270° com numerais Archivo Black por dentro. Substitui rosca e dial.</li>
+          <li><b>Recalibrar é um takeover.</b> O estado de recalibrar é um ticker em tela cheia que rola uma vez, depois resolve no novo plano. 1,4 segundo no total.</li>
+          <li><b>Captura de foto é alto contraste.</b> P&amp;B com um único fio laranja na borda direita, mais um guia de enquadramento em colchetes.</li>
+          <li><b>Indulgência no copy, não no cromado.</b> A voz amacia ("sem problema, o plano mudou"), mas o tipo segue alto.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Princípios de movimento</div>
+      <div class="body">
+        <ul>
+          <li><b>Numerais contando para cima.</b> Todo número anima a partir de 0 ao entrar na tela. 320ms, ease‑out.</li>
+          <li><b>Tickers contínuos.</b> O Pulso de Recalibração e quaisquer deltas em marquise a 24s/loop. Nunca param enquanto a tela está viva.</li>
+          <li><b>Pulso de armar.</b> Antes do plano mudar, um flash laranja de 600ms arma a tela. Aí o novo plano entra batendo.</li>
+          <li><b>Cortes secos em foto.</b> A projeção do eu do futuro é um corte seco + flash de 1 frame em giz. Sem dissolve.</li>
+          <li><b>Cubic‑bezier(.2,1,.2,1)</b>, 200–340ms. Pulso é a única direção autorizada a parecer rápida.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">Estilo de ícone / ilustração / foto</div>
+      <div class="body">
+        <ul>
+          <li><b>Fotografia.</b> P&amp;B de alto contraste, grão ligado, sombras médias pesadas. Um único fio laranja em uma borda do quadro. Corpos enquadrados da cintura para cima. Sem fotografias coloridas em lugar nenhum da marca.</li>
+          <li><b>Ilustração.</b> Nenhuma. Use numerais ou rótulos Archivo Black em tamanho gigante como placeholders.</li>
+          <li><b>Ícones.</b> Traço de 2px em giz, terminações quadradas, sem cantos arredondados. O ícone de recalibrar é uma forma de onda estilizada com seta, não um círculo de refresh.</li>
+          <li><b>Gráficos.</b> Barras (laranja sobre vazio), medidores de arco, uma única linha para tendência semanal. Sem áreas, sem preenchimentos, sem gradientes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="lbl">O que evitar<small>Não negociáveis</small></div>
+      <div class="body">
+        <ul>
+          <li>Qualquer verde. Qualquer azul. Os únicos acentos são arco laranja e atenção amarelo.</li>
+          <li>Branco puro. Use Giz <code>#EEEBE3</code>.</li>
+          <li>Brilho neon, halos com gradiente, cromado "gamer".</li>
+          <li>Linguagem suave: "bem‑vindo de volta, campeão", "você consegue", "herói". A voz é direta.</li>
+          <li>Qualquer coisa em itálico. Pulso não tem voz itálica.</li>
+          <li>Cantos arredondados acima de 8px. Botões com raio de 4–8px, nunca pill.</li>
+          <li>Fotografia colorida. Banco de fotos clichê de bro‑suplemento.</li>
+          <li>Modo claro. Pulso é só escuro.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── SCREEN CONCEPTS · PULSE ────────────────────────── -->
+<section class="screens theme-pulse" data-screen-label="10 Pulso — Aplicado">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="idx">10 · Pulso — Aplicado</div>
+      <h2>Pulso, em oito telas. <em>Alto</em> onde importa.</h2>
+    </div>
+
+    <div class="screen-grid">
+
+      <!-- 1 SPLASH -->
+      <div class="screen-wrap">
+        <div class="label">01 · Splash / hero</div>
+        <div class="screen">
+          <div class="scr-meta"><span>NUTRIHERO</span><span>v1.0</span></div>
+          <div class="scr-title">seu plano está em <em>movimento.</em><br/>acompanhe.</div>
+          <div style="border-top:1px solid rgba(255,91,31,.5);border-bottom:1px solid rgba(255,91,31,.5);padding:8px 0;font-family:'Archivo Narrow', sans-serif;font-weight:500;font-size:11px;color:#FF5B1F;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden">·  RECALIBRAR  ·  RENIVELAR  ·  REARMAR  ·  RECALIBRAR  ·  RENIVELAR  ·</div>
+          <div class="scr-cta">
+            <div class="btn">Começar · 60s</div>
+            <div class="btn ghost">Voltei</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 ONBOARDING -->
+      <div class="screen-wrap">
+        <div class="label">02 · Abertura do onboarding</div>
+        <div class="screen">
+          <div class="scr-meta"><span>01 / 06</span><span>00:42</span></div>
+          <div class="scr-title">para onde você está <em>se movendo?</em></div>
+          <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+            <div style="border:1px solid #FF5B1F;padding:8px 10px;font-family:'Archivo', sans-serif;font-weight:600;font-size:11px;color:#EEEBE3;text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between"><span>Perder gordura · manter músculo</span><span style="color:#FF5B1F">●</span></div>
+            <div style="border:1px solid #2a2e3a;padding:8px 10px;font-family:'Archivo', sans-serif;font-weight:600;font-size:11px;color:#bdb9af;text-transform:uppercase;letter-spacing:.04em">Ganhar massa magra</div>
+            <div style="border:1px solid #2a2e3a;padding:8px 10px;font-family:'Archivo', sans-serif;font-weight:600;font-size:11px;color:#bdb9af;text-transform:uppercase;letter-spacing:.04em">Recomposição</div>
+            <div style="border:1px solid #2a2e3a;padding:8px 10px;font-family:'Archivo', sans-serif;font-weight:600;font-size:11px;color:#bdb9af;text-transform:uppercase;letter-spacing:.04em">Manter · comer melhor</div>
+          </div>
+          <div class="scr-cta"><div class="btn">Travar</div></div>
+        </div>
+      </div>
+
+      <!-- 3 BODY PHOTO CAPTURE -->
+      <div class="screen-wrap">
+        <div class="label">03 · Captura de foto corporal</div>
+        <div class="screen">
+          <div class="scr-meta"><span>SCAN · FRENTE</span><span style="color:#FF5B1F">● AO VIVO</span></div>
+          <div class="scr-title">alinhar.<br/>3 <em>segundos.</em></div>
+          <div style="flex:1;border-left:1px solid rgba(238,235,227,.2);border-right:3px solid #FF5B1F;border-top:1px solid rgba(238,235,227,.2);border-bottom:1px solid rgba(238,235,227,.2);position:relative;background:repeating-linear-gradient(45deg, rgba(238,235,227,.04) 0 1px, transparent 1px 6px)">
+            <div style="position:absolute;top:6px;left:6px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#FF5B1F;letter-spacing:.12em">[ FRENTE ]</div>
+            <div style="position:absolute;bottom:6px;right:8px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#EEEBE3;letter-spacing:.12em">3.0s</div>
+            <div style="position:absolute;left:10px;top:14%;width:14px;height:14px;border-top:1px solid #EEEBE3;border-left:1px solid #EEEBE3"></div>
+            <div style="position:absolute;right:18px;top:14%;width:14px;height:14px;border-top:1px solid #EEEBE3;border-right:1px solid #EEEBE3"></div>
+            <div style="position:absolute;left:10px;bottom:14%;width:14px;height:14px;border-bottom:1px solid #EEEBE3;border-left:1px solid #EEEBE3"></div>
+            <div style="position:absolute;right:18px;bottom:14%;width:14px;height:14px;border-bottom:1px solid #EEEBE3;border-right:1px solid #EEEBE3"></div>
+          </div>
+          <div style="font-family:'JetBrains Mono', monospace;font-size:8px;color:#8f8b81;letter-spacing:.14em">FOTOS FICAM NO APARELHO · CRIPTOGRAFADAS</div>
+          <div class="scr-cta"><div class="btn">Capturar</div></div>
+        </div>
+      </div>
+
+      <!-- 4 FUTURE-SELF PREVIEW -->
+      <div class="screen-wrap">
+        <div class="label">04 · Projeção do corpo futuro</div>
+        <div class="screen">
+          <div class="scr-meta"><span>+12 SEM</span><span>26 MAI</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1">
+            <div style="background:repeating-linear-gradient(0deg, rgba(238,235,227,.10) 0 1px, transparent 1px 5px);border:1px solid rgba(238,235,227,.2);position:relative;border-right:3px solid #FF5B1F"><div style="position:absolute;bottom:4px;left:4px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#EEEBE3;letter-spacing:.12em">AGORA</div></div>
+            <div style="background:repeating-linear-gradient(0deg, rgba(238,235,227,.18) 0 1px, transparent 1px 5px);border:1px solid rgba(238,235,227,.3);position:relative;border-right:3px solid #FF5B1F"><div style="position:absolute;bottom:4px;left:4px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#FF5B1F;letter-spacing:.12em">+12 SEM</div></div>
+          </div>
+          <div style="font-family:'Archivo', sans-serif;font-weight:900;font-size:36px;line-height:.9;letter-spacing:-.03em;color:#EEEBE3;text-transform:uppercase">−4,1<span style="color:#FF5B1F">kg</span></div>
+          <div class="scr-cta"><div class="btn">Começar o plano</div><div class="btn ghost">Mostrar 6 meses</div></div>
+        </div>
+      </div>
+
+      <!-- 5 DAILY DASHBOARD -->
+      <div class="screen-wrap">
+        <div class="label">05 · Dashboard de dieta diária</div>
+        <div class="screen">
+          <div class="scr-meta"><span>TER · 19 MAI</span><span style="color:#FF5B1F">● NO PLANO</span></div>
+          <div style="font-family:'Archivo', sans-serif;font-weight:900;font-size:56px;line-height:.85;letter-spacing:-.04em;color:#EEEBE3;text-transform:uppercase">2.184<br/><span style="font-size:14px;color:#FF5B1F">/ 2.496 KCAL</span></div>
+          <svg viewBox="0 0 200 20" preserveAspectRatio="none" style="width:100%;height:18px">
+            <path d="M0,10 L 30,10 L 36,4 L 44,16 L 52,7 L 60,12 L 200,10" fill="none" stroke="#FF5B1F" stroke-width="1.6"/>
+          </svg>
+          <div style="display:flex;flex-direction:column;gap:4px;margin-top:auto">
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#bdb9af;border-top:1px solid rgba(238,235,227,.1);padding-top:4px"><span>PROTEÍNA</span><span style="color:#EEEBE3">168 / 196</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#bdb9af;border-top:1px solid rgba(238,235,227,.1);padding-top:4px"><span>CARBOS</span><span style="color:#EEEBE3">211 / 248</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono', monospace;font-size:10px;color:#bdb9af;border-top:1px solid rgba(238,235,227,.1);padding-top:4px"><span>GORDURA</span><span style="color:#EEEBE3">64 / 78</span></div>
+          </div>
+          <div class="scr-cta"><div class="btn">Recalibrar jantar</div></div>
+        </div>
+      </div>
+
+      <!-- 6 RECALCULATE STATE -->
+      <div class="screen-wrap">
+        <div class="label">06 · Estado recalibrar</div>
+        <div class="screen">
+          <div class="scr-meta"><span>RECALIBRANDO</span><span style="color:#FF5B1F">● ARMANDO</span></div>
+          <div class="scr-title">plano <em>mudou.</em></div>
+          <div style="border-top:1px solid #FF5B1F;border-bottom:1px solid #FF5B1F;padding:8px 0;font-family:'Archivo Narrow', sans-serif;font-weight:500;font-size:11px;color:#FF5B1F;letter-spacing:.10em;text-transform:uppercase;white-space:nowrap;overflow:hidden">·  +180 KCAL @ 19:30  ·  +24G PROTEÍNA  ·  PULAR LANCHE  ·  RENIVELAR 21:40  ·  +180 KCAL  ·</div>
+          <div style="font-family:'JetBrains Mono', monospace;font-size:11px;color:#bdb9af;line-height:1.5">Você pulou o café. <span style="color:#EEEBE3">O jantar fica maior.</span> O plano ainda bate a meta da semana.</div>
+          <div class="scr-cta"><div class="btn">Aceitar</div><div class="btn ghost">O que mudou?</div></div>
+        </div>
+      </div>
+
+      <!-- 7 WEEKLY PATTERN -->
+      <div class="screen-wrap">
+        <div class="label">07 · Revisão de padrão semanal</div>
+        <div class="screen">
+          <div class="scr-meta"><span>SEMANA 14</span><span>DOM</span></div>
+          <div class="scr-title">sexta é <em>tarde.</em></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;align-items:end;height:80px">
+            <div style="background:#2a2e3a;height:30%"></div>
+            <div style="background:#2a2e3a;height:48%"></div>
+            <div style="background:#2a2e3a;height:42%"></div>
+            <div style="background:#2a2e3a;height:38%"></div>
+            <div style="background:#FF5B1F;height:92%"></div>
+            <div style="background:#F7D74C;height:64%"></div>
+            <div style="background:#2a2e3a;height:36%"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-family:'JetBrains Mono', monospace;font-size:8px;color:#8f8b81;letter-spacing:.06em;text-align:center"><span>S</span><span>T</span><span>Q</span><span>Q</span><span style="color:#FF5B1F">S</span><span style="color:#F7D74C">S</span><span>D</span></div>
+          <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:#bdb9af;line-height:1.5;margin-top:auto">Jantar médio sex · <span style="color:#FF5B1F">22:14</span>. Movendo 280 kcal para a âncora 19:30.</div>
+          <div class="scr-cta"><div class="btn">Aplicar</div></div>
+        </div>
+      </div>
+
+      <!-- 8 PAYWALL -->
+      <div class="screen-wrap">
+        <div class="label">08 · Paywall / trial</div>
+        <div class="screen">
+          <div class="scr-meta"><span>TRIAL · 7 DIAS</span><span>R$ 49,90/MÊS</span></div>
+          <div class="scr-title">arme o plano de <em>12 semanas.</em></div>
+          <div style="border-top:1px solid rgba(255,91,31,.5);border-bottom:1px solid rgba(255,91,31,.5);padding:8px 0;font-family:'Archivo Narrow', sans-serif;font-weight:500;font-size:10px;color:#F7D74C;letter-spacing:.10em;text-transform:uppercase;white-space:nowrap;overflow:hidden">·  RECALIBRAÇÕES ILIMITADAS  ·  PROJEÇÕES  ·  LOG WHATSAPP  ·</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;font-family:'JetBrains Mono', monospace;font-size:10px;color:#bdb9af">
+            <li style="display:flex;justify-content:space-between;border-top:1px solid rgba(238,235,227,.12);padding-top:5px"><span>Eu do futuro</span><span style="color:#EEEBE3">1 · 2 · 6 · 12 m</span></li>
+            <li style="display:flex;justify-content:space-between;border-top:1px solid rgba(238,235,227,.12);padding-top:5px"><span>Recalibração</span><span style="color:#EEEBE3">ilimitada</span></li>
+            <li style="display:flex;justify-content:space-between;border-top:1px solid rgba(238,235,227,.12);padding-top:5px"><span>Log WhatsApp</span><span style="color:#EEEBE3">incluso</span></li>
+          </ul>
+          <div class="scr-cta"><div class="btn">Armar trial · 7 dias</div><div class="btn ghost">Ainda não</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── FOOTER ────────────────────────── -->
+<footer class="footer">
+  <div>NutriHero · Direção de Marca · BR‑001</div>
+  <div>Três direções · 19 mai 2026</div>
+</footer>
+
+</body>
+</html>

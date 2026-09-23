@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <title>NutriHero — Compare variantes</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="components.css" />
+  <style>
+    body { background: var(--c-vazio); min-height: 100dvh; }
+
+    .compare {
+      padding: var(--s-5) var(--s-5) var(--s-12);
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-5);
+    }
+
+    .top {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--s-3);
+    }
+    .top h1 {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .top h1 .arco { color: var(--c-arco); }
+    .back-link {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .back-link:hover { color: var(--c-arco); }
+
+    /* Fork nav */
+    .fork-nav {
+      display: flex;
+      gap: var(--s-1);
+      background: var(--c-aco-800);
+      padding: var(--s-1);
+      border-radius: var(--r-2);
+      align-self: flex-start;
+      flex-wrap: wrap;
+    }
+    .fork-nav button {
+      background: transparent;
+      border: none;
+      padding: var(--s-2) var(--s-4);
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      cursor: pointer;
+      border-radius: var(--r-1);
+      transition: background var(--t-fast), color var(--t-fast);
+    }
+    .fork-nav button:hover { color: var(--c-giz-100); }
+    .fork-nav button.active {
+      background: var(--c-arco);
+      color: var(--c-vazio);
+    }
+
+    .question-bar {
+      background: var(--c-aco-800);
+      border-left: 2px solid var(--c-arco);
+      padding: var(--s-3) var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .question-bar .label {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-arco);
+    }
+    .question-bar .text {
+      font-family: var(--f-display);
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--c-giz-100);
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--s-5);
+      grid-auto-flow: column;
+    }
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(360px, 1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(3, minmax(360px, 1fr)); }
+
+    .variant-cell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .variant-head {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+    .variant-name {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .variant-tests {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+    .variant-frame {
+      width: 100%;
+      max-width: 390px;
+      height: 844px;
+      border: 1px solid var(--c-linha-500);
+      border-radius: var(--r-3);
+      overflow: hidden;
+      background: var(--c-aco-800);
+    }
+    .variant-frame iframe {
+      width: 390px;
+      height: 844px;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: none !important;
+        grid-auto-columns: 88vw;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: var(--s-3);
+      }
+      .variant-cell {
+        scroll-snap-align: start;
+        min-width: 88vw;
+      }
+      .variant-frame {
+        max-width: 100%;
+        height: 720px;
+      }
+      .variant-frame iframe { width: 100%; height: 720px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="compare">
+    <div class="top">
+      <div class="top-row">
+        <h1>Compare<span class="arco">.</span> variantes lado a lado.</h1>
+        <a href="index.html" class="back-link">← Voltar ao protótipo</a>
+      </div>
+      <div class="fork-nav" id="fork-nav"></div>
+      <div class="question-bar">
+        <span class="label">DECISÃO EM ABERTO · <span id="q-fork-label"></span></span>
+        <span class="text" id="q-text"></span>
+      </div>
+    </div>
+
+    <div id="grid-wrap"></div>
+  </div>
+
+  <script src="state.js"></script>
+  <script src="switcher.js"></script>
+  <script>
+    const FORKS = {
+      onboarding: {
+        label: 'Onboarding',
+        question: 'Quanta fricção a anamnese aguenta sem perder o "operador" antes da revelação?',
+        variants: [
+          { v: 'short', name: 'Short · 5 perguntas', tests: 'Otimiza conversão. Aposta que objetivo + medidas básicas geram zona suficiente.', file: 'screens/onboarding-short.html' },
+          { v: 'full', name: 'Full · 8 perguntas', tests: 'Otimiza precisão do reajuste semanal. Captura hábitos para o motor pegar padrão mais cedo.', file: 'screens/onboarding-full.html' },
+        ],
+      },
+      bf: {
+        label: 'BF method',
+        question: 'Medidas-first é mais previsível, foto-first é mais vendável. Qual carrega a abertura?',
+        variants: [
+          { v: 'measure-first', name: 'Medidas-first', tests: 'Caminho rápido (40s, fita). Menos drop-off. Foto fica como alternativa.', file: 'screens/bf-method-measure-first.html' },
+          { v: 'photo-first', name: 'Foto-first', tests: 'Hero pitch da IA. Risco de drop-off se usuário não tem fita ou luz boa.', file: 'screens/bf-method-photo-first.html' },
+        ],
+      },
+      projection: {
+        label: 'Projection',
+        question: 'A tela ritual mais carregada — qual elemento-âncora carrega a promessa do corpo futuro em uma dobra?',
+        variants: [
+          { v: 'mirror', name: 'Espelho · Reveal (canon)', tests: 'Par de silhuetas + reveal cinematográfico (hard-cut Giz 40ms) + eyebrow data pessoal + PulsoLine + kicker kg. Tríade Arco: DATA · FIO · DELTA. É o canon vivo — também aparece como projection.html no journey.', file: 'screens/projection-mirror.html' },
+          { v: 'delta', name: 'Delta-manchete', tests: 'Alternativa documentada · Número −4.1 em Mono 96pt como hero, PulsoLine assinatura, trajetória em linha. Precisão — "é meu número".', file: 'screens/projection-delta.html' },
+          { v: 'trajectory', name: 'Trajetória', tests: 'Alternativa documentada · Linha horizontal HOJE→30→60→90 com endpoint em Arco + silhueta-destino. Direção — "essa é a rota".', file: 'screens/projection-trajectory.html' },
+        ],
+      },
+      paywall: {
+        label: 'Paywall',
+        question: 'Onde plantar a cobrança? Antes do motor (sinal), depois da revelação (impacto) ou depois da prova (confiança)?',
+        variants: [
+          { v: 'pre-bf', name: 'Pre-BF', tests: 'Pede cartão antes da zona. Filtra "curioso". Cobra confiança no influencer.', file: 'screens/paywall-pre-bf.html' },
+          { v: 'post-projection', name: 'Post-projection', tests: 'Pede após revelação corporal. Pico emocional. Default mais "natural".', file: 'screens/paywall-post-projection.html' },
+          { v: 'post-first-reajust', name: 'Post-first-reajust', tests: 'Mostra o motor rodando 1×, depois cobra. Prova vívida + custo de drop-off maior.', file: 'screens/paywall-post-first-reajust.html' },
+        ],
+      },
+      reajust: {
+        label: 'Reajust',
+        question: 'A interação central do produto. Modal cinematográfico, drawer leve, ou ticker animado?',
+        variants: [
+          { v: 'ticker', name: 'Ticker', tests: 'Pulso line re-escrevendo as refeições. Mais "motor". Mais drama em screenshot.', file: 'screens/reajust-ticker.html' },
+          { v: 'modal', name: 'Modal', tests: 'Full-screen com lista estática. Mais legível, menos cinema. Mais rápido de ler.', file: 'screens/reajust-modal.html' },
+          { v: 'drawer', name: 'Drawer', tests: 'Bottom sheet com home dimmed. Menos interruptivo. Reforça que o motor é "leve".', file: 'screens/reajust-drawer.html' },
+        ],
+      },
+      weekly: {
+        label: 'Weekly',
+        question: 'Diagnóstico semanal: empurrar via home, abrir tela dedicada ou notificar fora do app?',
+        variants: [
+          { v: 'home-card', name: 'Home card', tests: 'Card amarelo na home. Quem volta vê. Quem não volta perde.', file: 'screens/weekly-home-card.html' },
+          { v: 'dedicated', name: 'Dedicated screen', tests: 'Tela cheia, chart de 7 barras, sugestão expandida. Para quem entra pelo deep link.', file: 'screens/weekly-dedicated.html' },
+          { v: 'notification', name: 'Notification', tests: 'Push no domingo 9h. Recupera quem sumiu. Tap → tela dedicada.', file: 'screens/weekly-notification.html' },
+        ],
+      },
+    };
+
+    function currentFork() {
+      const p = new URLSearchParams(window.location.search);
+      const f = p.get('fork') || 'paywall';
+      return FORKS[f] ? f : 'paywall';
+    }
+
+    function setFork(forkKey, push) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('fork', forkKey);
+      if (push) window.history.pushState({}, '', url);
+      render();
+    }
+
+    function render() {
+      const fk = currentFork();
+      const fork = FORKS[fk];
+
+      /* Nav */
+      const nav = document.getElementById('fork-nav');
+      nav.innerHTML = '';
+      Object.entries(FORKS).forEach(([key, val]) => {
+        const btn = document.createElement('button');
+        btn.textContent = val.label;
+        if (key === fk) btn.classList.add('active');
+        btn.addEventListener('click', () => setFork(key, true));
+        nav.appendChild(btn);
+      });
+
+      /* Question */
+      document.getElementById('q-fork-label').textContent = fork.label.toUpperCase();
+      document.getElementById('q-text').textContent = fork.question;
+
+      /* Grid */
+      const wrap = document.getElementById('grid-wrap');
+      wrap.innerHTML = '';
+      const grid = document.createElement('div');
+      grid.className = 'grid cols-' + fork.variants.length;
+      fork.variants.forEach((variant) => {
+        const cell = document.createElement('div');
+        cell.className = 'variant-cell';
+        cell.innerHTML = `
+          <div class="variant-head">
+            <span class="variant-name">${variant.name}</span>
+            <span class="variant-tests">${variant.tests}</span>
+          </div>
+          <div class="variant-frame">
+            <iframe src="${variant.file}" title="${variant.name}" loading="lazy"></iframe>
+          </div>
+        `;
+        grid.appendChild(cell);
+      });
+      wrap.appendChild(grid);
+    }
+
+    window.addEventListener('popstate', render);
+    render();
+  </script>
+</body>
+</html>

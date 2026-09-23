@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* — Surface / neutral scale — */
+  --c-vazio:    #06070A;
+  --c-aco-800:  #0D0F14;
+  --c-aco-700:  #13151C;
+  --c-linha-600:#1E212A;
+  --c-linha-500:#2A2E3A;
+  --c-cinza-400:#5A5E68;
+  --c-cinza-300:#8F8B81;
+  --c-cinza-700:#363A46;
+  --c-giz-200:  #BDB9AF;
+  --c-giz-100:  #EEEBE3;
+
+  /* — Identity / signal — */
+  --c-arco:     #FF5B1F;
+  --c-arco-50:  rgba(255, 91, 31, 0.50);
+  --c-arco-14:  rgba(255, 91, 31, 0.14);
+  --c-atencao:  #F7D74C;
+
+  /* — Type — */
+  --f-display:  'Archivo', sans-serif;
+  --f-narrow:   'Archivo Narrow', sans-serif;
+  --f-mono:     'JetBrains Mono', monospace;
+
+  /* — Spacing (4px base) — */
+  --s-0: 0px;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+
+  /* — Radius — */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 8px;
+
+  /* — Motion — */
+  --ease-pulso: cubic-bezier(0.2, 1, 0.2, 1);
+  --t-instant: 100ms;
+  --t-fast:    200ms;
+  --t-medium:  320ms;
+  --t-slow:    600ms;
+}
+
+/* — Light mode token overrides — */
+html[data-theme="light"] {
+  --c-vazio:    #F8F7F2;
+  --c-aco-800:  #EDECE8;
+  --c-aco-700:  #FFFFFF;
+  --c-linha-600:#D4D2CC;
+  --c-linha-500:#E2E0D8;
+  --c-cinza-400:#9B9891;
+  --c-cinza-300:#5C5A54;
+  --c-giz-200:  #36342F;
+  --c-giz-100:  #0F0E0B;
+  --c-cinza-700:#C2C0B8;
+}

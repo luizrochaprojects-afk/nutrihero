@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Reajustar</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .reaj {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+      animation: fade-in var(--t-medium) var(--ease-pulso);
+    }
+    .reaj .top {
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .reaj .title-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-3);
+      flex-wrap: wrap;
+    }
+    .reaj h1 {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 44px;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .reaj h1 .arco { color: var(--c-arco); }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes ticker-in {
+      from { opacity: 0; transform: translateX(12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .ticker-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .ticker-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--c-linha-500);
+      animation: ticker-in 320ms var(--ease-pulso) both;
+    }
+    .ticker-row.eaten { opacity: 0.5; }
+    .ticker-row:nth-child(1) { animation-delay: 0ms; }
+    .ticker-row:nth-child(2) { animation-delay: 80ms; }
+    .ticker-row:nth-child(3) { animation-delay: 160ms; }
+    .ticker-row:nth-child(4) { animation-delay: 240ms; }
+    .ticker-row:nth-child(5) { animation-delay: 320ms; }
+
+    .ticker-row .left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .ticker-row .name {
+      font-family: var(--f-display);
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--c-giz-100);
+    }
+    .ticker-row .change {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .ticker-row.eaten .change { color: var(--c-cinza-300); }
+    .ticker-row.adjusted .change { color: var(--c-giz-200); }
+
+    .ticker-row .right {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-3);
+    }
+    .ticker-row .old-val {
+      font-family: var(--f-mono);
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--c-cinza-400);
+      text-decoration: line-through;
+    }
+    .ticker-row .new-val {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--c-giz-100);
+    }
+    .ticker-row.adjusted .new-val { color: var(--c-giz-200); }
+
+    .diagnosis {
+      background: var(--c-aco-800);
+      padding: var(--s-4);
+      border-left: 2px solid var(--c-arco);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .diagnosis .l {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-arco);
+    }
+    .diagnosis .b {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--s-3) 0;
+      border-top: 1px solid var(--c-linha-500);
+    }
+    .totals .l {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .totals .v {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--c-giz-100);
+    }
+    .totals .v.arco { color: var(--c-giz-100); }
+    .pulso-wrap { width: 50%; margin-top: var(--s-2); }
+    .footer { display: flex; flex-direction: column; gap: var(--s-2); margin-top: auto; padding-top: var(--s-4); }
+    .footer-row { display: flex; gap: var(--s-2); }
+    .footer-row .cta-ghost { flex: 0 0 35%; }
+    .footer-row .cta-primary { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="reaj">
+    <a class="back-btn" href="home.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">RECALIBRAÇÃO · 12:18</span>
+      <div class="title-row">
+        <h1>Plano<br /><span class="arco">mudou.</span></h1>
+      </div>
+      <div class="pulso-wrap"><div class="pulso-line off-plan"></div></div>
+    </div>
+
+    <div class="diagnosis">
+      <span class="l">POR QUE</span>
+      <p class="b">Você comeu 80 kcal a mais no lanche da manhã. Para fechar a zona de 2.000 hoje, deslocamos as três refeições restantes.</p>
+    </div>
+
+    <div class="ticker-section">
+      <div class="ticker-row eaten">
+        <div class="left">
+          <span class="name">Café · 07:15</span>
+          <span class="change">FEITO</span>
+        </div>
+        <div class="right">
+          <span class="new-val">420</span>
+        </div>
+      </div>
+      <div class="ticker-row eaten">
+        <div class="left">
+          <span class="name">Lanche · 10:00</span>
+          <span class="change">FEITO · +80 kcal</span>
+        </div>
+        <div class="right">
+          <span class="new-val">400</span>
+        </div>
+      </div>
+      <div class="ticker-row adjusted">
+        <div class="left">
+          <span class="name">Almoço · 12:30</span>
+          <span class="change">REDUZIR · −40 KCAL</span>
+        </div>
+        <div class="right">
+          <span class="old-val">620</span>
+          <span class="new-val">580</span>
+        </div>
+      </div>
+      <div class="ticker-row adjusted">
+        <div class="left">
+          <span class="name">Lanche · 16:00</span>
+          <span class="change">REDUZIR · −20 KCAL</span>
+        </div>
+        <div class="right">
+          <span class="old-val">280</span>
+          <span class="new-val">260</span>
+        </div>
+      </div>
+      <div class="ticker-row adjusted">
+        <div class="left">
+          <span class="name">Jantar · 20:00</span>
+          <span class="change">REDUZIR · −20 KCAL</span>
+        </div>
+        <div class="right">
+          <span class="old-val">280</span>
+          <span class="new-val">260</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="totals">
+      <span class="l">Meta do dia · intacta</span>
+      <span class="v arco">2.000 KCAL</span>
+    </div>
+
+    <div class="footer">
+      <div class="footer-row">
+        <button class="cta-secondary" onclick="keep()">Manter plano</button>
+        <button class="cta-primary" onclick="apply()">Aplicar reajuste</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const NEW_TARGETS = { almoco: 580, 'lanche-pm': 260, jantar: 260 };
+    function apply() {
+      NH_STATE.consumed_kcal = 820;
+      NH_STATE.last_reajust_at = new Date().toISOString();
+      NH_STATE.reajust_choice = 'applied';
+      NH_STATE.reajust_targets = NEW_TARGETS;
+      NH_STATE.flash = { kind: 'reajust-applied', msg: 'PLANO RECALIBRADO', sub: 'Almoço, lanche e jantar deslocados.' };
+      window.location.href = NH_NAV.afterReajust();
+    }
+    function keep() {
+      NH_STATE.consumed_kcal = 820;
+      NH_STATE.last_reajust_at = new Date().toISOString();
+      NH_STATE.reajust_choice = 'kept';
+      NH_STATE.reajust_targets = null;
+      NH_STATE.flash = { kind: 'reajust-kept', msg: 'PLANO MANTIDO', sub: 'Você compensa nas próximas refeições.' };
+      window.location.href = NH_NAV.afterReajust();
+    }
+  </script>
+</body>
+</html>

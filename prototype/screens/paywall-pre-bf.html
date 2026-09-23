@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Liberar motor</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .pay { min-height: 100dvh; display: flex; flex-direction: column; padding: var(--s-4); padding-bottom: var(--s-6); gap: var(--s-5); }
+    .pay .top { padding-top: 0; display: flex; flex-direction: column; gap: var(--s-2); }
+    .pay h1 .arco { color: var(--c-arco); }
+    .gate-card { background: var(--c-aco-800); padding: var(--s-5); border-left: 2px solid var(--c-arco); display: flex; flex-direction: column; gap: var(--s-3); }
+    .gate-card .l { font-family: var(--f-narrow); font-weight: 600; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-arco); }
+    .gate-card .b { font-family: var(--f-display); font-weight: 400; font-size: 14px; color: var(--c-giz-200); line-height: 1.5; }
+
+    .plan-card { background: var(--c-aco-700); border-radius: var(--r-3); padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-3); outline: 1px solid var(--c-arco); outline-offset: -1px; }
+    .plan-card .badge { align-self: flex-start; font-family: var(--f-narrow); font-weight: 600; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-arco); padding: 2px 6px; border: 1px solid var(--c-arco); border-radius: var(--r-1); }
+    .plan-card .price { display: flex; align-items: baseline; gap: var(--s-2); }
+    .plan-card .amount { font-family: var(--f-mono); font-weight: 700; font-size: 56px; letter-spacing: -0.035em; color: var(--c-giz-100); }
+    .plan-card .currency { font-family: var(--f-narrow); font-size: 14px; color: var(--c-arco); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; }
+    .plan-card .period { font-family: var(--f-narrow); font-size: 11px; color: var(--c-cinza-300); text-transform: uppercase; letter-spacing: 0.14em; }
+    .plan-card .features { display: flex; flex-direction: column; gap: var(--s-2); margin-top: var(--s-2); }
+    .plan-card .feat { display: flex; gap: var(--s-3); align-items: baseline; }
+    .plan-card .bullet { font-family: var(--f-mono); color: var(--c-arco); font-size: 11px; min-width: 14px; }
+    .plan-card .txt { font-family: var(--f-display); font-size: 13px; color: var(--c-giz-200); line-height: 1.4; }
+
+    .card-input { display: flex; flex-direction: column; gap: var(--s-3); }
+    .card-row { display: flex; gap: var(--s-3); }
+    .card-row .col { flex: 1; }
+    .card-field { background: var(--c-aco-700); padding: var(--s-3); border-radius: var(--r-2); display: flex; flex-direction: column; gap: 2px; }
+    .card-field .lbl { font-family: var(--f-narrow); font-weight: 500; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-cinza-300); }
+    .card-field .val { font-family: var(--f-mono); font-weight: 500; font-size: 16px; color: var(--c-cinza-400); }
+
+    .terms { font-family: var(--f-display); font-size: 12px; color: var(--c-cinza-300); line-height: 1.5; text-align: center; }
+    .footer { display: flex; flex-direction: column; gap: var(--s-2); margin-top: auto; }
+
+    /* Payment method tabs */
+    .pay-input-section { display: flex; flex-direction: column; }
+    .pay-tabs { display: flex; border-bottom: 1px solid var(--c-linha-500); margin-bottom: var(--s-4); }
+    .pay-tab { flex: 1; background: transparent; border: none; border-bottom: 2px solid transparent; padding: var(--s-2) 0; font-family: var(--f-narrow); font-weight: 600; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--c-cinza-400); cursor: pointer; transition: color 150ms, border-color 150ms; margin-bottom: -1px; }
+    .pay-tab.active { color: var(--c-giz-100); border-bottom-color: var(--c-arco); }
+    .pay-express { display: none; flex-direction: column; align-items: center; gap: var(--s-5); padding: var(--s-5) 0; }
+    .pay-express.active { display: flex; }
+    .pay-express-logo { font-family: var(--f-display); font-size: 28px; font-weight: 900; color: var(--c-giz-100); letter-spacing: -.02em; }
+    .pay-express-hint { font-family: var(--f-narrow); font-size: 11px; color: var(--c-cinza-400); letter-spacing: .08em; text-transform: uppercase; text-align: center; }
+    .pay-card-panel { display: none; flex-direction: column; gap: var(--s-3); }
+    .pay-card-panel.active { display: flex; }
+    .proto-hint { font-family: var(--f-mono); font-size: 10px; color: var(--c-cinza-400); letter-spacing: .08em; text-align: center; text-transform: uppercase; margin-top: var(--s-1); }
+  </style>
+</head>
+<body>
+  <div class="pay">
+    <a class="back-btn" href="onboarding-short.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">03 / 05 · ACESSO</span>
+      <h1 class="title-display-2">Pra calcular<br />sua zona,<br /><span class="arco">libere o motor.</span></h1>
+    </div>
+
+    <div class="gate-card">
+      <span class="l">POR QUE COBRAR ANTES DA ZONA</span>
+      <p class="b">O motor de BF% + reajuste diário não roda em demo. Você cobra em 7 dias se quiser cancelar. Trial sem cartão dilui o sinal — gasta o motor com curioso, não operador.</p>
+    </div>
+
+    <div class="plan-card">
+      <span class="badge">Mensal · Liberação imediata</span>
+      <div class="price"><span class="amount">R$&nbsp;39</span><span class="currency">,90 / MÊS</span></div>
+      <span class="period">Cobrança em 7 dias · cancele a qualquer momento</span>
+      <div class="features">
+        <div class="feat"><span class="bullet">›</span><span class="txt">Cálculo de BF% por medidas ou foto.</span></div>
+        <div class="feat"><span class="bullet">›</span><span class="txt">Reajuste diário do plano.</span></div>
+        <div class="feat"><span class="bullet">›</span><span class="txt">Registro por foto, áudio ou WhatsApp.</span></div>
+        <div class="feat"><span class="bullet">›</span><span class="txt">Diagnóstico semanal de padrão.</span></div>
+      </div>
+    </div>
+
+    <div class="pay-input-section">
+      <div class="pay-tabs">
+        <button class="pay-tab active" data-method="apple" type="button">Apple Pay</button>
+        <button class="pay-tab" data-method="google" type="button">Google Pay</button>
+        <button class="pay-tab" data-method="card" type="button">Cartão</button>
+      </div>
+      <div class="pay-express active" id="panel-apple">
+        <div class="pay-express-logo"> Pay</div>
+        <p class="pay-express-hint">Autenticação via Face ID ou Touch ID</p>
+      </div>
+      <div class="pay-express" id="panel-google">
+        <div class="pay-express-logo">G Pay</div>
+        <p class="pay-express-hint">Pague com sua conta Google</p>
+      </div>
+      <div class="pay-card-panel" id="panel-card">
+        <div class="pay-input-row" data-input="card">
+          <label>Cartão</label>
+          <input id="cc-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="19" />
+        </div>
+        <div class="pay-grid-2">
+          <div class="pay-input-row" data-input="exp"><label>Validade</label><input id="cc-exp" type="text" inputmode="numeric" placeholder="MM / AA" maxlength="7" /></div>
+          <div class="pay-input-row" data-input="cvv"><label>CVV</label><input id="cc-cvv" type="text" inputmode="numeric" placeholder="•••" maxlength="4" /></div>
+        </div>
+        <p class="proto-hint">Protótipo — qualquer número de 16 dígitos funciona</p>
+        <div id="card-error" class="card-error" hidden>
+          <span class="card-error-title">Cartão recusado</span>
+          <span class="card-error-body">A operadora não autorizou. Tente outro cartão.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="terms">Cobrança apenas em 7 dias. Cancelar leva 2 toques.</p>
+
+    <div class="footer">
+      <button id="pay-cta" class="cta-primary hero cta-disabled" type="button">Liberar motor</button>
+    </div>
+
+    <div class="dev-scenarios">
+      <span class="label">SIMULAR · CENÁRIOS</span>
+      <button type="button" data-dev-toggle="declined">Cartão recusado</button>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const num = document.getElementById('cc-number');
+    const exp = document.getElementById('cc-exp');
+    const cvv = document.getElementById('cc-cvv');
+    const errBox = document.getElementById('card-error');
+    const cta = document.getElementById('pay-cta');
+    const DEV = { declined: false };
+    let currentMethod = 'apple';
+
+    function switchMethod(m) {
+      currentMethod = m;
+      document.querySelectorAll('.pay-tab').forEach(t => t.classList.toggle('active', t.dataset.method === m));
+      document.querySelectorAll('.pay-express').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-card').classList.remove('active');
+      if (m === 'card') document.getElementById('panel-card').classList.add('active');
+      else document.getElementById('panel-' + m).classList.add('active');
+      updateCta();
+    }
+    document.querySelectorAll('.pay-tab').forEach(t => t.addEventListener('click', () => switchMethod(t.dataset.method)));
+
+    function cardValid() {
+      const n = (num.value || '').replace(/\s/g, '');
+      const e = (exp.value || '').replace(/\s/g, '');
+      return n.length === 16 && e.length >= 4 && cvv.value.length >= 3;
+    }
+
+    function updateCta() {
+      cta.classList.toggle('cta-disabled', currentMethod === 'card' && !cardValid());
+    }
+
+    num.addEventListener('input', () => {
+      let v = num.value.replace(/\D/g, '').slice(0, 16);
+      num.value = v.replace(/(.{4})/g, '$1 ').trim();
+      updateCta();
+    });
+    exp.addEventListener('input', () => {
+      let v = exp.value.replace(/\D/g, '').slice(0, 4);
+      if (v.length > 2) v = v.slice(0, 2) + ' / ' + v.slice(2);
+      exp.value = v;
+      updateCta();
+    });
+    cvv.addEventListener('input', () => {
+      cvv.value = cvv.value.replace(/\D/g, '').slice(0, 4);
+      updateCta();
+    });
+
+    cta.addEventListener('click', () => {
+      if (cta.classList.contains('cta-disabled')) return;
+      if (errBox) errBox.hidden = true;
+      cta.textContent = 'PROCESSANDO…';
+      cta.classList.add('cta-disabled');
+      setTimeout(() => {
+        if (currentMethod === 'card' && DEV.declined) {
+          if (errBox) errBox.hidden = false;
+          cta.textContent = 'Tentar novamente';
+          cta.classList.remove('cta-disabled');
+          return;
+        }
+        NH_STATE.subscription = { active: true, since: new Date().toISOString() };
+        const t = window.NH_NAV && window.NH_NAV.afterPaywallPreBf ? window.NH_NAV.afterPaywallPreBf() : 'bf-method-measure-first.html';
+        window.location.href = t;
+      }, 700);
+    });
+
+    document.querySelectorAll('[data-dev-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const k = btn.dataset.devToggle;
+        DEV[k] = !DEV[k];
+        btn.classList.toggle('active', DEV[k]);
+      });
+    });
+
+    // Init: Apple Pay selected, CTA enabled
+    updateCta();
+  </script>
+</body>
+</html>

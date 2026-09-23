@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Legal</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .legal {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-8);
+      gap: var(--s-4);
+    }
+    .legal .top { padding-top: var(--s-2); display: flex; flex-direction: column; gap: var(--s-2); }
+    .draft-note {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--c-atencao);
+      border: 1px dashed var(--c-linha-500);
+      border-radius: var(--r-1);
+      padding: var(--s-2) var(--s-3);
+      line-height: 1.5;
+    }
+    .legal-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-400);
+    }
+    .legal-doc { display: none; flex-direction: column; gap: var(--s-4); }
+    .legal-doc.active { display: flex; }
+    .legal-doc section { display: flex; flex-direction: column; gap: var(--s-2); }
+    .legal-doc h2 {
+      font-family: var(--f-narrow);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .legal-doc p {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--c-giz-200);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="legal">
+    <a class="back-btn" href="ajustes.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">LEGAL</span>
+      <h1 class="title-display-2" id="legal-title">Termos de serviço.</h1>
+      <span class="legal-meta">Atualizado em 22/05/2026</span>
+    </div>
+
+    <p class="draft-note">TEXTO DE EXEMPLO — RASCUNHO SUJEITO A REVISÃO JURÍDICA ANTES DO LANÇAMENTO.</p>
+
+    <!-- TERMOS -->
+    <div class="legal-doc" id="doc-termos">
+      <section>
+        <h2>1 · Aceitação dos termos</h2>
+        <p>Ao criar uma conta e usar o NutriHero, você concorda com estes Termos de Serviço. Se não concordar, não utilize o aplicativo.</p>
+      </section>
+      <section>
+        <h2>2 · Descrição do serviço</h2>
+        <p>O NutriHero estima percentual de gordura corporal e gera uma zona calórica com reajuste diário e diagnóstico semanal de padrões. As estimativas são aproximações baseadas nos dados que você fornece.</p>
+      </section>
+      <section>
+        <h2>3 · Assinatura e cobrança</h2>
+        <p>O acesso é por assinatura mensal. O cartão é registrado no dia 0 e a primeira cobrança ocorre após 7 dias, salvo cancelamento dentro desse período. A renovação é automática a cada ciclo.</p>
+      </section>
+      <section>
+        <h2>4 · Cancelamento</h2>
+        <p>Você pode cancelar a qualquer momento em Ajustes → Assinatura. O cancelamento encerra a renovação; o acesso continua até o fim do ciclo já pago.</p>
+      </section>
+      <section>
+        <h2>5 · Não é aconselhamento médico</h2>
+        <p>O NutriHero é uma ferramenta de apoio e não substitui avaliação de médico, nutricionista ou profissional de saúde. As fórmulas de gordura corporal e calorias têm margem de erro. Consulte um profissional antes de mudanças relevantes na dieta ou no treino.</p>
+      </section>
+      <section>
+        <h2>6 · Uso aceitável</h2>
+        <p>Você se compromete a fornecer dados verdadeiros e a não usar o serviço para fins ilícitos ou para terceiros sem autorização.</p>
+      </section>
+      <section>
+        <h2>7 · Limitação de responsabilidade</h2>
+        <p>Na máxima extensão permitida em lei, o NutriHero não se responsabiliza por decisões tomadas com base nas estimativas do aplicativo.</p>
+      </section>
+      <section>
+        <h2>8 · Alterações</h2>
+        <p>Estes termos podem ser atualizados. Mudanças relevantes serão comunicadas no aplicativo.</p>
+      </section>
+      <section>
+        <h2>9 · Contato</h2>
+        <p>Dúvidas sobre estes termos: suporte@nutrihero.app.</p>
+      </section>
+    </div>
+
+    <!-- PRIVACIDADE -->
+    <div class="legal-doc" id="doc-privacidade">
+      <section>
+        <h2>1 · Dados que coletamos</h2>
+        <p>Coletamos os dados que você informa na anamnese (objetivo, sexo, idade, peso, altura, atividade), suas medições de gordura corporal, registros de refeições e dados de uso do aplicativo.</p>
+      </section>
+      <section>
+        <h2>2 · Como usamos seus dados</h2>
+        <p>Os dados são usados para calcular sua zona calórica, gerar reajustes diários, identificar padrões semanais e melhorar o serviço. Não vendemos seus dados.</p>
+      </section>
+      <section>
+        <h2>3 · Compartilhamento</h2>
+        <p>Compartilhamos dados apenas com prestadores necessários para operar o serviço (processamento de pagamento e infraestrutura), sob obrigação de confidencialidade.</p>
+      </section>
+      <section>
+        <h2>4 · Armazenamento e segurança</h2>
+        <p>Seus dados são armazenados com medidas técnicas de proteção. Fotos enviadas para estimativa são processadas e podem ser descartadas após a análise.</p>
+      </section>
+      <section>
+        <h2>5 · Seus direitos (LGPD)</h2>
+        <p>Conforme a Lei Geral de Proteção de Dados, você pode acessar, corrigir, portar ou excluir seus dados. A exclusão da conta (Ajustes → Excluir conta) apaga seus dados pessoais do serviço.</p>
+      </section>
+      <section>
+        <h2>6 · Cookies e tecnologias</h2>
+        <p>Usamos armazenamento local e identificadores para manter sua sessão e medir uso de forma agregada.</p>
+      </section>
+      <section>
+        <h2>7 · Contato</h2>
+        <p>Encarregado de dados: privacidade@nutrihero.app.</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const doc = new URLSearchParams(location.search).get('doc') === 'privacidade'
+      ? 'privacidade' : 'termos';
+    document.getElementById('doc-' + doc).classList.add('active');
+    document.getElementById('legal-title').textContent =
+      doc === 'privacidade' ? 'Política de privacidade.' : 'Termos de serviço.';
+    document.title = 'NutriHero — ' + (doc === 'privacidade' ? 'Privacidade' : 'Termos');
+  </script>
+</body>
+</html>

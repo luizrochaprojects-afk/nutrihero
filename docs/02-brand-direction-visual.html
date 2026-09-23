@@ -1,0 +1,3340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>NutriHero — Direção de Marca · Pulso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Archivo+Narrow:wght@400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@1,300;1,500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Pulso palette */
+  --vazio: #06070A;
+  --aco: #13151C;
+  --aco-2: #1E212A;
+  --arco: #FF5B1F;
+  --arco-soft: rgba(255, 91, 31, 0.14);
+  --atencao: #F7D74C;
+  --giz: #EEEBE3;
+  --cinza: #5A5E68;
+  --cinza-2: #8F8B81;
+  --linha: #2A2E3A;
+
+  /* Type */
+  --display: 'Archivo', sans-serif;
+  --narrow: 'Archivo Narrow', sans-serif;
+  --body: 'Inter Tight', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+em { font-style: normal; color: var(--arco); }
+
+/* ─────────────────  LAYOUT  ───────────────── */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
+section {
+  padding: 96px 0 64px;
+  position: relative;
+}
+
+.section-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  color: var(--cinza-2);
+  text-transform: uppercase;
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--linha);
+}
+
+.section-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(48px, 6.4vw, 84px);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  color: var(--giz);
+  margin-bottom: 32px;
+  max-width: 1180px;
+  text-transform: uppercase;
+}
+
+.section-lede {
+  font-family: var(--body);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--giz);
+  max-width: 780px;
+  line-height: 1.55;
+  margin-bottom: 56px;
+  opacity: 0.88;
+}
+
+.section-lede strong { color: var(--giz); font-weight: 600; opacity: 1; }
+
+/* ─────────────────  TICKER (signature) ───────────────── */
+.ticker-divider {
+  border-top: 1px solid rgba(255, 91, 31, 0.45);
+  border-bottom: 1px solid rgba(255, 91, 31, 0.45);
+  background: transparent;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+  margin: 0;
+}
+
+.ticker-track {
+  display: inline-block;
+  animation: ticker 38s linear infinite;
+  font-family: var(--narrow);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--arco);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ticker-track span { padding: 0 32px; }
+.ticker-track span::before { content: '·'; padding-right: 32px; color: rgba(255, 91, 31, 0.55); }
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────  COVER (§0) ───────────────── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px 64px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 70% 30%, var(--arco-soft), transparent 60%);
+  pointer-events: none;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-mark {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--cinza-2);
+  text-transform: uppercase;
+}
+
+.cover-mark strong { color: var(--giz); font-weight: 700; }
+
+.cover-status {
+  font-family: var(--narrow);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vazio);
+  background: var(--arco);
+  padding: 7px 14px;
+}
+
+.cover-middle { position: relative; z-index: 1; margin-top: 0; }
+
+.wordmark {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(96px, 16vw, 240px);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  color: var(--giz);
+  text-transform: uppercase;
+}
+
+.wordmark-i { color: var(--arco); }
+
+.cover-snapshot {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--giz);
+  max-width: 880px;
+  margin-top: 56px;
+  text-transform: uppercase;
+}
+
+.cover-snapshot em { color: var(--arco); }
+
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cinza-2);
+  padding-bottom: 32px;
+}
+
+.cover-bottom strong { color: var(--giz); font-weight: 700; }
+
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 48px;
+}
+
+.cover-meta-grid div { display: flex; flex-direction: column; gap: 4px; }
+
+/* ─────────────────  §1 VETORES ───────────────── */
+.vectors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.vector-card {
+  padding: 36px 36px 32px;
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  position: relative;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vector-num {
+  font-family: var(--mono);
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--arco);
+  line-height: 1;
+  margin-bottom: 28px;
+  letter-spacing: -0.04em;
+}
+
+.vector-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.05;
+  color: var(--giz);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.vector-desc {
+  font-size: 14.5px;
+  color: var(--giz);
+  opacity: 0.78;
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+.vector-desc strong { color: var(--giz); opacity: 1; font-weight: 600; }
+
+/* ─────────────────  §2 — 3 DIREÇÕES ───────────────── */
+.directions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.direction-col {
+  border: 1px solid var(--linha);
+  background: var(--aco);
+  display: flex;
+  flex-direction: column;
+}
+
+.direction-col.chosen {
+  border: 1px solid var(--arco);
+  box-shadow: 0 0 0 1px var(--arco), 0 24px 60px -20px var(--arco-soft);
+}
+
+.direction-head {
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--linha);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.direction-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cinza-2);
+}
+
+.direction-label.no { color: var(--cinza-2); }
+.direction-label.yes { color: var(--arco); }
+
+.direction-name {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--giz);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.direction-one-liner {
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.75;
+  line-height: 1.4;
+  margin-top: -2px;
+}
+
+/* Phone frame mock */
+.phone-wrap { padding: 14px 14px; }
+
+.phone {
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 26px;
+  padding: 8px;
+  background: #000;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.55);
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-statusbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 14px 0;
+  font-size: 9px;
+  font-weight: 600;
+  z-index: 10;
+  font-family: var(--body);
+}
+
+.phone-statusbar .right { display: flex; gap: 4px; align-items: center; font-size: 8px; }
+
+/* —— Telemetria screen —— */
+.screen-tel {
+  background: #0B0D0F;
+  color: #F2EFE8;
+  font-family: 'Instrument Sans', sans-serif;
+  padding: 28px 12px 12px;
+}
+.screen-tel .phone-statusbar { color: #F2EFE8; }
+.screen-tel .tel-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 8px;
+  letter-spacing: 0.18em; color: #7d8087;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.screen-tel .tel-meta span:last-child { color: #C8FF3D; }
+.screen-tel .tel-title {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500; font-size: 16px;
+  letter-spacing: -0.02em; line-height: 1;
+  margin-bottom: 6px;
+}
+.screen-tel .tel-title-italic {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic; font-size: 12px;
+  color: #C8FF3D; margin-bottom: 12px;
+}
+.screen-tel .tel-horizon {
+  height: 60px; margin: 8px 0;
+  border-top: 1px solid #1f2429;
+  border-bottom: 1px solid #1f2429;
+  position: relative;
+}
+.screen-tel .tel-horizon svg {
+  width: 100%; height: 100%;
+}
+.screen-tel .tel-stack {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 9px;
+  margin-top: 8px;
+}
+.screen-tel .tel-row {
+  display: flex; justify-content: space-between;
+  border-top: 1px solid #1f2429;
+  padding-top: 4px; color: #cfccc4;
+}
+.screen-tel .tel-row b { color: #F2EFE8; font-weight: 500; }
+.screen-tel .tel-cta {
+  position: absolute; left: 12px; right: 12px; bottom: 14px;
+  background: transparent; border: 1px solid #C8FF3D;
+  color: #C8FF3D; padding: 11px;
+  text-align: center; font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500; font-size: 11px; letter-spacing: 0.04em;
+}
+
+/* —— Espelho screen —— */
+.screen-esp {
+  background: #F1EBE2;
+  color: #1A1715;
+  font-family: 'Geist', sans-serif;
+  padding: 28px 14px 14px;
+}
+.screen-esp .phone-statusbar { color: #1A1715; }
+.screen-esp .esp-meta {
+  display: flex; justify-content: space-between;
+  font-family: 'Geist Mono', 'JetBrains Mono', monospace;
+  font-size: 8px; letter-spacing: 0.16em;
+  color: #8c8074; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.screen-esp .esp-title {
+  font-family: 'Newsreader', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 26px; line-height: 0.95;
+  letter-spacing: -0.01em; margin-bottom: 14px;
+  color: #1A1715;
+}
+.screen-esp .esp-title em {
+  color: #E4572E; font-style: italic;
+}
+.screen-esp .esp-portal {
+  border: 1px solid #1A1715;
+  border-style: dashed; border-color: #E4572E;
+  aspect-ratio: 3/4; margin: 0 4px 12px;
+  background: linear-gradient(180deg, #d8cfbb 0%, #968871 100%);
+  position: relative;
+}
+.screen-esp .esp-portal::after {
+  content: '+12 SEM'; position: absolute;
+  bottom: -4px; right: 4px; background: #F1EBE2;
+  padding: 0 4px; font-family: 'Geist Mono', monospace;
+  font-size: 7px; letter-spacing: 0.16em; color: #1A1715;
+}
+.screen-esp .esp-stack {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: 'Geist Mono', 'JetBrains Mono', monospace;
+  font-size: 9px;
+}
+.screen-esp .esp-row {
+  display: flex; justify-content: space-between;
+  border-top: 1px solid #1A1715;
+  padding-top: 4px; color: #8c8074;
+}
+.screen-esp .esp-row b { color: #1A1715; font-weight: 500; }
+.screen-esp .esp-cta {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  background: #E4572E; color: #F1EBE2;
+  padding: 11px; text-align: center;
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; font-size: 11px;
+}
+
+/* —— Pulso screen (chosen) —— */
+.screen-pul {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  padding: 26px 12px 12px;
+}
+.screen-pul .phone-statusbar { color: var(--giz); }
+.screen-pul .pul-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 9px; letter-spacing: 0.18em;
+  color: var(--cinza-2); text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.screen-pul .pul-meta .live { color: var(--arco); }
+.screen-pul .pul-hero {
+  font-family: var(--display); font-weight: 900;
+  font-size: 52px; line-height: 0.85;
+  letter-spacing: -0.045em;
+  color: var(--giz); text-transform: uppercase;
+  margin-bottom: 0;
+}
+.screen-pul .pul-hero-sub {
+  font-family: var(--display); font-weight: 900;
+  font-size: 12px; color: var(--arco);
+  margin-top: 2px; text-transform: uppercase;
+}
+.screen-pul .pul-line {
+  height: 2px; background: var(--arco);
+  margin: 8px 0 4px;
+  animation: pulseLine 1.6s ease-in-out infinite;
+  transform-origin: left;
+}
+@keyframes pulseLine {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.85); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+.screen-pul .pul-macros {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 6px;
+}
+.screen-pul .pul-macro {
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 9px;
+  border-top: 1px solid rgba(238, 235, 227, 0.1);
+  padding-top: 3px; color: var(--cinza-2);
+}
+.screen-pul .pul-macro b { color: var(--giz); font-weight: 500; }
+.screen-pul .pul-ticker {
+  position: absolute; left: 0; right: 0;
+  bottom: 50px; padding: 7px 12px;
+  border-top: 1px solid rgba(255, 91, 31, 0.4);
+  border-bottom: 1px solid rgba(255, 91, 31, 0.4);
+  overflow: hidden; white-space: nowrap;
+}
+.screen-pul .pul-ticker-inner {
+  display: inline-block;
+  animation: ticker 20s linear infinite;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 9px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.screen-pul .pul-ticker-inner span { padding: 0 14px; }
+.screen-pul .pul-cta {
+  position: absolute; left: 8px; right: 8px; bottom: 10px;
+  background: var(--arco); color: var(--vazio);
+  padding: 11px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 11px; letter-spacing: 0.04em;
+  text-align: center; text-transform: uppercase;
+}
+
+/* Direction column footer */
+.direction-foot {
+  padding: 16px 24px 22px;
+  border-top: 1px solid var(--linha);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.palette-strip {
+  display: flex;
+  height: 18px;
+}
+
+.palette-strip > div { flex: 1; }
+
+.type-line {
+  font-size: 11px;
+  color: var(--cinza-2);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.type-line strong { color: var(--giz); font-family: var(--mono); font-weight: 700; }
+
+.direction-rationale {
+  font-size: 12.5px;
+  color: var(--giz);
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.direction-rationale strong { color: var(--giz); opacity: 1; font-weight: 600; }
+.direction-rationale .y { color: var(--arco); font-weight: 600; }
+
+/* ─────────────────  §3 — POR QUE PULSO VENCEU ───────────────── */
+.winner-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--aco);
+  border: 1px solid var(--linha);
+}
+
+.winner-table th, .winner-table td {
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--linha);
+  border-right: 1px solid var(--linha);
+  vertical-align: middle;
+}
+
+.winner-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cinza-2);
+  background: var(--vazio);
+}
+
+.winner-table th.chosen { color: var(--arco); }
+
+.winner-table td.crit {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--giz);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  width: 28%;
+}
+
+.winner-table td.chosen { background: rgba(255, 91, 31, 0.04); }
+
+.score {
+  display: inline-flex; gap: 3px; align-items: center;
+  margin-bottom: 6px;
+}
+
+.score i {
+  width: 8px; height: 8px; background: var(--arco);
+  display: inline-block; border-radius: 1px;
+}
+
+.score i.off { background: var(--linha); }
+
+.score-note {
+  font-size: 11.5px;
+  color: var(--cinza-2);
+  line-height: 1.4;
+}
+
+.callout {
+  margin-top: 40px;
+  padding: 32px 36px;
+  background: var(--aco);
+  border-left: 3px solid var(--arco);
+}
+
+.callout-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--arco);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.callout-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--giz);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.callout-body {
+  font-size: 15px;
+  color: var(--giz);
+  opacity: 0.86;
+  line-height: 1.55;
+}
+
+.callout-body strong { color: var(--giz); opacity: 1; font-weight: 600; }
+.callout-body em { color: var(--arco); }
+
+/* ─────────────────  §4 — AUDIÊNCIA / VOZ ───────────────── */
+.audience-table, .personality-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--linha);
+  background: var(--aco);
+}
+
+.audience-table th, .audience-table td,
+.personality-table th, .personality-table td {
+  padding: 18px 20px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--linha);
+  border-right: 1px solid var(--linha);
+  color: var(--giz);
+}
+
+.audience-table th, .personality-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cinza-2);
+  background: var(--vazio);
+}
+
+.personality-table th.yes { color: var(--arco); }
+.personality-table th.no { color: var(--cinza-2); }
+
+.audience-table td:first-child {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--giz);
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.personality-table td { opacity: 0.88; }
+
+.subsection-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 28px;
+  color: var(--giz);
+  margin: 64px 0 24px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.voice-pair { display: flex; flex-direction: column; gap: 8px; }
+
+.voice-bubble {
+  padding: 14px 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--aco);
+  position: relative;
+  padding-left: 36px;
+}
+
+.voice-bubble::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 18px;
+  width: 12px;
+  height: 12px;
+}
+
+.voice-bubble.yes { color: var(--giz); }
+.voice-bubble.yes::before { background: var(--arco); }
+.voice-bubble.no { color: var(--cinza-2); opacity: 0.75; }
+.voice-bubble.no::before { background: var(--linha); }
+
+/* ─────────────────  §5 — COR ───────────────── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.swatch {
+  border: 1px solid var(--linha);
+  overflow: hidden;
+}
+
+.swatch-color {
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+
+.swatch-color span {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.swatch-info {
+  padding: 14px 16px;
+  background: var(--aco);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.swatch-token {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--giz);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.swatch-token .hex {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--cinza-2);
+  letter-spacing: 0.04em;
+  margin-left: 8px;
+  text-transform: none;
+}
+
+.swatch-use {
+  font-size: 12px;
+  color: var(--giz);
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.swatch-color.signal {
+  box-shadow: inset 0 0 0 2px var(--giz);
+}
+
+.rules-list {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.rule {
+  padding: 22px 26px;
+  background: var(--aco);
+  border-left: 3px solid var(--arco);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rule-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--arco);
+  letter-spacing: 0.24em;
+  font-weight: 500;
+}
+
+.rule-text {
+  font-size: 14px;
+  color: var(--giz);
+  line-height: 1.5;
+}
+
+.rule-text strong { font-weight: 600; }
+.rule-text code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--vazio);
+  padding: 1px 6px;
+  color: var(--arco);
+}
+
+/* ─────────────────  §6 — TIPOGRAFIA ───────────────── */
+.type-specimen {
+  border: 1px solid var(--linha);
+  margin-bottom: 20px;
+  background: var(--aco);
+  overflow: hidden;
+}
+
+.specimen-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--linha);
+  background: var(--vazio);
+}
+
+.specimen-name {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--giz);
+}
+
+.specimen-role {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--cinza-2);
+  letter-spacing: 0.04em;
+}
+
+.specimen-body { padding: 36px 24px 32px; }
+
+.specimen-archivo {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 88px;
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  color: var(--giz);
+  text-transform: uppercase;
+}
+
+.specimen-archivo em { color: var(--arco); }
+
+.specimen-narrow {
+  font-family: var(--narrow);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--arco);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.specimen-narrow span { padding-right: 30px; }
+.specimen-narrow span::after { content: '·'; padding-left: 30px; color: rgba(255,91,31,0.5); }
+
+.specimen-mono-row {
+  display: flex;
+  gap: 40px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.mono-big {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 72px;
+  letter-spacing: -0.04em;
+  color: var(--giz);
+}
+
+.mono-mid {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--giz);
+}
+
+.mono-small {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--cinza-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.type-tokens-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 32px;
+  border: 1px solid var(--linha);
+  background: var(--aco);
+}
+
+.type-tokens-table th, .type-tokens-table td {
+  padding: 12px 18px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--linha);
+  color: var(--giz);
+}
+
+.type-tokens-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cinza-2);
+  background: var(--vazio);
+}
+
+.type-tokens-table td:first-child {
+  font-family: var(--mono);
+  color: var(--arco);
+}
+
+.font-notice {
+  margin-top: 24px;
+  padding: 18px 22px;
+  background: var(--aco);
+  border-left: 3px solid var(--arco);
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.86;
+  line-height: 1.5;
+}
+
+.font-notice strong { color: var(--giz); opacity: 1; }
+
+/* ─────────────────  §7 — COMPOSIÇÃO / MOTION ───────────────── */
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 64px;
+}
+
+.principle {
+  padding: 22px;
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.principle-vis {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.principle-name {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--giz);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.principle-desc {
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.76;
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+/* Mini-diagrams */
+.diag-bignum {
+  font-family: var(--display); font-weight: 900;
+  font-size: 56px; line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--giz);
+}
+.diag-bignum em { color: var(--arco); }
+
+.diag-ticker {
+  width: 100%; height: 18px;
+  border-top: 1px solid rgba(255,91,31,0.4);
+  border-bottom: 1px solid rgba(255,91,31,0.4);
+  overflow: hidden; white-space: nowrap;
+  font-family: var(--narrow);
+  font-size: 9px; color: var(--arco);
+  letter-spacing: 0.12em;
+  display: flex; align-items: center;
+  padding: 0 4px;
+}
+
+.diag-edge {
+  width: 100%; height: 40px;
+  background: linear-gradient(90deg, var(--arco) 0 4px, transparent 4px 100%);
+  border-top: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+  display: flex; align-items: center; padding-left: 16px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 22px; color: var(--giz);
+  text-transform: uppercase; letter-spacing: -0.02em;
+}
+
+.diag-arco {
+  display: flex; gap: 8px; align-items: center;
+}
+.diag-arco .a {
+  width: 14px; height: 14px; background: var(--arco);
+}
+.diag-arco .b {
+  width: 14px; height: 14px; background: var(--linha);
+}
+
+.diag-noital {
+  font-family: var(--display); font-weight: 900;
+  font-size: 38px; color: var(--giz);
+  letter-spacing: -0.04em; text-transform: uppercase;
+}
+.diag-noital del {
+  text-decoration-color: var(--arco);
+  text-decoration-thickness: 2px;
+}
+
+.diag-photo {
+  width: 70px; height: 56px;
+  background: linear-gradient(180deg, #8a8478 0%, #2a2826 100%);
+  border-right: 3px solid var(--arco);
+  position: relative;
+}
+
+/* Motion section */
+.motion-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+.easing-vis {
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  padding: 32px;
+}
+
+.easing-vis svg { display: block; width: 100%; height: auto; }
+
+.easing-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--cinza-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 16px;
+}
+
+.motion-moments {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.moment {
+  padding: 22px 24px;
+  background: var(--aco);
+  border-left: 3px solid var(--arco);
+}
+
+.moment-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--arco);
+  letter-spacing: 0.22em;
+  margin-bottom: 10px;
+}
+
+.moment-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--giz);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.moment-desc {
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.moment-demo {
+  margin-top: 12px;
+  height: 36px;
+  background: var(--vazio);
+  display: flex; align-items: center;
+  padding: 0 12px;
+  font-family: var(--mono);
+  font-size: 18px; font-weight: 700;
+  color: var(--giz);
+  overflow: hidden;
+  position: relative;
+}
+
+.demo-armingflash {
+  height: 40px; background: var(--vazio);
+  position: relative; overflow: hidden;
+  margin-top: 12px;
+}
+.demo-armingflash::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--arco);
+  animation: armingflash 2.6s ease-in-out infinite;
+}
+@keyframes armingflash {
+  0%, 65%, 100% { opacity: 0; }
+  70%, 80% { opacity: 1; }
+  85% { opacity: 0; }
+}
+.demo-armingflash .label {
+  position: absolute; inset: 0;
+  display: flex; align-items: center;
+  padding: 0 12px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 14px; text-transform: uppercase;
+  color: var(--giz); z-index: 2;
+  letter-spacing: -0.01em;
+}
+
+/* ─────────────────  §8 — COMPONENTES ───────────────── */
+.cta-hero-wrap {
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  padding: 56px 48px;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.cta-hero-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--cinza-2);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.pulso-line-demo {
+  text-align: center;
+  padding: 16px 0 8px;
+}
+
+.pulso-line-demo .num {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 112px;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--giz);
+}
+
+.pulso-line-demo .num small {
+  font-size: 18px;
+  color: var(--arco);
+  margin-left: 12px;
+}
+
+.pulso-line {
+  height: 3px; background: var(--arco);
+  margin: 14px auto 8px;
+  width: 280px;
+  animation: pulseLineSlow 2.0s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes pulseLineSlow {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.7); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+.pulso-line-demo .caption {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--cinza-2);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.cta-specs {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.spec-item {
+  font-size: 12px;
+  color: var(--giz);
+  opacity: 0.85;
+  border-top: 1px solid var(--linha);
+  padding-top: 10px;
+  line-height: 1.5;
+}
+
+.spec-item strong {
+  display: block;
+  color: var(--giz);
+  opacity: 1;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.comp-card {
+  padding: 32px;
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 280px;
+}
+
+.comp-card-wide { grid-column: span 2; }
+
+.comp-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--cinza-2);
+  text-transform: uppercase;
+}
+
+.arc-gauge {
+  display: flex; justify-content: center;
+  padding: 12px 0;
+}
+
+.arc-gauge svg {
+  width: 180px; height: 180px;
+}
+
+.ticker-component {
+  height: 38px;
+  border-top: 1px solid rgba(255,91,31,0.5);
+  border-bottom: 1px solid rgba(255,91,31,0.5);
+  overflow: hidden; white-space: nowrap;
+  display: flex; align-items: center;
+  margin: 8px 0;
+}
+
+.ticker-component-inner {
+  display: inline-block;
+  animation: ticker 24s linear infinite;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 13px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+.ticker-component-inner span { padding: 0 22px; }
+.ticker-component-inner span::before {
+  content: '·'; padding-right: 22px;
+  color: rgba(255,91,31,0.5);
+}
+
+.btn-demo {
+  background: var(--arco);
+  color: var(--vazio);
+  padding: 16px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 14px; text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.btn-ghost-demo {
+  background: transparent;
+  border: 1px solid var(--linha);
+  color: var(--giz);
+  padding: 16px;
+  font-family: var(--display); font-weight: 700;
+  font-size: 14px; text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+}
+
+.atencao-chip-demo {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--atencao);
+  color: var(--vazio);
+  font-family: var(--display);
+  font-weight: 900; font-size: 12px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.comp-note {
+  font-size: 12.5px;
+  color: var(--giz);
+  opacity: 0.78;
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+.comp-note strong { opacity: 1; font-weight: 600; }
+
+/* ─────────────────  §9 — HERO MOMENTS ───────────────── */
+.heros-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.hero-card {
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero-card-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--arco);
+  font-weight: 500;
+}
+
+.hero-card-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--giz);
+  margin: 6px 0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.hero-card-sub {
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.78;
+  line-height: 1.5;
+}
+
+.hero-card-sub strong { color: var(--giz); opacity: 1; font-weight: 600; }
+
+.hero-phone {
+  width: 320px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 19.5;
+  background: #000;
+  border-radius: 36px;
+  padding: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.hero-phone .phone-screen { border-radius: 26px; }
+
+/* — Hero 1 · Daily Dashboard — */
+.hero-dash {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  padding: 32px 16px 16px;
+  position: relative;
+}
+.hero-dash .phone-statusbar { color: var(--giz); }
+.hero-dash .dash-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.16em;
+  color: var(--cinza-2); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hero-dash .dash-meta .live { color: var(--arco); }
+.hero-dash .dash-bignum {
+  font-family: var(--display); font-weight: 900;
+  font-size: 76px; line-height: 0.82;
+  letter-spacing: -0.05em; color: var(--giz);
+  text-transform: uppercase;
+}
+.hero-dash .dash-bignum-sub {
+  font-family: var(--display); font-weight: 900;
+  font-size: 14px; color: var(--arco);
+  margin-top: 4px; text-transform: uppercase;
+}
+.hero-dash .dash-pulse {
+  height: 2px; background: var(--arco);
+  margin: 14px 0 4px;
+  animation: pulseLine 1.6s ease-in-out infinite;
+  transform-origin: left;
+}
+.hero-dash .dash-macros {
+  display: flex; flex-direction: column; gap: 5px;
+  margin-top: 14px;
+}
+.hero-dash .dash-macro {
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 11px;
+  border-top: 1px solid rgba(238,235,227,0.1);
+  padding-top: 5px; color: var(--cinza-2);
+}
+.hero-dash .dash-macro b { color: var(--giz); font-weight: 500; }
+.hero-dash .dash-ticker {
+  position: absolute; left: 0; right: 0;
+  bottom: 66px; padding: 8px 16px;
+  border-top: 1px solid rgba(255,91,31,0.4);
+  border-bottom: 1px solid rgba(255,91,31,0.4);
+  overflow: hidden; white-space: nowrap;
+}
+.hero-dash .dash-ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 10px; color: var(--arco);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.hero-dash .dash-ticker-inner span { padding: 0 16px; }
+.hero-dash .dash-cta {
+  position: absolute; left: 12px; right: 12px; bottom: 14px;
+  background: var(--arco); color: var(--vazio);
+  padding: 13px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 12px; letter-spacing: 0.04em;
+  text-align: center; text-transform: uppercase;
+}
+
+/* — Hero 2 · Recalibrate State — */
+.hero-recal {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  padding: 32px 16px 16px;
+  position: relative;
+}
+.hero-recal .phone-statusbar { color: var(--giz); }
+.hero-recal .recal-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.16em;
+  color: var(--arco); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.hero-recal .recal-title {
+  font-family: var(--display); font-weight: 900;
+  font-size: 64px; line-height: 0.82;
+  letter-spacing: -0.05em; color: var(--giz);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero-recal .recal-title em { color: var(--arco); }
+.hero-recal .recal-ticker {
+  border-top: 1px solid var(--arco);
+  border-bottom: 1px solid var(--arco);
+  overflow: hidden; white-space: nowrap;
+  padding: 8px 0; margin-bottom: 16px;
+}
+.hero-recal .recal-ticker-inner {
+  display: inline-block;
+  animation: ticker 18s linear infinite;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 11px; color: var(--arco);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.hero-recal .recal-ticker-inner span { padding: 0 18px; }
+.hero-recal .recal-body {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--cinza-2); line-height: 1.6;
+  margin-bottom: 16px;
+}
+.hero-recal .recal-body b { color: var(--giz); font-weight: 500; }
+.hero-recal .recal-cta {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  display: flex; gap: 6px;
+}
+.hero-recal .recal-cta .btn {
+  flex: 1; background: var(--arco); color: var(--vazio);
+  padding: 13px; font-family: var(--display);
+  font-weight: 900; font-size: 11px;
+  text-align: center; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.hero-recal .recal-cta .btn.ghost {
+  background: transparent; border: 1px solid var(--linha);
+  color: var(--giz); font-weight: 700;
+}
+
+/* — Hero 3 · Body Projection — */
+.hero-proj {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  padding: 32px 16px 16px;
+  position: relative;
+}
+.hero-proj .phone-statusbar { color: var(--giz); }
+.hero-proj .proj-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.16em;
+  color: var(--cinza-2); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.hero-proj .proj-meta b { color: var(--arco); }
+.hero-proj .proj-bodies {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin-bottom: 18px;
+  flex: 1;
+}
+.hero-proj .proj-body {
+  position: relative;
+  background:
+    repeating-linear-gradient(0deg, rgba(238,235,227,.08) 0 1px, transparent 1px 5px),
+    linear-gradient(180deg, #2a2826 0%, #0d0c0b 100%);
+  border: 1px solid rgba(238,235,227,0.18);
+  border-right: 3px solid var(--arco);
+  min-height: 240px;
+}
+.hero-proj .proj-body::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 18%; bottom: 8%;
+  transform: translateX(-50%);
+  width: 40%;
+  background:
+    radial-gradient(ellipse at 50% 12%, #c7c2b5 0%, transparent 18%),
+    linear-gradient(180deg, rgba(238,235,227,0.35) 0%, rgba(238,235,227,0.15) 70%, transparent 100%);
+  border-radius: 40% 40% 30% 30%;
+}
+.hero-proj .proj-body.future::after {
+  width: 32%;
+}
+.hero-proj .proj-body .lbl {
+  position: absolute; bottom: 6px; left: 8px;
+  font-family: var(--mono); font-size: 8px;
+  color: var(--giz); letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hero-proj .proj-body.future .lbl { color: var(--arco); }
+.hero-proj .proj-delta {
+  font-family: var(--display); font-weight: 900;
+  font-size: 48px; line-height: 0.85;
+  letter-spacing: -0.05em; color: var(--giz);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hero-proj .proj-delta em { color: var(--arco); }
+.hero-proj .proj-cta {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.hero-proj .proj-cta .btn {
+  background: var(--arco); color: var(--vazio);
+  padding: 13px; font-family: var(--display);
+  font-weight: 900; font-size: 11px;
+  text-align: center; text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.hero-proj .proj-cta .btn.ghost {
+  background: transparent; border: 1px solid var(--linha);
+  color: var(--giz); font-weight: 700;
+}
+
+/* — Hero 4 · Weekly Pattern — */
+.hero-week {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  padding: 32px 18px 18px;
+  position: relative;
+}
+.hero-week .phone-statusbar { color: var(--giz); }
+.hero-week .wk-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 10px; letter-spacing: 0.16em;
+  color: var(--cinza-2); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero-week .wk-title {
+  font-family: var(--display); font-weight: 900;
+  font-size: 38px; line-height: 0.88;
+  letter-spacing: -0.04em; color: var(--giz);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero-week .wk-title em { color: var(--arco); }
+.hero-week .wk-chart {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; align-items: end; height: 88px;
+}
+.hero-week .wk-bar { background: var(--linha); }
+.hero-week .wk-bar.arc { background: var(--arco); }
+.hero-week .wk-bar.warn { background: var(--atencao); }
+.hero-week .wk-days {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; margin-top: 4px;
+  font-family: var(--mono); font-size: 9px;
+  color: var(--cinza-2); letter-spacing: 0.1em;
+  text-align: center;
+}
+.hero-week .wk-days .arc { color: var(--arco); }
+.hero-week .wk-days .warn { color: var(--atencao); }
+.hero-week .wk-diag {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--cinza-2); line-height: 1.6;
+  margin-top: 16px; padding-top: 10px;
+  border-top: 1px solid var(--linha);
+}
+.hero-week .wk-diag b { color: var(--arco); font-weight: 500; }
+.hero-week .wk-cta {
+  position: absolute; left: 14px; right: 14px; bottom: 14px;
+  background: var(--arco); color: var(--vazio);
+  padding: 13px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 11px; letter-spacing: 0.04em;
+  text-align: center; text-transform: uppercase;
+}
+
+/* ─────────────────  §10 — ANTI-PADRÕES ───────────────── */
+.antipattern-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.antipattern-side {
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.antipattern-label {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.antipattern-label.no { color: var(--cinza-2); }
+.antipattern-label.yes { color: var(--arco); }
+
+.antipattern-screenshot {
+  background: #fff;
+  display: flex; justify-content: center;
+  max-height: 520px; overflow: hidden;
+}
+
+.antipattern-screenshot img {
+  max-height: 520px; width: auto; display: block;
+}
+
+.antipattern-mock {
+  width: 280px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 19.5;
+  background: #000;
+  border-radius: 32px;
+  padding: 9px;
+  position: relative;
+}
+
+.antipattern-mock .phone-screen { border-radius: 23px; }
+
+.screen-cadastro-pul {
+  background: var(--vazio);
+  color: var(--giz);
+  font-family: var(--body);
+  padding: 32px 16px 16px;
+}
+.screen-cadastro-pul .phone-statusbar { color: var(--giz); }
+.screen-cadastro-pul .cd-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--narrow); font-weight: 500;
+  font-size: 9px; letter-spacing: 0.18em;
+  color: var(--cinza-2); text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.screen-cadastro-pul .cd-title {
+  font-family: var(--display); font-weight: 900;
+  font-size: 36px; line-height: 0.85;
+  letter-spacing: -0.04em; margin-bottom: 28px;
+  text-transform: uppercase;
+}
+.screen-cadastro-pul .cd-title em { color: var(--arco); }
+.screen-cadastro-pul .cd-input-block { margin-bottom: 18px; }
+.screen-cadastro-pul .cd-input-label {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.2em; color: var(--cinza-2);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.screen-cadastro-pul .cd-input {
+  display: flex; align-items: baseline;
+  border-bottom: 1px solid var(--arco);
+  padding-bottom: 8px;
+}
+.screen-cadastro-pul .cd-input .val {
+  flex: 1; font-family: var(--mono);
+  font-weight: 700; font-size: 26px;
+  color: var(--giz); text-align: right;
+  letter-spacing: -0.03em;
+}
+.screen-cadastro-pul .cd-input .unit {
+  margin-left: 10px;
+  font-family: var(--display); font-weight: 700;
+  font-size: 11px; color: var(--arco);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.screen-cadastro-pul .cd-cta {
+  position: absolute; left: 16px; right: 16px; bottom: 16px;
+  background: var(--arco); color: var(--vazio);
+  padding: 14px;
+  font-family: var(--display); font-weight: 900;
+  font-size: 12px; letter-spacing: 0.04em;
+  text-align: center; text-transform: uppercase;
+}
+
+.antipattern-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.antip-item {
+  padding: 14px 18px;
+  background: var(--aco);
+  border-left: 2px solid var(--cinza-2);
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.86;
+  line-height: 1.5;
+}
+
+.antip-item strong { color: var(--giz); opacity: 1; font-weight: 600; }
+
+/* ─────────────────  §11 — WORDMARK ───────────────── */
+.wordmark-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding: 56px 0;
+  align-items: center;
+}
+
+.wm-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.wm-display {
+  font-family: var(--display);
+  font-weight: 900;
+  color: var(--giz);
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.wm-display .wmi { color: var(--arco); }
+
+.wm-narrow {
+  font-family: var(--narrow);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--giz);
+  text-transform: uppercase;
+}
+
+.wm-narrow .wmi { color: var(--arco); }
+
+.wm-caption {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--cinza-2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.wm-spacing-rule {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 22px;
+  border: 1px dashed var(--linha);
+}
+
+.wm-spacing-rule .h-block {
+  width: 38px; height: 38px;
+  background: var(--arco);
+  opacity: 0.16;
+}
+
+.wm-spacing-rule .wm-mid {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 48px;
+  letter-spacing: -0.045em;
+  margin: 0 12px;
+  text-transform: uppercase;
+}
+
+/* ─────────────────  §12 — CHECKLIST ───────────────── */
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--aco);
+  border: 1px solid var(--linha);
+}
+
+.check-box {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--arco);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.check-num {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--arco);
+  flex-shrink: 0;
+  width: 22px;
+}
+
+.check-text {
+  font-size: 14.5px;
+  color: var(--giz);
+  line-height: 1.5;
+}
+
+.check-text strong { font-weight: 600; }
+.check-text .muted { color: var(--cinza-2); }
+
+/* ─────────────────  §13 — OUT OF SCOPE + DECISÕES ───────────────── */
+.out-of-scope {
+  background: var(--aco);
+  border: 1px solid var(--linha);
+  padding: 32px;
+  margin-bottom: 48px;
+}
+
+.out-of-scope ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 32px;
+  margin-top: 16px;
+}
+
+.out-of-scope li {
+  font-size: 13px;
+  color: var(--giz);
+  opacity: 0.7;
+  padding: 6px 0;
+  position: relative;
+  padding-left: 18px;
+}
+
+.out-of-scope li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--cinza-2);
+}
+
+.decisions-block {
+  background: var(--aco);
+  border: 1px solid var(--arco);
+  padding: 48px;
+  position: relative;
+}
+
+.decisions-block::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 4px;
+  background: var(--arco);
+}
+
+.decisions-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--arco);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.decisions-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 36px;
+  color: var(--giz);
+  margin-bottom: 32px;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.decisions-title em { color: var(--arco); }
+
+.decision-item {
+  display: flex;
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.decision-item:last-child { border-bottom: 1px solid var(--linha); }
+
+.decision-num {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--arco);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.decision-body strong {
+  display: block;
+  color: var(--giz);
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 6px;
+  font-family: var(--display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.decision-body p {
+  color: var(--giz);
+  opacity: 0.82;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ─────────────────  FOOTER ───────────────── */
+footer {
+  padding: 56px 64px 80px;
+  border-top: 1px solid var(--linha);
+  margin-top: 96px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cinza-2);
+}
+
+footer strong { color: var(--giz); }
+
+footer a {
+  color: var(--arco);
+  text-decoration: none;
+  border-bottom: 1px solid var(--arco);
+}
+
+/* ─────────────────  RESPONSIVE ───────────────── */
+@media (max-width: 1200px) {
+  .directions-grid { grid-template-columns: repeat(2, 1fr); }
+  .heros-grid { grid-template-columns: 1fr; }
+  .principles-grid { grid-template-columns: repeat(2, 1fr); }
+  .swatch-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 800px) {
+  .container { padding: 0 32px; }
+  .vectors-grid { grid-template-columns: 1fr; }
+  .directions-grid { grid-template-columns: 1fr; }
+  .components-grid { grid-template-columns: 1fr; }
+  .principles-grid { grid-template-columns: 1fr; }
+  .checklist { grid-template-columns: 1fr; }
+  .voice-grid { grid-template-columns: 1fr; }
+  .cta-specs { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ─────────────────  PRINT ───────────────── */
+@media print {
+  body { background: white; color: black; }
+  section { page-break-inside: avoid; }
+  .ticker-track, .pulso-line, .hero-dash .dash-pulse,
+  .pulso-line-demo .pulso-line,
+  .ticker-component-inner, .dash-ticker-inner,
+  .recal-ticker-inner, .pul-ticker-inner,
+  .demo-armingflash::after { animation: none !important; }
+}
+</style>
+
+<style id="mobile-fallback">
+/* Leitura no celular: sem rolagem lateral da página; tabelas rolam dentro do próprio bloco */
+@media (max-width: 720px) {
+  html, body { overflow-x: clip; }
+  body { overflow-wrap: anywhere; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+  pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; }
+  [class*="grid"]:not([class*="ticker"]) { grid-template-columns: minmax(0, 1fr) !important; }
+  [class*="card"] { max-width: 100%; min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ §0 COVER ═══════════════════ -->
+<section class="cover">
+  <div class="cover-top">
+    <div class="cover-mark"><strong>NutriHero</strong> · Direção de Marca</div>
+    <div class="cover-status">Direção comprometida — PULSO</div>
+  </div>
+
+  <div class="cover-middle">
+    <div class="wordmark">NUTR<span class="wordmark-i">I</span>HERO</div>
+    <div class="cover-snapshot">
+      O plano <em>em movimento.</em> Recalibração como sinal ao vivo. Tipo alto, ticker rápido, energia nativa de academia — sem virar neon.
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta-grid">
+      <div><span>Documento</span><strong>02 · Visual</strong></div>
+      <div><span>Origem</span><strong>Menu BR-001 + kick-off</strong></div>
+      <div><span>Versão</span><strong>v2 · 2026-05-19</strong></div>
+      <div><span>Direção</span><strong>03 / 03 — Pulso</strong></div>
+    </div>
+    <div>Scroll ↓</div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>RECALIBRAR</span><span>RENIVELAR</span><span>REARMAR</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>RENIVELAR 21:40</span><span>PULAR LANCHE TARDE</span><span>VINHO REGISTRADO · 1U</span><span>RECALIBRAR</span><span>RENIVELAR</span><span>REARMAR</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>RENIVELAR 21:40</span><span>PULAR LANCHE TARDE</span><span>VINHO REGISTRADO · 1U</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §1 VETORES ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§1 · A tese, em quatro vetores</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">O que NutriHero <em>é</em>, antes de ser app de dieta.</h2>
+    <p class="section-lede">
+      Quatro vetores guiam toda decisão visual. Cada tela, cada cor, cada ticker serve a <strong>um destes quatro</strong>. O que não serve, é decoração descartável.
+    </p>
+
+    <div class="vectors-grid">
+      <div class="vector-card">
+        <div class="vector-num">01</div>
+        <div class="vector-title">Os números são o produto.</div>
+        <div class="vector-desc">Motor de % de gordura, não IMC raso. O kcal do dia é <strong>manchete</strong> em 96–140pt na home. Mono nos números, Archivo Black no display, JetBrains Mono em todo dígito que importa precisão.</div>
+      </div>
+      <div class="vector-card">
+        <div class="vector-num">02</div>
+        <div class="vector-title">O plano está em movimento.</div>
+        <div class="vector-desc">A recalibração é o momento mais alto do produto, então é o momento mais alto da marca. O <strong>Pulso de Recalibração</strong> — linha laranja sob o número diário — bate visivelmente mais rápido quando o usuário sai do plano.</div>
+      </div>
+      <div class="vector-card">
+        <div class="vector-num">03</div>
+        <div class="vector-title">A projeção é um corte seco.</div>
+        <div class="vector-desc">O eu do futuro não é dissolve mágico. Corte seco + flash de 1 frame em Giz, fotografia P&B com fio laranja na borda direita. Cinema, não card.</div>
+      </div>
+      <div class="vector-card">
+        <div class="vector-num">04</div>
+        <div class="vector-title">Esporte premium, nunca suplemento.</div>
+        <div class="vector-desc">Telemetria de corrida, não corredor de academia. Confiança vem do tamanho do tipo e da economia da cor — <strong>não</strong> de caveiras, fogo ou frases motivacionais.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>TRÊS DIREÇÕES EXPLORADAS</span><span>UMA ESCOLHIDA</span><span>TELEMETRIA · ESPELHO · PULSO</span><span>PULSO VENCEU</span><span>TRÊS DIREÇÕES EXPLORADAS</span><span>UMA ESCOLHIDA</span><span>TELEMETRIA · ESPELHO · PULSO</span><span>PULSO VENCEU</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §2 — 3 DIREÇÕES ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§2 · O coração do documento</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Três direções. <em>Mesma tela.</em></h2>
+    <p class="section-lede">
+      Comparação <strong>apples-to-apples</strong>: o Dashboard de Dieta Diária renderizado em cada uma das três direções exploradas. Duas foram descartadas. Uma foi escolhida. Cada direção é mostrada na sua própria estética nativa — sem traições.
+    </p>
+
+    <div class="directions-grid">
+
+      <!-- ▼ DIRECTION 1: TELEMETRIA ▼ -->
+      <div class="direction-col">
+        <div class="direction-head">
+          <div class="direction-label no">— Direção 01 · Rejeitada</div>
+          <div class="direction-name">Telemetria</div>
+          <div class="direction-one-liner">O corpo como um instrumento. Uma leitura de precisão.</div>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-screen screen-tel">
+              <div class="phone-statusbar">
+                <span>9:41</span>
+                <span class="right">●●● ◓</span>
+              </div>
+              <div class="tel-meta"><span>TER · 19 MAI · DIA 14</span><span>● AO VIVO</span></div>
+              <div class="tel-title">Plano recalibrado · 14:02</div>
+              <div class="tel-title-italic">uma correção pequena e exata.</div>
+              <div class="tel-horizon">
+                <svg viewBox="0 0 200 60" preserveAspectRatio="none">
+                  <path d="M0,40 L 200,40" stroke="#C8FF3D" stroke-width="0.4" stroke-dasharray="2 4" opacity="0.5"/>
+                  <path d="M0,30 C 20,18 38,40 60,30 S 110,12 140,38 S 180,48 200,28" fill="none" stroke="#C8FF3D" stroke-width="1.2"/>
+                  <circle cx="140" cy="38" r="2.5" fill="#C8FF3D"/>
+                </svg>
+              </div>
+              <div class="tel-stack">
+                <div class="tel-row"><span>AGORA</span><b>−312 kcal</b></div>
+                <div class="tel-row"><span>ALVO</span><b>0 ± 80</b></div>
+                <div class="tel-row"><span>ETA RENIVELAR</span><b>21:40</b></div>
+                <div class="tel-row"><span>% GORDURA · REV 14</span><b>18,4</b></div>
+              </div>
+              <div class="tel-cta">Recalibrar</div>
+            </div>
+          </div>
+        </div>
+        <div class="direction-foot">
+          <div class="palette-strip">
+            <div style="background:#0B0D0F"></div>
+            <div style="background:#1A1F23"></div>
+            <div style="background:#C8FF3D"></div>
+            <div style="background:#F2EFE8"></div>
+            <div style="background:#6FB3FF"></div>
+          </div>
+          <div class="type-line"><strong>Instrument Sans</strong> + <strong>Instrument Serif italic</strong> + JetBrains Mono</div>
+          <div class="direction-rationale">
+            <strong>Por que não:</strong> lê <strong>fria ou masculinizada</strong> se o itálico editorial sair. Sem calor, vira terminal Bloomberg fingindo ser app de dieta. Mulher / não-malhador evade. Brilha em onboarding e revisão, falha no diário.
+          </div>
+        </div>
+      </div>
+
+      <!-- ▼ DIRECTION 2: ESPELHO ▼ -->
+      <div class="direction-col">
+        <div class="direction-head">
+          <div class="direction-label no">— Direção 02 · Rejeitada</div>
+          <div class="direction-name">Espelho</div>
+          <div class="direction-one-liner">Estúdio de retrato editorial para seu corpo futuro.</div>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-screen screen-esp">
+              <div class="phone-statusbar">
+                <span>9:41</span>
+                <span class="right">●●● ◓</span>
+              </div>
+              <div class="esp-meta"><span>TER · 19 MAI</span><span>REV 14</span></div>
+              <div class="esp-title">um você mais magro,<br><em>em doze semanas.</em></div>
+              <div class="esp-portal"></div>
+              <div class="esp-stack">
+                <div class="esp-row"><span>kcal</span><b>2.184 / 2.496</b></div>
+                <div class="esp-row"><span>P · C · F</span><b>168 · 211 · 64</b></div>
+              </div>
+              <div class="esp-cta">Recalibrar jantar</div>
+            </div>
+          </div>
+        </div>
+        <div class="direction-foot">
+          <div class="palette-strip">
+            <div style="background:#F1EBE2"></div>
+            <div style="background:#E6DDCB"></div>
+            <div style="background:#8C5A2B"></div>
+            <div style="background:#E4572E"></div>
+            <div style="background:#1A1715"></div>
+          </div>
+          <div class="type-line"><strong>Newsreader italic</strong> + Geist + Geist Mono</div>
+          <div class="direction-rationale">
+            <strong>Por que não:</strong> a tese colapsa se o usuário não tira a foto. Lê como <strong>app de moda</strong> se a fotografia for fraca. Brilha em splash / paywall / projeção (3 telas), mas fica genérico nas <strong>20 telas diárias</strong> restantes. Custo de direção de arte alto.
+          </div>
+        </div>
+      </div>
+
+      <!-- ▼ DIRECTION 3: PULSO ▼ -->
+      <div class="direction-col chosen">
+        <div class="direction-head">
+          <div class="direction-label yes">✓ Direção 03 · Escolhida</div>
+          <div class="direction-name">Pulso</div>
+          <div class="direction-one-liner">A recalibração como um sinal ao vivo.</div>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-screen screen-pul">
+              <div class="phone-statusbar">
+                <span>9:41</span>
+                <span class="right">●●● ◓</span>
+              </div>
+              <div class="pul-meta"><span>TER · 19 MAI</span><span class="live">● NO PLANO</span></div>
+              <div class="pul-hero">2.184</div>
+              <div class="pul-hero-sub">/ 2.496 KCAL · 88%</div>
+              <div class="pul-line"></div>
+              <div class="pul-macros">
+                <div class="pul-macro"><span>PROTEÍNA</span><b>168 / 196</b></div>
+                <div class="pul-macro"><span>CARBOS</span><b>211 / 248</b></div>
+                <div class="pul-macro"><span>GORDURA</span><b>64 / 78</b></div>
+              </div>
+              <div class="pul-ticker">
+                <div class="pul-ticker-inner">
+                  <span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>RENIVELAR 21:40</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>RENIVELAR 21:40</span>
+                </div>
+              </div>
+              <div class="pul-cta">Recalibrar jantar</div>
+            </div>
+          </div>
+        </div>
+        <div class="direction-foot">
+          <div class="palette-strip">
+            <div style="background:#06070A"></div>
+            <div style="background:#13151C"></div>
+            <div style="background:#FF5B1F"></div>
+            <div style="background:#F7D74C"></div>
+            <div style="background:#EEEBE3"></div>
+          </div>
+          <div class="type-line"><strong>Archivo Black</strong> + <strong>Archivo Narrow</strong> + JetBrains Mono</div>
+          <div class="direction-rationale">
+            <span class="y">Por que sim:</span> lê em <strong>0,6 segundo</strong> num feed de Reels. Esporte premium sem virar suplemento. Brilha em todas as <strong>23 telas</strong> do produto — não em 3. Os números fazem o trabalho emocional; o ticker carrega a tese.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §3 POR QUE PULSO VENCEU ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§3 · A decisão</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Por que <em>Pulso</em> venceu.</h2>
+    <p class="section-lede">
+      Seis critérios que importam especificamente para a NutriHero. As notas são observações, não vereditos — cada direção ganha em algo que as outras não conseguem.
+    </p>
+
+    <table class="winner-table">
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>Telemetria</th>
+          <th>Espelho</th>
+          <th class="chosen">Pulso ✓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="crit">Conversão no onboarding</td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span>
+            <div class="score-note">Lê como séria; falta puxão emocional.</div>
+          </td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Quadro do eu do futuro é o motor. Ganha aqui.</div>
+          </td>
+          <td class="chosen">
+            <span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span>
+            <div class="score-note">Alta e direta; arrisca intimidar quem não treina.</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="crit">Confiança em dados / precisão</td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Manômetros, horizonte, mono. Imbatível aqui.</div>
+          </td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span>
+            <div class="score-note">Editorial atrapalha a leitura técnica.</div>
+          </td>
+          <td class="chosen">
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Números 96–140pt fazem o trabalho.</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="crit">Diferenciação visual no feed</td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span>
+            <div class="score-note">Pode ler como concorrente Whoop / Strava.</div>
+          </td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span>
+            <div class="score-note">Premium, mas distante de fitness BR.</div>
+          </td>
+          <td class="chosen">
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Ticker laranja em escuro — único no nicho.</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="crit">Vida pós-MVP (treino, ONG, B2B)</td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span>
+            <div class="score-note">Treino encaixa; comunidade fica fria.</div>
+          </td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Premium escala para tudo — mas exige fotografia.</div>
+          </td>
+          <td class="chosen">
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Tudo cabe. Marketplace, comunidade, ONG.</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="crit">Risco de exclusão (mulher / não-malhador)</td>
+          <td>
+            <span class="score"><i></i><i></i><i class="off"></i><i class="off"></i><i class="off"></i></span>
+            <div class="score-note">Risco alto. Bloomberg afasta.</div>
+          </td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Editorial atrai. Risco baixo.</div>
+          </td>
+          <td class="chosen">
+            <span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span>
+            <div class="score-note">Risco médio. Voz precisa amaciar no copy.</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="crit">Sustentabilidade (1 designer / 1 dev)</td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i></i><i class="off"></i></span>
+            <div class="score-note">Componentes complexos (manômetros, dials).</div>
+          </td>
+          <td>
+            <span class="score"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span>
+            <div class="score-note">Fotografia de qualidade é caro de produzir.</div>
+          </td>
+          <td class="chosen">
+            <span class="score"><i></i><i></i><i></i><i></i><i></i></span>
+            <div class="score-note">Tipo + tickers. Sistema enxuto.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-label">— Reconhecendo a força do Espelho —</div>
+      <div class="callout-title">O Quadro do Eu do Futuro era o maior motor de conversão.</div>
+      <div class="callout-body">
+        O Espelho ganha legitimamente em onboarding. A projeção em foto + tipografia editorial em tela cheia é o gancho emocional mais forte que qualquer um dos três conseguiu. Pulso compensa renderizando a mesma projeção como <strong>corte seco + flash de 1 frame em Giz</strong> — drama por timing, não por tipografia. <em>Mas isso precisa ser validado.</em>
+        <br><br>
+        <strong>Imperativo:</strong> testar a tela de projeção Pulso com 1–2 usuárias reais (especialmente mulheres / não-malhadores) <strong>antes do dev começar</strong>. Se a conversão Pulso ficar 30%+ abaixo do que Espelho conseguiria, vale revisar o trade-off — ou criar um híbrido só na splash/paywall.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §4 AUDIÊNCIA / VOZ ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§4 · Para quem · com que voz</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Quem está do outro lado <em>e como falamos com eles.</em></h2>
+
+    <h3 class="subsection-title">Audiência → implicação visual</h3>
+
+    <table class="audience-table">
+      <thead>
+        <tr>
+          <th>Quem</th>
+          <th>De onde vem</th>
+          <th>O que espera</th>
+          <th>Implicação visual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Seguidor dos influenciadores parceiros</td>
+          <td>Reels de influenciador intenso</td>
+          <td>Algo "à altura" do criador — não wellness amigável</td>
+          <td>Tipografia gigante, ticker, contraste forte</td>
+        </tr>
+        <tr>
+          <td>Frequentador de academia · cutting/bulking</td>
+          <td>Já usa Strong, MyFitnessPal, Yazio</td>
+          <td>Diferenciação imediata vs concorrentes</td>
+          <td>Números em mono, edge-to-edge, sem rosca</td>
+        </tr>
+        <tr>
+          <td>Galera "projeto verão" (set–fev)</td>
+          <td>Decisão impulsiva via influencer</td>
+          <td>Aspiração + velocidade + custo justificado</td>
+          <td>Pulso visível no preview; paywall com ticker</td>
+        </tr>
+        <tr>
+          <td>Mulher / usuária 30+</td>
+          <td>Indicação de amiga ou nutricionista</td>
+          <td>Não ser tratada como bro de academia</td>
+          <td>Voz que amacia no copy, tipo segue alto; <strong>validação obrigatória</strong></td>
+        </tr>
+        <tr>
+          <td>Parceiro B2B (marca de suplemento)</td>
+          <td>Co-marketing</td>
+          <td>Marca que sobe junto sem rebaixar</td>
+          <td>Esporte premium, telemetria de corrida</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Personalidade — Pulso é / Pulso não é</h3>
+
+    <table class="personality-table">
+      <thead>
+        <tr>
+          <th class="yes">✓ Pulso é</th>
+          <th class="no">✗ Pulso não é</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cinética — as coisas se movem</td><td>Estática como uma planilha</td></tr>
+        <tr><td>Direta — sem amaciar</td><td>Fofa, com "ops!" e emoji</td></tr>
+        <tr><td>Nativa de esporte</td><td>Genérica de wellness</td></tr>
+        <tr><td>Desafiadora — você está aqui para mudar</td><td>Coach motivacional ("você consegue, campeão!")</td></tr>
+        <tr><td>Confiante — números a 140pt, é sério</td><td>Tímida, escondendo dados em cards</td></tr>
+        <tr><td>Premium — telemetria de corrida</td><td>Loja de suplemento com caveiras e fogo</td></tr>
+        <tr><td>Indulgência no <strong>copy</strong>, não no cromado</td><td>Suavização visual ("sua jornada bonita")</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Tom de voz — pares</h3>
+
+    <div class="voice-grid">
+      <div class="voice-pair">
+        <div class="voice-bubble yes">Plano mudou. Aqui está o novo.</div>
+        <div class="voice-bubble no">Ops! Recalculando seu plano… 🤖✨</div>
+      </div>
+      <div class="voice-pair">
+        <div class="voice-bubble yes">Você pulou o café. O jantar fica maior.</div>
+        <div class="voice-bubble no">Sem problema, campeão! Vamos compensar mais tarde 💪</div>
+      </div>
+      <div class="voice-pair">
+        <div class="voice-bubble yes">2.184 / 2.496 kcal · 88%</div>
+        <div class="voice-bubble no">Você ainda pode comer 312 calorias hoje!</div>
+      </div>
+      <div class="voice-pair">
+        <div class="voice-bubble yes">Sexta é tarde. Movendo 280 kcal para 19:30.</div>
+        <div class="voice-bubble no">Notamos que sua sexta-feira foi desafiadora… 😊</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>VAZIO #06070A</span><span>AÇO #13151C</span><span>ARCO #FF5B1F</span><span>ATENÇÃO #F7D74C</span><span>GIZ #EEEBE3</span><span>VAZIO #06070A</span><span>AÇO #13151C</span><span>ARCO #FF5B1F</span><span>ATENÇÃO #F7D74C</span><span>GIZ #EEEBE3</span><span>VAZIO #06070A</span><span>AÇO #13151C</span><span>ARCO #FF5B1F</span><span>ATENÇÃO #F7D74C</span><span>GIZ #EEEBE3</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §5 COR ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§5 · Sistema de cor</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Monocromático <em>+ Arco + Atenção.</em></h2>
+    <p class="section-lede">
+      Pulso é <strong>só escuro</strong>. A página nunca clareia além de Aço. O sinal funciona porque é escasso — Arco em no máximo 2 elementos por tela, Atenção 1× por semana.
+    </p>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#06070A"><span style="color:#EEEBE3">#06070A</span></div>
+        <div class="swatch-info">
+          <span class="swatch-token">Vazio <span class="hex">· superfície página</span></span>
+          <span class="swatch-use">Background dominante. Mais profundo que preto comum.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#13151C"><span style="color:#EEEBE3">#13151C</span></div>
+        <div class="swatch-info">
+          <span class="swatch-token">Aço <span class="hex">· superfície nível 2</span></span>
+          <span class="swatch-use">Cards, modais, painéis elevados. A página nunca clareia além daqui.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color signal" style="background:#FF5B1F"><span style="color:#06070A">#FF5B1F</span></div>
+        <div class="swatch-info">
+          <span class="swatch-token">Arco <span class="hex">· sinal · ação</span></span>
+          <span class="swatch-use">Recalibração, deltas ao vivo, CTAs. <strong>Único acento.</strong></span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F7D74C"><span style="color:#06070A">#F7D74C</span></div>
+        <div class="swatch-info">
+          <span class="swatch-token">Atenção <span class="hex">· deslize</span></span>
+          <span class="swatch-use">Único estado de aviso. Indulgências semanais — não diárias.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#EEEBE3"><span style="color:#06070A">#EEEBE3</span></div>
+        <div class="swatch-info">
+          <span class="swatch-token">Giz <span class="hex">· texto padrão</span></span>
+          <span class="swatch-use">Texto principal. Nunca branco puro #FFF.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5A5E68"><span style="color:#EEEBE3">#5A5E68</span></div>
+        <div class="swatch-info">
+          <span class="swatch-token">Cinza <span class="hex">· apagado</span></span>
+          <span class="swatch-use">Texto secundário, dividers, cromado.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-list">
+      <div class="rule">
+        <span class="rule-num">REGRA 01</span>
+        <div class="rule-text"><strong>Arco em no máximo 2 elementos por tela.</strong> Se você vê três coisas laranjas, uma está errada. O sinal funciona porque é escasso.</div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">REGRA 02</span>
+        <div class="rule-text"><strong>Atenção usado 1× por semana, não 1× por dia.</strong> Reservado para indulgência real (álcool, escapada de sábado). Se vira rotina, perde força.</div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">REGRA 03</span>
+        <div class="rule-text"><strong>Sem verdes. Sem azuis.</strong> Os únicos acentos são <code>#FF5B1F</code> e <code>#F7D74C</code>. Nenhum gradient, nenhum brilho neon, nenhum cromado "gamer".</div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">REGRA 04</span>
+        <div class="rule-text"><strong>Branco puro proibido.</strong> Use Giz <code>#EEEBE3</code>. Branco puro lê como tela de loading travada — Giz lê como papel.</div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">REGRA 05</span>
+        <div class="rule-text"><strong>Pulso é só escuro.</strong> Sem modo claro. A direção que tinha modo claro era Espelho — não escolhemos Espelho.</div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">REGRA 06</span>
+        <div class="rule-text"><strong>Fotografia é P&B.</strong> Tons de cinza, alto contraste, grão ligado, um único fio Arco na borda direita. Sem fotografia colorida em lugar nenhum da marca.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §6 TIPOGRAFIA ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§6 · Tipografia</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Três vozes. <em>Não mais.</em></h2>
+    <p class="section-lede">
+      O tipo carrega o trabalho emocional — não o itálico, não a cor, não o gradient. <strong>Pulso não tem voz itálica.</strong>
+    </p>
+
+    <div class="type-specimen">
+      <div class="specimen-head">
+        <span class="specimen-name">Archivo Black 900</span>
+        <span class="specimen-role">Display · sempre em caixa alta</span>
+      </div>
+      <div class="specimen-body">
+        <div class="specimen-archivo">Plano <em>mudou.</em></div>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="specimen-head">
+        <span class="specimen-name">Archivo Narrow 500</span>
+        <span class="specimen-role">Tickers / rótulos · caps espaçada</span>
+      </div>
+      <div class="specimen-body">
+        <div class="specimen-narrow">
+          <span>JANTAR TARDE</span><span>−180 KCAL</span><span>+14G PROTEÍNA</span><span>RENIVELAR 21:40</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="specimen-head">
+        <span class="specimen-name">JetBrains Mono</span>
+        <span class="specimen-role">Numerais tabulares · só dígitos que se atualizam</span>
+      </div>
+      <div class="specimen-body">
+        <div class="specimen-mono-row">
+          <span class="mono-big">2.184</span>
+          <div>
+            <div class="mono-small">META DO DIA</div>
+            <div class="mono-mid">2.496 kcal · 88%</div>
+          </div>
+          <div>
+            <div class="mono-small">% GORDURA</div>
+            <div class="mono-mid">18.4 · Δ −1,1kg / 30d</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="type-tokens-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Família</th>
+          <th>Peso</th>
+          <th>Tamanho</th>
+          <th>Tracking</th>
+          <th>Uso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>display-hero</td><td>Archivo</td><td>Black 900</td><td>96–140px</td><td>−4–5%</td><td>Número-manchete da home</td></tr>
+        <tr><td>display-1</td><td>Archivo</td><td>Black 900</td><td>56–64px</td><td>−4%</td><td>Títulos de tela (recalibrar, projeção)</td></tr>
+        <tr><td>display-2</td><td>Archivo</td><td>Black 900</td><td>26–32px</td><td>−2%</td><td>Section headers · subhead</td></tr>
+        <tr><td>ticker</td><td>Archivo Narrow</td><td>Medium 500</td><td>11–22px</td><td>+12–14%</td><td>Pulso de Recalibração · rótulos</td></tr>
+        <tr><td>data-xl</td><td>JetBrains Mono</td><td>Bold 700</td><td>72–112px</td><td>−4%</td><td>Numerais em escala hero</td></tr>
+        <tr><td>data-md</td><td>JetBrains Mono</td><td>Medium 500</td><td>14–18px</td><td>0</td><td>Macros · linhas tabulares</td></tr>
+        <tr><td>data-sm</td><td>JetBrains Mono</td><td>Medium 500</td><td>10–12px</td><td>+10–18%</td><td>Eyebrows · labels técnicos</td></tr>
+        <tr><td>ui-body</td><td>Inter Tight</td><td>Regular 400</td><td>14–16px</td><td>0</td><td>Corpo de texto longo</td></tr>
+      </tbody>
+    </table>
+
+    <div class="font-notice">
+      <strong>Sobre fontes nesta direção:</strong> Archivo, Archivo Narrow e JetBrains Mono são <strong>fontes definitivas</strong> — todas Google Fonts gratuitas, sem dependência de licença comercial paga. Inter Tight é fonte de corpo de texto, opcional (pode ser substituída sem perda). A versão Pulso elimina a decisão de USD 200–400 que existia na direção anterior (Performance Operator) sobre licenciamento Pangram Pangram.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §7 COMPOSIÇÃO / MOTION ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§7 · Composição & motion</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Como o app <em>se monta</em> e <em>se move.</em></h2>
+
+    <h3 class="subsection-title">Seis princípios espaciais</h3>
+
+    <div class="principles-grid">
+      <div class="principle">
+        <div class="principle-vis">
+          <div class="diag-bignum">2<em>.</em>184</div>
+        </div>
+        <div class="principle-name">Os números são o design</div>
+        <div class="principle-desc">O kcal restante do dia é o maior objeto da home — 96–140pt, Archivo Black. Macros ficam embaixo em mono. Sem rosca, sem dial.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-vis">
+          <div class="diag-ticker">·  +180 KCAL  ·  RENIVELAR 21:40  ·  +24G P  ·</div>
+        </div>
+        <div class="principle-name">Um ticker por tela</div>
+        <div class="principle-desc">O Pulso de Recalibração aparece <strong>uma única vez</strong> — sob o número hero ou no rodapé. Nunca dois tickers competindo.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-vis">
+          <div class="diag-edge">EDGE</div>
+        </div>
+        <div class="principle-name">Tipo edge-to-edge</div>
+        <div class="principle-desc">O tipo display sangra até a borda. Margens externas de 16pt, nunca 24+. O ar respira por dentro do tipo, não em torno dele.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-vis">
+          <div class="diag-arco"><div class="a"></div><div class="b"></div><div class="b"></div></div>
+        </div>
+        <div class="principle-name">Arco em max 2 elementos</div>
+        <div class="principle-desc">A cor de ação aparece em CTA + delta ao vivo. Nunca em três lugares na mesma tela.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-vis">
+          <div class="diag-noital">SEM <del>ITÁLICA</del></div>
+        </div>
+        <div class="principle-name">Pulso não tem voz itálica</div>
+        <div class="principle-desc">Itálica é a voz do Espelho (rejeitada). Em Pulso, o tamanho do tipo faz o trabalho emocional. Nenhum elemento da UI usa itálica.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-vis">
+          <div class="diag-photo"></div>
+        </div>
+        <div class="principle-name">Fotografia é dura</div>
+        <div class="principle-desc">P&B alto contraste, grão ligado, fio Arco na borda direita. Sem fotografia colorida em lugar nenhum.</div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Curvas de motion</h3>
+
+    <div class="motion-row">
+      <div class="easing-vis">
+        <svg viewBox="0 0 300 160">
+          <line x1="0" y1="140" x2="300" y2="140" stroke="#3A3A42" stroke-width="1"/>
+          <line x1="0" y1="20" x2="300" y2="20" stroke="#3A3A42" stroke-width="1" stroke-dasharray="2 4"/>
+          <path d="M 0 140 C 60 140, 60 20, 300 20" stroke="#FF5B1F" stroke-width="2" fill="none"/>
+        </svg>
+        <div class="easing-label">cubic-bezier(.2, 1, .2, 1) · 200–340ms · curva Pulso</div>
+      </div>
+      <div class="easing-vis" style="display:flex;align-items:center;justify-content:center;min-height:200px">
+        <div style="text-align:center">
+          <div style="font-family:var(--display);font-weight:900;font-size:48px;color:var(--giz);letter-spacing:-.04em;text-transform:uppercase">RÁPIDA</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--cinza-2);letter-spacing:0.2em;text-transform:uppercase;margin-top:8px">Pulso é a única direção autorizada a parecer assim</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Quatro momentos de motion</h3>
+
+    <div class="motion-moments">
+      <div class="moment">
+        <div class="moment-num">MOMENTO 01</div>
+        <div class="moment-title">Numerais contam de 0</div>
+        <div class="moment-desc">Todo número anima a partir de 0 ao entrar na tela. 320ms, ease-out. Sem fade — count-up.</div>
+        <div class="moment-demo">2.184 <span style="color:var(--cinza-2);font-size:12px;margin-left:8px">kcal</span></div>
+      </div>
+      <div class="moment">
+        <div class="moment-num">MOMENTO 02</div>
+        <div class="moment-title">Tickers contínuos</div>
+        <div class="moment-desc">O Pulso de Recalibração e quaisquer deltas em marquise a 24s/loop. <strong>Nunca param</strong> enquanto a tela está viva. Esse é o sinal de "ao vivo".</div>
+        <div class="ticker-component" style="margin-top:12px">
+          <div class="ticker-component-inner">
+            <span>+180 KCAL</span><span>RENIVELAR 21:40</span><span>+24G P</span><span>+180 KCAL</span><span>RENIVELAR 21:40</span>
+          </div>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="moment-num">MOMENTO 03</div>
+        <div class="moment-title">Pulso de armar</div>
+        <div class="moment-desc">Antes do plano mudar, um flash Arco de 600ms <strong>arma a tela</strong>. Aí o novo plano entra batendo. Sinaliza: algo está prestes a mudar.</div>
+        <div class="demo-armingflash">
+          <div class="label">PLANO MUDOU.</div>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="moment-num">MOMENTO 04</div>
+        <div class="moment-title">Cortes secos em foto</div>
+        <div class="moment-desc">A projeção do eu do futuro é <strong>corte seco + flash de 1 frame em Giz</strong>. Sem dissolve, sem morph. Cinema, não Photoshop.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §8 COMPONENTES ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§8 · Componentes-personagem</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">A Pulso de Recalibração <em>é a marca.</em></h2>
+    <p class="section-lede">
+      Uma linha Arco de 2px que vive sob o número diário. Pulsa devagar quando o usuário está no plano. Mais rápida quando não está. É indicador ambiente, não gráfico. <strong>No segundo mês, o usuário sente.</strong>
+    </p>
+
+    <div class="cta-hero-wrap">
+      <div class="cta-hero-label">— A peça-herói do design system · Pulso de Recalibração ao vivo —</div>
+      <div class="pulso-line-demo">
+        <div class="num">2.184<small>/ 2.496</small></div>
+        <div class="pulso-line"></div>
+        <div class="caption">↑ Você está vendo o pulso AO VIVO · 2.0s/loop · estado "no plano"</div>
+      </div>
+      <div class="cta-specs">
+        <div class="spec-item"><strong>Altura da linha</strong>2px (sob o número-manchete)</div>
+        <div class="spec-item"><strong>Cor</strong>Arco #FF5B1F (única cor)</div>
+        <div class="spec-item"><strong>Período no plano</strong>2.0s/loop · ease-in-out</div>
+        <div class="spec-item"><strong>Período fora do plano</strong>0.8s/loop · acelera visivelmente</div>
+        <div class="spec-item"><strong>Largura</strong>Mesma largura do número-manchete</div>
+        <div class="spec-item"><strong>Posição</strong>Imediatamente abaixo, com 14px de respiro</div>
+        <div class="spec-item"><strong>Estado "fora da zona"</strong>Pulse acelerado + cor mantém</div>
+        <div class="spec-item"><strong>Vira som também</strong>Frequência audível discreta (v1.1)</div>
+      </div>
+    </div>
+
+    <div class="components-grid">
+      <div class="comp-card comp-card-wide">
+        <div class="comp-label">Ticker Bar · Pulso de Recalibração</div>
+        <div class="ticker-component">
+          <div class="ticker-component-inner">
+            <span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE TARDE</span><span>RENIVELAR 21:40</span><span>VINHO REGISTRADO · 1U</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE TARDE</span><span>RENIVELAR 21:40</span>
+          </div>
+        </div>
+        <div class="comp-note">
+          Marquise contínua, <strong>24s/loop</strong>, Archivo Narrow 500 caps em Arco. Aparece sob o número hero ou no rodapé — <strong>nunca dois tickers competindo na mesma tela</strong>. Conteúdo: deltas ao vivo do plano (kcal, gramas, horários de re-nivelar).
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Arc Gauge · Composição Corporal</div>
+        <div class="arc-gauge">
+          <svg viewBox="0 0 200 200">
+            <path d="M30,160 A 80,80 0 1,1 170,160" fill="none" stroke="#2A2E3A" stroke-width="14" stroke-linecap="round"/>
+            <path d="M30,160 A 80,80 0 1,1 158,118" fill="none" stroke="#FF5B1F" stroke-width="14" stroke-linecap="round"/>
+            <text x="100" y="108" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="44" fill="#EEEBE3" letter-spacing="-2">88</text>
+            <text x="100" y="136" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#8F8B81" letter-spacing="2">% DA META</text>
+          </svg>
+        </div>
+        <div class="comp-note">
+          <strong>270° arc</strong> com Archivo Black 46pt dentro. Substitui rosca (donut) e dial. Para % gordura, % meta, sequência de dias.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Botão (sem ícone, sem respiração)</div>
+        <div class="btn-demo">Recalibrar jantar</div>
+        <div class="btn-ghost-demo">Aplicar</div>
+        <div class="comp-note">
+          Full-bleed, raio <strong>4–8px (nunca pill)</strong>, Archivo Black caps, sem ícone. <strong>Não respira</strong> — o pulso vive na linha sob o número, não no botão. Variante ghost: borda 1px em Linha, mesma tipografia.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Chip Atenção (1× por semana)</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="atencao-chip-demo">JANTAR TARDE</span>
+          <span class="atencao-chip-demo">VINHO · 2U</span>
+        </div>
+        <div class="comp-note">
+          Único estado de aviso. Reservado para indulgência semanal — álcool, escapada, jantar fora de hora. <strong>Se vira diário, perde força.</strong>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Eyebrow · meta de tela</div>
+        <div style="font-family:var(--narrow);font-weight:500;font-size:13px;color:var(--cinza-2);letter-spacing:0.18em;text-transform:uppercase">SEMANA 14 · DOM</div>
+        <div style="font-family:var(--narrow);font-weight:500;font-size:13px;color:var(--arco);letter-spacing:0.18em;text-transform:uppercase">● AO VIVO · 21:04</div>
+        <div class="comp-note">
+          Topo de toda tela utilitária. Archivo Narrow caps. Estado neutro em Cinza, estado ao vivo em Arco com ponto •.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker divider -->
+<div class="ticker-divider">
+  <div class="ticker-track">
+    <span>HERO MOMENTS · 4 CENAS</span><span>DAILY DASHBOARD</span><span>RECALIBRATE STATE</span><span>BODY PROJECTION</span><span>WEEKLY PATTERN</span><span>HERO MOMENTS · 4 CENAS</span><span>DAILY DASHBOARD</span><span>RECALIBRATE STATE</span><span>BODY PROJECTION</span><span>WEEKLY PATTERN</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ §9 HERO MOMENTS ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§9 · Hero moments</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Quatro cenas que <em>vendem o app.</em></h2>
+    <p class="section-lede">
+      Se essas quatro telas funcionam, a marca se sustenta sozinha. Daily Dashboard é a tela mais usada · Recalibrate é o momento alto · Body Projection é o gancho de paywall · Weekly Pattern fecha a semana.
+    </p>
+
+    <div class="heros-grid">
+
+      <!-- Hero 1: Daily Dashboard -->
+      <div class="hero-card">
+        <div class="hero-card-num">HERO 01</div>
+        <div class="hero-card-title">Dashboard de dieta diária</div>
+        <div class="hero-card-sub"><strong>A tela mais usada do app.</strong> Número-manchete 76pt edge-to-edge + Pulso de Recalibração ao vivo + macros em mono + ticker contínuo + CTA Arco.</div>
+        <div class="hero-phone">
+          <div class="phone-screen hero-dash">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span class="right">●●● ◓</span>
+            </div>
+            <div class="dash-meta"><span>TER · 19 MAI</span><span class="live">● NO PLANO</span></div>
+            <div class="dash-bignum">2.184</div>
+            <div class="dash-bignum-sub">/ 2.496 KCAL · 88%</div>
+            <div class="dash-pulse"></div>
+            <div class="dash-macros">
+              <div class="dash-macro"><span>PROTEÍNA</span><b>168 / 196</b></div>
+              <div class="dash-macro"><span>CARBOS</span><b>211 / 248</b></div>
+              <div class="dash-macro"><span>GORDURA</span><b>64 / 78</b></div>
+              <div class="dash-macro"><span>% GORDURA · REV 14</span><b>18,4</b></div>
+              <div class="dash-macro"><span>SEQUÊNCIA</span><b>14 DIAS</b></div>
+            </div>
+            <div class="dash-ticker">
+              <div class="dash-ticker-inner">
+                <span>+180 KCAL @ 19:30</span><span>+24G P</span><span>RENIVELAR 21:40</span><span>+180 KCAL @ 19:30</span><span>+24G P</span><span>RENIVELAR 21:40</span>
+              </div>
+            </div>
+            <div class="dash-cta">Recalibrar jantar</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero 2: Recalibrate State -->
+      <div class="hero-card">
+        <div class="hero-card-num">HERO 02</div>
+        <div class="hero-card-title">Estado recalibrar</div>
+        <div class="hero-card-sub"><strong>O momento mais alto do produto.</strong> "Plano mudou." em Archivo Black 64pt + ticker laranja correndo + diagnóstico em mono. <strong>O cromado segue alto, o copy amacia.</strong></div>
+        <div class="hero-phone">
+          <div class="phone-screen hero-recal">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span class="right">●●● ◓</span>
+            </div>
+            <div class="recal-meta"><span>RECALIBRANDO</span><span>● ARMANDO</span></div>
+            <div class="recal-title">Plano<br><em>mudou.</em></div>
+            <div class="recal-ticker">
+              <div class="recal-ticker-inner">
+                <span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE</span><span>RENIVELAR 21:40</span><span>+180 KCAL @ 19:30</span><span>+24G PROTEÍNA</span><span>PULAR LANCHE</span>
+              </div>
+            </div>
+            <div class="recal-body">
+              Você pulou o café. <b>O jantar fica maior.</b> O plano ainda bate a meta da semana.
+              <br><br>
+              Δ café manhã · <b>−510 kcal</b><br>
+              Δ jantar · <b>+330 kcal</b><br>
+              Δ lanche · <b>−180 kcal</b><br>
+              Meta semanal · <b>intacta</b>
+            </div>
+            <div class="recal-cta">
+              <div class="btn">Aceitar</div>
+              <div class="btn ghost">O que mudou?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero 3: Body Projection -->
+      <div class="hero-card">
+        <div class="hero-card-num">HERO 03</div>
+        <div class="hero-card-title">Projeção do corpo futuro</div>
+        <div class="hero-card-sub"><strong>O gancho de paywall.</strong> Grid 2 fotos P&B com fio Arco na borda direita · "AGORA" / "+12 SEM" em mono · delta gigante em Archivo Black. <strong>Corte seco, sem dissolve.</strong></div>
+        <div class="hero-phone">
+          <div class="phone-screen hero-proj">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span class="right">●●● ◓</span>
+            </div>
+            <div class="proj-meta"><span>+12 SEM · PROJEÇÃO</span><span><b>26 MAI</b></span></div>
+            <div class="proj-bodies">
+              <div class="proj-body"><span class="lbl">AGORA</span></div>
+              <div class="proj-body future"><span class="lbl">+12 SEM</span></div>
+            </div>
+            <div class="proj-delta">−4,1<em>kg</em></div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--cinza-2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:80px">↑ Massa magra +1,4kg · gordura −5,5kg</div>
+            <div class="proj-cta">
+              <div class="btn">Começar o plano</div>
+              <div class="btn ghost">Mostrar 6 meses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero 4: Weekly Pattern -->
+      <div class="hero-card">
+        <div class="hero-card-num">HERO 04</div>
+        <div class="hero-card-title">Revisão de padrão semanal</div>
+        <div class="hero-card-sub"><strong>O fechamento de semana.</strong> Bar chart com sexta em Arco · sábado em Atenção · diagnóstico em mono · CTA aplica recalibração para próxima semana.</div>
+        <div class="hero-phone">
+          <div class="phone-screen hero-week">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span class="right">●●● ◓</span>
+            </div>
+            <div class="wk-meta"><span>SEMANA 14</span><span>DOM · FECHANDO</span></div>
+            <div class="wk-title">Sexta é<br><em>tarde.</em></div>
+            <div class="wk-chart">
+              <div class="wk-bar" style="height:30%"></div>
+              <div class="wk-bar" style="height:48%"></div>
+              <div class="wk-bar" style="height:42%"></div>
+              <div class="wk-bar" style="height:38%"></div>
+              <div class="wk-bar arc" style="height:92%"></div>
+              <div class="wk-bar warn" style="height:64%"></div>
+              <div class="wk-bar" style="height:36%"></div>
+            </div>
+            <div class="wk-days">
+              <span>S</span><span>T</span><span>Q</span><span>Q</span><span class="arc">S</span><span class="warn">S</span><span>D</span>
+            </div>
+            <div class="wk-diag">
+              Jantar médio sex · <b>22:14</b>.<br>
+              Movendo <b>280 kcal</b> para a âncora 19:30.<br><br>
+              Recomendação: antecipar lanche tarde para 16:30 nas próximas 2 semanas. Validar resultado dia 7.
+            </div>
+            <div class="wk-cta">Aplicar</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §10 ANTI-PADRÕES ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§10 · Anti-padrões</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">O que <em>não fazer</em>, com prova.</h2>
+    <p class="section-lede">
+      À esquerda: tela real do protótipo atual (salmão + vermelho pílula). À direita: como ela ficaria em Pulso. Mesma função — leitura visual oposta.
+    </p>
+
+    <div class="antipattern-compare">
+      <div class="antipattern-side">
+        <div class="antipattern-label no">— Protótipo atual</div>
+        <div class="antipattern-screenshot">
+          <img src="images/antes-cadastro.png" alt="Tela atual do protótipo: cadastro com fundo salmão e botão vermelho pílula">
+        </div>
+      </div>
+      <div class="antipattern-side">
+        <div class="antipattern-label yes">✓ Pulso</div>
+        <div class="antipattern-mock">
+          <div class="phone-screen screen-cadastro-pul">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span class="right">●●● ◓</span>
+            </div>
+            <div class="cd-meta"><span>02 / 06</span><span>00:42</span></div>
+            <div class="cd-title">Para onde você está<br><em>se movendo?</em></div>
+            <div class="cd-input-block">
+              <div class="cd-input-label">PESO</div>
+              <div class="cd-input"><span class="val">80,5</span><span class="unit">KG</span></div>
+            </div>
+            <div class="cd-input-block">
+              <div class="cd-input-label">ALTURA</div>
+              <div class="cd-input"><span class="val">1,75</span><span class="unit">M</span></div>
+            </div>
+            <div class="cd-cta">Travar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="antipattern-list">
+      <div class="antip-item"><strong>Itálico em qualquer lugar.</strong> Pulso não tem voz itálica. Mesmo `em` em copy fica em Arco, não em itálico.</div>
+      <div class="antip-item"><strong>Branco puro #FFF.</strong> Lê tela de loading travada. Use Giz #EEEBE3.</div>
+      <div class="antip-item"><strong>Modo claro.</strong> Pulso é só escuro. Página nunca clareia além de Aço.</div>
+      <div class="antip-item"><strong>Verde, azul, qualquer acento que não seja Arco / Atenção.</strong> Inclui o "Pulse Lime #C4FF00" do design anterior — fora.</div>
+      <div class="antip-item"><strong>Linguagem suave.</strong> "Bem-vindo de volta, campeão", "você consegue", "herói". Voz é direta, não motivacional.</div>
+      <div class="antip-item"><strong>Botões pílula (raio > 8px).</strong> Diz "template Figma genérico". Raio 4–8px max em CTAs.</div>
+      <div class="antip-item"><strong>Fotografia colorida.</strong> Banco de fotos clichê de bro-suplemento. P&B alto contraste com fio Arco.</div>
+      <div class="antip-item"><strong>Mais de um ticker por tela.</strong> Um Pulso de Recalibração por tela — nunca dois competindo.</div>
+      <div class="antip-item"><strong>Microcopy genérico</strong> ("Ex: 80,5", "Avançar", "Cadastro"). Reescrever na voz Pulso ("Travar", "Para onde você está se movendo?").</div>
+      <div class="antip-item"><strong>Layout simétrico em tela de input.</strong> Tipo edge-to-edge, botão na base full-bleed.</div>
+      <div class="antip-item"><strong>Ícones Material padrão.</strong> Traço 2px Giz, terminações quadradas, sem cantos arredondados. Recalibrar = waveform com seta.</div>
+      <div class="antip-item"><strong>Gradients, halos, brilho neon, cromado "gamer".</strong> Sem áreas, sem preenchimentos, sem dissolve mágico.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §11 WORDMARK ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§11 · Marca tipográfica · provisória</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Wordmark, <em>não logo.</em></h2>
+    <p class="section-lede">
+      Logo ilustrado final é v1.1, depois de validar a marca em uso real. Para a sprint atual: <strong>NUTRIHERO</strong> em Archivo Black 900, sem itálico, com o <strong>I</strong> em Arco. A única letra colorida.
+    </p>
+
+    <div class="wordmark-showcase">
+      <div class="wm-row">
+        <div class="wm-display" style="font-size:148px">NUTR<span class="wmi">I</span>HERO</div>
+        <div class="wm-caption">Display · Hero · 148px</div>
+      </div>
+      <div class="wm-row">
+        <div class="wm-display" style="font-size:64px">NUTR<span class="wmi">I</span>HERO</div>
+        <div class="wm-caption">Section header · 64px</div>
+      </div>
+      <div class="wm-row">
+        <div class="wm-narrow" style="font-size:22px">NUTR<span class="wmi">I</span>HERO</div>
+        <div class="wm-caption">Narrow · UI header · splash · 22px</div>
+      </div>
+      <div class="wm-row">
+        <div class="wm-spacing-rule">
+          <div class="h-block"></div>
+          <div class="wm-mid">NUTR<span class="wmi">I</span>HERO</div>
+          <div class="h-block"></div>
+        </div>
+        <div class="wm-caption">Regra de respiro · altura do H em volta da marca</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §12 CHECKLIST ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§12 · Validação</span>
+      <span class="section-rule"></span>
+    </div>
+    <h2 class="section-title">Oito perguntas <em>antes de fechar uma tela.</em></h2>
+    <p class="section-lede">
+      Lista para o designer todo dia. Se uma resposta é "não" ou "talvez", refazer. Marca-se uma a uma.
+    </p>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">01</div>
+        <div class="check-text"><strong>A tela parece um ticker ao vivo, não um diário?</strong> <span class="muted">(Se você não vê nada se movendo, refazer.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">02</div>
+        <div class="check-text"><strong>O número-manchete está em 96–140pt, Archivo Black, edge-to-edge?</strong> <span class="muted">(Se é o maior objeto da tela: sim. Se está empatado com um título: refazer.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">03</div>
+        <div class="check-text"><strong>Tem só um ticker por tela?</strong> <span class="muted">(Dois tickers competindo = um deles errado.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">04</div>
+        <div class="check-text"><strong>Arco aparece em no máximo 2 elementos?</strong> <span class="muted">(CTA + delta ao vivo é o máximo.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">05</div>
+        <div class="check-text"><strong>Tem alguma itálica na tela?</strong> <span class="muted">(Se sim, refazer. Pulso não tem voz itálica.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">06</div>
+        <div class="check-text"><strong>A voz é direta, sem "campeão" ou "você consegue"?</strong> <span class="muted">(Indulgência no copy ≠ suavização visual.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">07</div>
+        <div class="check-text"><strong>Passaria no feed de um influenciador parceiro sem parecer suplemento de academia?</strong> <span class="muted">(Sem caveiras, sem chamas, sem neon.)</span></div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-num">08</div>
+        <div class="check-text"><strong>Se eu remover essa tela, a tese do produto sofre?</strong> <span class="muted">(Se não, talvez ela não devesse existir no MVP.)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ §13 OUT OF SCOPE + DECISÕES ═══════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-meta">
+      <span class="section-num">§13 · Fora de escopo & decisões abertas</span>
+      <span class="section-rule"></span>
+    </div>
+
+    <h3 class="subsection-title" style="margin-top:0">O que esta direção <em>não</em> resolve</h3>
+
+    <div class="out-of-scope">
+      <span style="font-size:13px;color:var(--cinza-2);letter-spacing:0.08em;text-transform:uppercase;font-family:var(--mono)">Pós-MVP · v1.1 ou contrato separado:</span>
+      <ul>
+        <li>Manual de marca completo (variações, do's & don'ts, aplicações)</li>
+        <li>Logo final ilustrada (símbolo + wordmark + animação)</li>
+        <li>Identidade sonora · Pulso vira som também (v1.1)</li>
+        <li>Sistema de ícones custom (2px traço, terminações quadradas)</li>
+        <li>Direção fotográfica para marketing (P&B alto contraste)</li>
+        <li>Tom de voz nas redes sociais</li>
+        <li>Identidade visual de treino, marketplace, ONG (pós-MVP)</li>
+        <li>Design system documentado para múltiplos devs</li>
+      </ul>
+    </div>
+
+    <div class="decisions-block">
+      <div class="decisions-eyebrow">— Duas decisões para destravar a sprint —</div>
+      <div class="decisions-title">Duas escolhas. <em>Você</em> até quarta.</div>
+
+      <div class="decision-item">
+        <div class="decision-num">01</div>
+        <div class="decision-body">
+          <strong>Nome final: NutriHero ou ProjectFit?</strong>
+          <p>Esta direção foi escrita assumindo NutriHero. Pulso funciona com qualquer um — o wordmark Archivo Black 900 com a letra do meio colorida funciona para os dois nomes ("PROJEC<em>T</em>FIT" com T em Arco é igualmente legível). Decisão de marca, não de design.</p>
+        </div>
+      </div>
+
+      <div class="decision-item">
+        <div class="decision-num">02</div>
+        <div class="decision-body">
+          <strong>Validação com 1–2 usuárias reais antes do dev</strong>
+          <p>O risco real do Pulso é "mulheres / não-malhadores não se veem". O Espelho ganhava esse critério honestamente. Validação obrigatória: rodar a tela de Body Projection (Hero 03) com 1–2 mulheres 30+ que não treinam pesado, antes do dev começar. Se a reação for "não é para mim", revisar o cromado para algum tom mais quente em telas-ritual específicas (paywall, projeção). Quem faz e quando?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div><strong>NutriHero</strong> · Direção de Marca · Pulso · 02 Visual</div>
+    <div style="margin-top:8px;text-transform:none;letter-spacing:0;color:var(--cinza-2);font-size:11px;font-family:var(--body)">Companheiro do <a href="01-brand-direction.md">01-brand-direction.md</a> e <a href="02-brand-direction-menu.html">02-brand-direction-menu.html</a> · v2 · 2026-05-19</div>
+  </div>
+  <div>
+    <div>Próximo passo</div>
+    <div style="color:var(--arco);margin-top:6px"><strong>Validar com usuária real → fechar decisões 01 e 02</strong></div>
+  </div>
+</footer>
+
+</body>
+</html>

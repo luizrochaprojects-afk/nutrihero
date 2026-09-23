@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Ajustes</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .ajustes {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .ajustes .top { padding-top: var(--s-2); display: flex; flex-direction: column; gap: var(--s-2); }
+    .set-group { display: flex; flex-direction: column; }
+    .app-version {
+      margin-top: auto;
+      padding-top: var(--s-5);
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--c-cinza-400);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="ajustes">
+    <a class="back-btn" href="perfil.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">AJUSTES</span>
+      <h1 class="title-display-2">Ajustes.</h1>
+    </div>
+
+    <div class="set-group">
+      <span class="set-group-label">Conta</span>
+      <div class="set-list">
+        <a class="set-row" href="assinatura.html">
+          <span class="set-label">Assinatura</span>
+          <span class="set-right">
+            <span class="set-value" id="sub-status">Ativa</span>
+            <span class="set-chevron">→</span>
+          </span>
+        </a>
+        <div class="set-row" id="notif-row" onclick="toggleNotif()">
+          <span class="set-label">Notificações</span>
+          <span class="set-right">
+            <button class="toggle on" id="notif-toggle" type="button" aria-label="Notificações"></button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-group-label">Legal</span>
+      <div class="set-list">
+        <a class="set-row" href="legal.html?doc=termos">
+          <span class="set-label">Termos de serviço</span>
+          <span class="set-right"><span class="set-chevron">→</span></span>
+        </a>
+        <a class="set-row" href="legal.html?doc=privacidade">
+          <span class="set-label">Política de privacidade</span>
+          <span class="set-right"><span class="set-chevron">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-group-label">Sessão</span>
+      <div class="set-list">
+        <a class="set-row" href="cold-open.html">
+          <span class="set-label">Sair</span>
+          <span class="set-right"><span class="set-chevron">→</span></span>
+        </a>
+        <a class="set-row danger" href="excluir-conta.html">
+          <span class="set-label">Excluir conta</span>
+          <span class="set-right"><span class="set-chevron">→</span></span>
+        </a>
+      </div>
+    </div>
+
+    <p class="app-version">NUTRIHERO · v0.1 · PROTÓTIPO</p>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    /* Status da assinatura para a linha "Assinatura" */
+    (function () {
+      const sub = NH_STATE && NH_STATE.subscription;
+      const el = document.getElementById('sub-status');
+      if (!sub) { el.textContent = 'Ativa'; return; }
+      if (sub.active === false) { el.textContent = 'Cancelada'; return; }
+      const since = sub.since ? new Date(sub.since) : null;
+      if (since) {
+        const days = (Date.now() - since.getTime()) / 86400000;
+        el.textContent = days < 7 ? 'Em teste' : 'Ativa';
+      } else {
+        el.textContent = 'Ativa';
+      }
+    })();
+
+    function toggleNotif() {
+      document.getElementById('notif-toggle').classList.toggle('on');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="frame.js"></script>
+  <title>NutriHero — Protótipo</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="components.css" />
+  <style>
+    .start-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      min-height: 100dvh;
+      padding: var(--s-4);
+      padding-bottom: var(--s-8);
+      gap: var(--s-6);
+    }
+    .wordmark-wrap {
+      width: 140px;
+    }
+    .pitch {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cta-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .version-label {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="start-screen">
+    <div class="wordmark-wrap">
+      <img src="assets/mark-primary.svg" alt="NutriHero" />
+    </div>
+
+    <p class="pitch">Seu nutricionista de bolso.</p>
+
+    <div class="cta-wrap">
+      <a href="screens/cold-open.html" class="cta-primary hero">Começar</a>
+      <p class="version-label">Protótipo navegável · case de portfólio</p>
+    </div>
+  </div>
+
+  <script src="state.js"></script>
+  <script src="switcher.js"></script>
+</body>
+</html>

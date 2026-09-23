@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Detalhe da refeição</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .detail {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      padding-top: var(--s-4);
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+    }
+
+    /* ── Header ── */
+    .meal-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+    .meal-subtitle {
+      font-family: var(--f-narrow);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+
+    /* ── Big kcal display ── */
+    .kcal-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: var(--s-3) 0 var(--s-2);
+    }
+    .kcal-num {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 80px;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--c-giz-100);
+      font-variant-numeric: tabular-nums;
+    }
+    .kcal-unit {
+      font-family: var(--f-narrow);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      margin-top: var(--s-2);
+    }
+
+    /* ── Progress block ── */
+    .progress-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .progress-label .consumed-lbl {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--c-arco);
+      font-variant-numeric: tabular-nums;
+    }
+    .progress-label .target-lbl {
+      font-family: var(--f-narrow);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+
+    /* ── Items section ── */
+    .items-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .items-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--s-3);
+    }
+    .items-head .h {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+    }
+    .source-badge {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-arco);
+      border: 1px solid var(--c-arco);
+      border-radius: var(--r-1);
+      padding: 2px 7px;
+    }
+
+    .items-divider {
+      height: 1px;
+      background: var(--c-linha-500);
+    }
+
+    .item-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-2);
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--c-aco-800);
+    }
+    .item-row:last-of-type {
+      border-bottom: none;
+    }
+    .item-name {
+      font-family: var(--f-display);
+      font-size: 14px;
+      color: var(--c-giz-100);
+      flex: 1;
+      min-width: 0;
+    }
+    .item-qty {
+      font-family: var(--f-narrow);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--c-cinza-300);
+      white-space: nowrap;
+      min-width: 64px;
+      text-align: right;
+    }
+    .item-kcal {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      color: var(--c-giz-200);
+      font-variant-numeric: tabular-nums;
+      min-width: 36px;
+      text-align: right;
+    }
+
+    .total-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-2);
+      padding: var(--s-3) 0 0;
+      margin-top: var(--s-1);
+      border-top: 1px solid var(--c-linha-500);
+    }
+    .total-label {
+      font-family: var(--f-narrow);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+      flex: 1;
+    }
+    .total-count {
+      font-family: var(--f-narrow);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--c-cinza-300);
+      min-width: 64px;
+      text-align: right;
+    }
+    .total-kcal {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--c-arco);
+      font-variant-numeric: tabular-nums;
+      min-width: 36px;
+      text-align: right;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+      margin-top: auto;
+    }
+    .sync-meta {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      text-align: center;
+    }
+    .sync-meta .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--c-cinza-400);
+      margin-right: 6px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+    .sync-meta .dot.synced { background: #4a8a5a; }
+    .sync-meta .dot.queued { background: var(--c-atencao); }
+
+    /* ── Título tappable ── */
+    .title-tappable {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-2);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+    .title-chevron {
+      font-size: 14px;
+      color: var(--c-arco);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* ── Slot picker ── */
+    .slot-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+      margin-top: var(--s-2);
+    }
+    .slot-chip {
+      font-family: var(--f-narrow);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: var(--s-1) var(--s-3);
+      border-radius: var(--r-1);
+      border: 1px solid var(--c-linha-500);
+      color: var(--c-cinza-300);
+      background: none;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+    .slot-chip.active,
+    .slot-chip:hover {
+      border-color: var(--c-arco);
+      color: var(--c-arco);
+      background: rgba(255, 91, 31, 0.08);
+    }
+
+    /* ── Macro block ── */
+    .macro-block {
+      display: flex;
+      gap: var(--s-3);
+    }
+    .macro-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--c-aco-800);
+      border: 1px solid var(--c-linha-500);
+      border-radius: var(--r-1);
+      padding: var(--s-3) var(--s-3) var(--s-2);
+    }
+    .macro-lbl {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      margin-bottom: var(--s-1);
+    }
+    .macro-val {
+      font-family: var(--f-mono);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: var(--s-2);
+      font-variant-numeric: tabular-nums;
+    }
+    .macro-bar {
+      height: 2px;
+      background: var(--c-linha-500);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .macro-bar-fill {
+      height: 100%;
+      border-radius: 1px;
+      transition: width var(--t-medium) var(--ease-pulso);
+    }
+    .macro-ref {
+      font-family: var(--f-narrow);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      color: var(--c-cinza-400);
+      margin-top: var(--s-1);
+    }
+    /* Cores por macro */
+    #col-prot .macro-val       { color: var(--c-giz-100); }
+    #col-prot .macro-bar-fill  { background: var(--c-giz-200); }
+    #col-carbo .macro-val      { color: var(--c-atencao); }
+    #col-carbo .macro-bar-fill { background: var(--c-atencao); }
+    #col-gord .macro-val       { color: var(--c-cinza-300); }
+    #col-gord .macro-bar-fill  { background: var(--c-cinza-300); }
+
+    /* ── Overflow bar ── */
+    .progress-track { position: relative; overflow: visible; }
+    .progress-excess {
+      position: absolute;
+      top: 0; right: 0;
+      height: 100%;
+      background: var(--c-atencao);
+      border-radius: 0 var(--r-1) var(--r-1) 0;
+    }
+
+    /* ── Delta row ── */
+    .progress-delta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: var(--s-1);
+    }
+    .delta-meta {
+      font-family: var(--f-narrow);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+    }
+    .delta-val {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c-atencao);
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <div class="detail">
+
+    <div class="top-bar">
+      <a href="home.html" class="back-btn" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+      <span class="eyebrow" id="eyebrow">REFEIÇÃO · DETALHE</span>
+    </div>
+
+    <div class="meal-header">
+      <button class="title-tappable" id="slot-label-btn" aria-label="Trocar refeição">
+        <h1 class="title-display-2" id="slot-label">—</h1>
+        <span class="title-chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="slot-picker" id="slot-picker" hidden>
+        <!-- chips renderizados por JS -->
+      </div>
+      <span class="meal-subtitle" id="logged-at">Registrado às —</span>
+    </div>
+
+    <div class="kcal-display">
+      <span class="kcal-num" id="kcal-num">—</span>
+      <span class="kcal-unit">kcal</span>
+    </div>
+
+    <div class="progress-block">
+      <div class="progress-label">
+        <span class="consumed-lbl" id="progress-consumed">— kcal</span>
+        <span class="target-lbl" id="progress-target">— META</span>
+      </div>
+      <div class="progress-track" id="progress-track">
+        <div class="progress-fill"   id="progress-fill"   style="width:0%"></div>
+        <div class="progress-excess" id="progress-excess" style="width:0%;display:none"></div>
+      </div>
+      <div class="progress-delta" id="progress-delta" hidden>
+        <span class="delta-meta" id="delta-meta">Meta — kcal</span>
+        <span class="delta-val"  id="delta-val">+— kcal</span>
+      </div>
+    </div>
+
+    <div class="macro-block" id="macro-block">
+      <div class="macro-col" id="col-prot">
+        <span class="macro-lbl">Prot</span>
+        <span class="macro-val" id="macro-prot-val">—g</span>
+        <div class="macro-bar"><div class="macro-bar-fill" id="macro-prot-fill" style="width:0%"></div></div>
+        <span class="macro-ref" id="macro-prot-ref">/ —g</span>
+      </div>
+      <div class="macro-col" id="col-carbo">
+        <span class="macro-lbl">Carbo</span>
+        <span class="macro-val" id="macro-carbo-val">—g</span>
+        <div class="macro-bar"><div class="macro-bar-fill" id="macro-carbo-fill" style="width:0%"></div></div>
+        <span class="macro-ref" id="macro-carbo-ref">/ —g</span>
+      </div>
+      <div class="macro-col" id="col-gord">
+        <span class="macro-lbl">Gord</span>
+        <span class="macro-val" id="macro-gord-val">—g</span>
+        <div class="macro-bar"><div class="macro-bar-fill" id="macro-gord-fill" style="width:0%"></div></div>
+        <span class="macro-ref" id="macro-gord-ref">/ —g</span>
+      </div>
+    </div>
+
+    <div class="items-section">
+      <div class="items-head">
+        <span class="h" id="items-count">ITENS · —</span>
+        <span class="source-badge" id="source-badge">—</span>
+      </div>
+      <div class="items-divider"></div>
+      <div id="items-list"></div>
+      <div class="total-row">
+        <span class="total-label">TOTAL</span>
+        <span class="total-count" id="total-count">— itens</span>
+        <span class="total-kcal" id="total-kcal">—</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a id="edit-btn" href="meal-log.html" class="cta-primary">Editar refeição →</a>
+      <span class="sync-meta" id="sync-meta">
+        <span class="dot synced" id="sync-dot"></span>
+        <span id="sync-label">—</span>
+      </span>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    /* ── Seed data (used when NH_STATE has no entry for this slot) ── */
+    const DAILY_MACRO_TARGETS = { prot: 160, carbo: 220, gord: 55 };
+
+    const SEED = {
+      'cafe': {
+        source: 'manual', loggedAt: '07:23', totalKcal: 420,
+        macros: { prot: 28, carbo: 52, gord: 12 },
+        items: [
+          { name: 'Ovos mexidos',  qty: 2,   unit: 'und',    kcal: 186 },
+          { name: 'Pão integral',  qty: 2,   unit: 'fatias', kcal: 140 },
+          { name: 'Café preto',    qty: 1,   unit: 'xíc',    kcal: 5   },
+        ]
+      },
+      'lanche-am': {
+        source: 'audio', loggedAt: '10:05', totalKcal: 400,
+        macros: { prot: 48, carbo: 62, gord: 14 },
+        items: [
+          { name: 'Whey isolado',      qty: 1,  unit: 'scoop', kcal: 120 },
+          { name: 'Banana',            qty: 1,  unit: 'un',    kcal: 90  },
+          { name: 'Pasta de amendoim', qty: 1,  unit: 'col',   kcal: 90  },
+        ]
+      },
+      'almoco': {
+        source: 'photo', loggedAt: '12:47', totalKcal: 620,
+        macros: { prot: 55, carbo: 90, gord: 22 },
+        items: [
+          { name: 'Arroz branco',    qty: 4,   unit: 'col',   kcal: 200 },
+          { name: 'Feijão',          qty: 2,   unit: 'col',   kcal: 120 },
+          { name: 'Frango grelhado', qty: 150, unit: 'g',     kcal: 245 },
+          { name: 'Salada mista',    qty: 1,   unit: 'prato', kcal: 55  },
+        ]
+      },
+      'lanche-pm': {
+        source: 'manual', loggedAt: '16:10', totalKcal: 280,
+        macros: { prot: 18, carbo: 28, gord: 10 },
+        items: [
+          { name: 'Iogurte grego', qty: 1,  unit: 'pot', kcal: 150 },
+          { name: 'Castanhas',     qty: 30, unit: 'g',   kcal: 130 },
+        ]
+      },
+      'jantar': {
+        source: 'manual', loggedAt: '20:30', totalKcal: 280,
+        macros: { prot: 38, carbo: 20, gord: 18 },
+        items: [
+          { name: 'Omelete',  qty: 3, unit: 'ovos',  kcal: 210 },
+          { name: 'Azeite',   qty: 1, unit: 'col',   kcal: 40  },
+          { name: 'Salada',   qty: 1, unit: 'prato', kcal: 30  },
+        ]
+      },
+    };
+
+    const SLOT_CONFIG = {
+      'cafe':      { label: 'Café da manhã', target: 500 },
+      'lanche-am': { label: 'Lanche manhã',  target: 400 },
+      'almoco':    { label: 'Almoço',        target: 650 },
+      'lanche-pm': { label: 'Lanche tarde',  target: 280 },
+      'jantar':    { label: 'Jantar',        target: 300 },
+    };
+
+    const SOURCE_LABEL = { manual: 'MANUAL', photo: 'FOTO', audio: 'ÁUDIO' };
+
+    /* ── Resolve slot ── */
+    const slot = new URLSearchParams(location.search).get('slot') || 'cafe';
+    const cfg  = SLOT_CONFIG[slot] || { label: 'Refeição', target: 400 };
+
+    /* ── Find entry: prefer NH_STATE, fall back to seed ── */
+    const stateEntry = (NH_STATE && NH_STATE.meals_logged || []).find(m => m.slot === slot);
+    const entry      = stateEntry || SEED[slot];
+    const fromState  = !!stateEntry;
+
+    /* ── Populate DOM ── */
+    document.title = `NutriHero — ${cfg.label}`;
+    document.getElementById('slot-label').textContent = cfg.label.toUpperCase();
+    document.getElementById('edit-btn').href = `meal-log.html?slot=${slot}`;
+
+    // Logged-at line
+    let loggedAtStr = '—';
+    if (fromState && entry.loggedAt) {
+      try {
+        const d   = new Date(entry.loggedAt);
+        const min = Math.round((Date.now() - d.getTime()) / 60000);
+        if (min < 1)       loggedAtStr = 'Registrado agora';
+        else if (min < 60) loggedAtStr = `Registrado há ${min} min`;
+        else if (min < 1440) loggedAtStr = `Registrado há ${Math.round(min / 60)}h`;
+        else               loggedAtStr = `Registrado ${d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}`;
+      } catch (_) {
+        loggedAtStr = `Registrado às ${entry.loggedAt}`;
+      }
+    } else if (entry && entry.loggedAt) {
+      loggedAtStr = `Registrado às ${entry.loggedAt}`;
+    }
+    document.getElementById('logged-at').textContent = loggedAtStr;
+
+    // Big kcal
+    const total = entry ? entry.totalKcal : 0;
+    document.getElementById('kcal-num').textContent = total.toLocaleString('pt-BR');
+
+    // Progress bar — suporta estado "passou a meta" (overflow bicolor)
+    document.getElementById('progress-consumed').textContent = total.toLocaleString('pt-BR') + ' kcal';
+    document.getElementById('progress-target').textContent  = cfg.target.toLocaleString('pt-BR') + ' META';
+
+    const isOver  = total > cfg.target;
+    const basePct = isOver
+      ? Math.round((cfg.target / total) * 100)
+      : Math.min(100, Math.round((total / cfg.target) * 100));
+    const exsPct  = isOver ? (100 - basePct) : 0;
+
+    document.getElementById('progress-fill').style.width = basePct + '%';
+
+    if (isOver) {
+      const excess = document.getElementById('progress-excess');
+      excess.style.width   = exsPct + '%';
+      excess.style.display = 'block';
+
+      const delta = total - cfg.target;
+      document.getElementById('progress-delta').hidden  = false;
+      document.getElementById('delta-meta').textContent = `Meta ${cfg.target.toLocaleString('pt-BR')} kcal`;
+      document.getElementById('delta-val').textContent  = `+${delta.toLocaleString('pt-BR')} kcal`;
+    }
+
+    // Source badge
+    const src = entry ? (SOURCE_LABEL[entry.source] || entry.source.toUpperCase()) : '—';
+    document.getElementById('source-badge').textContent = src;
+
+    // Items list
+    const items = (entry && entry.items) || [];
+    document.getElementById('items-count').textContent = `ITENS · ${items.length}`;
+
+    const listEl = document.getElementById('items-list');
+    items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.innerHTML = `
+        <span class="item-name">${item.name}</span>
+        <span class="item-qty">${item.qty} ${item.unit}</span>
+        <span class="item-kcal">${item.kcal}</span>
+      `;
+      listEl.appendChild(row);
+    });
+
+    // Total row
+    document.getElementById('total-count').textContent = `${items.length} ${items.length === 1 ? 'item' : 'itens'}`;
+    document.getElementById('total-kcal').textContent  = total.toLocaleString('pt-BR') + ' kcal';
+
+    // Macros — 3 colunas com mini-barra vs meta diária
+    if (entry && entry.macros) {
+      const m = entry.macros;
+      const t = DAILY_MACRO_TARGETS;
+      ['prot', 'carbo', 'gord'].forEach(key => {
+        const val = m[key] ?? 0;
+        const tgt = t[key] ?? 1;
+        const pct = Math.min(100, Math.round((val / tgt) * 100));
+        document.getElementById(`macro-${key}-val`).textContent  = val + 'g';
+        document.getElementById(`macro-${key}-fill`).style.width = pct + '%';
+        document.getElementById(`macro-${key}-ref`).textContent  = `/ ${tgt}g`;
+      });
+    } else {
+      document.getElementById('macro-block').hidden = true;
+    }
+
+    // Slot picker — toggle ao tocar no título + chips de navegação
+    document.getElementById('slot-label-btn').addEventListener('click', () => {
+      const picker = document.getElementById('slot-picker');
+      picker.hidden = !picker.hidden;
+    });
+
+    const pickerEl = document.getElementById('slot-picker');
+    Object.entries(SLOT_CONFIG).forEach(([key, val]) => {
+      const btn = document.createElement('button');
+      btn.className = 'slot-chip' + (key === slot ? ' active' : '');
+      btn.textContent = val.label;
+      btn.addEventListener('click', () => {
+        if (key !== slot) location.href = `meal-detail.html?slot=${key}`;
+      });
+      pickerEl.appendChild(btn);
+    });
+
+    // Sync meta
+    const syncStatus = entry ? (entry.syncStatus || 'synced') : 'synced';
+    const dot        = document.getElementById('sync-dot');
+    const syncLbl    = document.getElementById('sync-label');
+    if (syncStatus === 'queued') {
+      dot.className  = 'dot queued';
+      syncLbl.textContent = 'Salvando offline';
+    } else {
+      dot.className  = 'dot synced';
+      syncLbl.textContent = 'Sincronizado';
+    }
+  </script>
+</body>
+</html>

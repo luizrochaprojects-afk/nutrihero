@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Padrão da semana</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .wk {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .wk .top { padding-top: 0; display: flex; flex-direction: column; gap: var(--s-2); }
+    .wk h1 {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 40px;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .wk h1 .atencao { color: var(--c-atencao); }
+    .att-summary {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .att-summary .l {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-atencao);
+    }
+    .att-summary .body {
+      font-family: var(--f-display);
+      font-size: 15px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+
+    .pattern-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .p-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-3) var(--s-3);
+      background: var(--c-aco-700);
+      border-radius: var(--r-2);
+    }
+    .p-row .day {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .p-row.flag .day { color: var(--c-atencao); }
+    .p-row .bar {
+      height: 4px;
+      background: var(--c-linha-500);
+      border-radius: var(--r-1);
+      position: relative;
+      overflow: hidden;
+    }
+    .p-row .bar .fill { position: absolute; inset: 0; background: var(--c-giz-200); transform-origin: left; }
+    .p-row.flag .bar .fill { background: var(--c-atencao); }
+    .p-row .v {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--c-giz-100);
+    }
+    .p-row.flag .v { color: var(--c-atencao); }
+    .p-row .v .ovr { font-size: 10px; color: var(--c-atencao); }
+
+    .recommendation {
+      background: var(--c-aco-800);
+      border-left: 2px solid var(--c-atencao);
+      padding: var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .recommendation .h {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-atencao);
+    }
+    .recommendation .b {
+      font-family: var(--f-display);
+      font-size: 14px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+
+    .footer { display: flex; gap: var(--s-2); margin-top: auto; padding-top: var(--s-4); }
+    .footer .cta-ghost { flex: 0 0 35%; }
+    .footer .cta-primary { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="wk">
+    <a class="back-btn" href="home.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">SEMANA 19 · 13 → 19 MAI</span>
+      <h1>Sexta<br />é <span class="atencao">tarde.</span></h1>
+    </div>
+
+    <div class="att-summary">
+      <span class="l">3 SEMANAS SEGUIDAS · MESMO PADRÃO</span>
+      <p class="body">Você passa em média 380 kcal da meta entre 21h e 23h nas sextas-feiras. Resto da semana, fecha dentro.</p>
+    </div>
+
+    <div class="pattern-cards">
+      <div class="p-row">
+        <span class="day">SEG</span>
+        <div class="bar"><div class="fill" style="width: 92%"></div></div>
+        <span class="v">1.840</span>
+      </div>
+      <div class="p-row">
+        <span class="day">TER</span>
+        <div class="bar"><div class="fill" style="width: 98%"></div></div>
+        <span class="v">1.960</span>
+      </div>
+      <div class="p-row">
+        <span class="day">QUA</span>
+        <div class="bar"><div class="fill" style="width: 95%"></div></div>
+        <span class="v">1.900</span>
+      </div>
+      <div class="p-row">
+        <span class="day">QUI</span>
+        <div class="bar"><div class="fill" style="width: 100%"></div></div>
+        <span class="v">2.000</span>
+      </div>
+      <div class="p-row flag">
+        <span class="day">SEX</span>
+        <div class="bar"><div class="fill" style="width: 100%"></div></div>
+        <span class="v">2.380 <span class="ovr">+380</span></span>
+      </div>
+      <div class="p-row">
+        <span class="day">SÁB</span>
+        <div class="bar"><div class="fill" style="width: 96%"></div></div>
+        <span class="v">1.920</span>
+      </div>
+      <div class="p-row">
+        <span class="day">DOM</span>
+        <div class="bar"><div class="fill" style="width: 94%"></div></div>
+        <span class="v">1.880</span>
+      </div>
+    </div>
+
+    <div class="recommendation">
+      <span class="h">SUGESTÃO · APLICAR NA PRÓXIMA SEXTA</span>
+      <p class="b">Deslocar 200 kcal do almoço para o jantar de sexta. Você janta mais, sai do gatilho das 21h, e a meta semanal fica intacta.</p>
+    </div>
+
+    <div class="footer">
+      <a href="home.html" class="cta-ghost">Ignorar</a>
+      <a href="home.html" class="cta-primary">Aplicar</a>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+</body>
+</html>

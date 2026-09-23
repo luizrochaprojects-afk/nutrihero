@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Hoje</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .home {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: calc(var(--s-6) + 72px);
+      --screen-pad-bottom: calc(var(--s-6) + 88px);
+    }
+
+    /* ── Top row ── */
+    .top {
+      padding-top: var(--s-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--s-6);
+    }
+    .date {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .streak {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-giz-200);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Gauge block ── */
+    .gauge-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--s-3);
+      margin-bottom: var(--s-2);
+    }
+    .gauge-eyebrow {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      align-self: flex-start;
+    }
+    .gauge-wrap {
+      width: 100%;
+      max-width: 300px;
+    }
+    .gauge-svg {
+      width: 100%;
+      display: block;
+    }
+
+    /*
+      Arc: M 10,110 A 100,100 0 0 1 210,110
+      sweep=1 → upper semicircle, fills viewBox "0 0 220 118"
+      Total arc length = π × 100 = 314.16
+      Fill at P% → dashoffset = 314.16 × (1 − P)
+      At 82% (1640÷2000): 314.16 × 0.18 = 56.55
+      dashoffset 320 > 314.16 → fully hidden on start (avoids linecap bleed)
+    */
+    .gauge-track {
+      fill: none;
+      stroke: var(--c-cinza-700);
+      stroke-width: 14;
+      stroke-linecap: round;
+    }
+    .gauge-fill {
+      fill: none;
+      stroke: var(--c-giz-100);
+      stroke-width: 14;
+      stroke-linecap: round;
+      stroke-dasharray: 314.16;
+      stroke-dashoffset: 320;
+      transition: stroke-dashoffset 800ms cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    /* ── Pulso line — short signature under gauge ── */
+    .pulso-wrap {
+      width: 32%;
+      margin: 0 auto var(--s-2);
+    }
+
+    /* ── Remaining row ── */
+    .remaining-row {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: var(--s-2);
+      margin-bottom: var(--s-4);
+    }
+    .remaining-val {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--c-giz-100);
+      letter-spacing: -0.01em;
+    }
+    .remaining-label {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+
+    /* ── Contextual slots ── */
+    #deviation-slot:empty { display: none; }
+    #weekly-slot:empty    { display: none; }
+    #deviation-slot       { margin-bottom: var(--s-4); }
+    #weekly-slot          { margin-bottom: var(--s-4); }
+
+    /* ── Sections ── */
+    .section {
+      border-top: 1px solid var(--c-linha-500);
+      padding-top: var(--s-4);
+      margin-top: var(--s-2);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .section-head .h {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+    }
+    .section-head .meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+    }
+
+    /* ── Next meal chip ── */
+    .next-chip {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      text-decoration: none;
+      padding: var(--s-3) var(--s-4);
+      background: var(--c-aco-700);
+      border-radius: var(--r-2);
+      border: 1px solid var(--c-linha-500);
+      transition: border-color var(--t-fast);
+    }
+    .next-chip:hover { border-color: rgba(255,91,31,0.35); }
+    .nc-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--c-cinza-400);
+      flex-shrink: 0;
+    }
+    .nc-body { flex: 1; min-width: 0; }
+    .nc-name {
+      font-family: var(--f-display);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .nc-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+      margin-top: 2px;
+    }
+    .nc-arrow {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      color: var(--c-cinza-400);
+      flex-shrink: 0;
+    }
+
+    /* ── Meal list ── */
+    .meal-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+
+    /* ── Dev row ── */
+    .dev-meta-row {
+      margin-top: auto;
+      padding-top: var(--s-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--s-2);
+      flex-wrap: wrap;
+    }
+    .dev-meta-row .l {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+    }
+    .dev-meta-row .dev-btn {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      background: none;
+      border: 1px dashed var(--c-linha-500);
+      padding: 4px 8px;
+      border-radius: var(--r-1);
+      cursor: pointer;
+      transition: color var(--t-fast), border-color var(--t-fast);
+    }
+    .dev-meta-row .dev-btn:hover { color: var(--c-arco); border-color: var(--c-arco); }
+  </style>
+</head>
+<body>
+  <div class="home">
+
+    <div class="top">
+      <span class="date" id="date">TER · 19 MAI</span>
+      <span class="streak">+4 DIAS NO PLANO</span>
+    </div>
+
+    <!-- ── Gauge hero ── -->
+    <div class="gauge-block">
+      <span class="gauge-eyebrow">CONSUMIDO HOJE</span>
+      <div class="gauge-wrap">
+        <!--
+          viewBox 0 0 220 118 — center (110,110), radius 100
+          Path: M 10,110 A 100,100 0 0 1 210,110
+          sweep=1 → upper semicircle (visible arc)
+          Arc length (π × 100) = 314.16
+        -->
+        <svg class="gauge-svg" id="gauge-svg" viewBox="0 0 220 118"
+             role="img" aria-label="Consumido: 820 de 2.000 kcal (41%)">
+          <!-- Track (background) -->
+          <path class="gauge-track" d="M 10,110 A 100,100 0 0 1 210,110"/>
+          <!-- Fill: animated by JS via stroke-dashoffset -->
+          <path class="gauge-fill" id="gauge-fill" d="M 10,110 A 100,100 0 0 1 210,110"/>
+          <!-- Consumed number -->
+          <text x="110" y="76"
+                text-anchor="middle"
+                id="gauge-consumed"
+                style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:30px;
+                       letter-spacing:-0.04em;fill:var(--c-giz-100);font-feature-settings:'tnum';">820</text>
+          <!-- Target label -->
+          <text x="110" y="97"
+                text-anchor="middle"
+                id="gauge-target"
+                style="font-family:'JetBrains Mono',monospace;font-size:13px;
+                       letter-spacing:0.02em;fill:var(--c-cinza-300);">/ 2.000 kcal</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- PulsoLine — assinatura da marca, reage a off-plan -->
+    <div class="pulso-wrap">
+      <div class="pulso-line"></div>
+    </div>
+
+    <!-- Remaining -->
+    <div class="remaining-row">
+      <span class="remaining-val" id="remaining-val">1.180 kcal</span>
+      <span class="remaining-label">restam para fechar o dia</span>
+    </div>
+
+    <!-- Desvio: atenção contextual quando detectado -->
+    <div id="deviation-slot"></div>
+
+    <!-- Reajuste semanal: dia 7 -->
+    <div id="weekly-slot"></div>
+
+    <!-- Próxima refeição — renderizado por JS; oculto quando vazio -->
+    <div id="next-meal-section"></div>
+
+    <!-- Refeições registradas hoje -->
+    <div class="section">
+      <div class="section-head">
+        <span class="h">REGISTRADAS HOJE</span>
+        <span class="meta" id="meals-meta">2 / 5</span>
+      </div>
+      <div class="meal-list" id="meal-list">
+        <a href="meal-detail.html?slot=cafe" class="meal-card done">
+          <div class="meal-header">
+            <span class="meal-name">Café · 07:15</span>
+            <span class="meal-kcal" id="kcal-cafe">420 kcal</span>
+          </div>
+          <span class="meal-items">Ovos · pão integral · café preto</span>
+        </a>
+        <a href="meal-detail.html?slot=lanche-am" class="meal-card done">
+          <div class="meal-header">
+            <span class="meal-name">Lanche · 10:00</span>
+            <span class="meal-kcal" id="kcal-lanche-am">400 kcal</span>
+          </div>
+          <span class="meal-items">Whey · banana · pasta de amendoim</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Dev / Última recalibração -->
+    <div class="dev-meta-row">
+      <span class="l" id="last-reajust">Última recalibração · ontem 18:42</span>
+      <div style="display:flex; gap:var(--s-2);">
+        <button class="dev-btn" onclick="toggleWeekly()">Simular dia 7</button>
+        <button class="dev-btn" onclick="simulateDeviation()">Simular desvio</button>
+      </div>
+    </div>
+
+  </div><!-- /home -->
+
+  <nav class="tab-bar">
+    <a class="tab active" href="home.html" aria-label="Hoje">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg>
+      <span class="tab-label">Hoje</span>
+    </a>
+    <a class="tab" href="bf-evolution.html" aria-label="Evolução">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg>
+      <span class="tab-label">Evolução</span>
+    </a>
+    <a class="tab-fab" href="meal-log.html" aria-label="Registrar refeição">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+        <circle cx="12" cy="13" r="3.5"/>
+      </svg>
+    </a>
+    <a class="tab" href="diario.html" aria-label="Diário">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h6"/></svg>
+      <span class="tab-label">Diário</span>
+    </a>
+    <a class="tab" href="perfil.html" aria-label="Perfil">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      <span class="tab-label">Perfil</span>
+    </a>
+  </nav>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    // ── Data constants ──────────────────────────────────────────────────────────
+    const BASE_KCAL  = 820;   // café + lanche-am pré-marcados
+    const SLOT_ORDER = ['cafe', 'lanche-am', 'almoco', 'lanche-pm', 'jantar'];
+    const PRE_DONE   = ['cafe', 'lanche-am'];
+    const DEV_THRESH = 60;    // kcal de tolerância para detectar desvio
+
+    const SLOT_LABELS = {
+      'cafe':      { name: 'Café · 07:15',   target: 420, items: 'Ovos · pão integral · café preto' },
+      'lanche-am': { name: 'Lanche · 10:00', target: 400, items: 'Whey · banana · pasta de amendoim' },
+      'almoco':    { name: 'Almoço · 12:30', target: 620, items: 'Arroz · feijão · frango · salada' },
+      'lanche-pm': { name: 'Lanche · 16:00', target: 280, items: 'Iogurte · castanhas' },
+      'jantar':    { name: 'Jantar · 20:00', target: 280, items: 'Omelete · salada · azeite' },
+    };
+
+    // ── Gauge ───────────────────────────────────────────────────────────────────
+    function updateGauge(total, targetKcal) {
+      const pct       = Math.min(1, total / targetKcal);
+      const offset    = +(314.16 * (1 - pct)).toFixed(2);
+      const remaining = Math.max(0, targetKcal - total);
+
+      document.getElementById('gauge-consumed').textContent = total.toLocaleString('pt-BR');
+      document.getElementById('gauge-target').textContent   = '/ ' + targetKcal.toLocaleString('pt-BR') + ' kcal';
+      document.getElementById('remaining-val').textContent  = remaining.toLocaleString('pt-BR') + ' kcal';
+      document.getElementById('gauge-svg').setAttribute('aria-label',
+        'Consumido: ' + total.toLocaleString('pt-BR') +
+        ' de ' + targetKcal.toLocaleString('pt-BR') +
+        ' kcal (' + Math.round(pct * 100) + '%)');
+
+      // Double-rAF: garante que o browser aplicou dashoffset:320 antes de transicionar
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.getElementById('gauge-fill').style.strokeDashoffset = offset;
+        });
+      });
+    }
+
+    // ── Next meal ───────────────────────────────────────────────────────────────
+    function nextPendingSlot() {
+      const logged = new Set((NH_STATE.meals_logged || []).map(m => m.slot));
+      return SLOT_ORDER.find(s => !PRE_DONE.includes(s) && !logged.has(s)) || null;
+    }
+
+    function renderNextMeal() {
+      const container = document.getElementById('next-meal-section');
+      const next      = nextPendingSlot();
+      if (!next) { container.innerHTML = ''; return; }
+
+      const label = SLOT_LABELS[next];
+      const parts = label.name.split(' · ');  // ['Almoço', '12:30']
+      container.innerHTML = `
+        <div class="section">
+          <span class="eyebrow">PRÓXIMA</span>
+          <a href="meal-log.html?slot=${next}" class="next-chip">
+            <svg class="nc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <div class="nc-body">
+              <div class="nc-name">${parts[0]}</div>
+              <div class="nc-meta">${parts[1]} &middot; ${label.target} kcal estimados</div>
+            </div>
+            <span class="nc-arrow">→</span>
+          </a>
+        </div>`;
+    }
+
+    // ── Done meal list ──────────────────────────────────────────────────────────
+    function renderDoneMeals() {
+      const logged      = NH_STATE.meals_logged || [];
+      const loggedExtra = logged.filter(m => !PRE_DONE.includes(m.slot));
+      const doneCount   = PRE_DONE.length + loggedExtra.length;
+
+      // Meta count
+      const metaEl = document.getElementById('meals-meta');
+      if (metaEl) metaEl.textContent = doneCount + ' / 5';
+
+      // Atualiza kcal dos slots pré-marcados se foram logados com valor diferente
+      PRE_DONE.forEach(slot => {
+        const override = logged.find(m => m.slot === slot);
+        const el = document.getElementById('kcal-' + slot);
+        if (el && override) el.textContent = override.totalKcal + ' kcal';
+      });
+
+      // Injeta cards dos slots logados além dos pré-marcados
+      const list = document.getElementById('meal-list');
+      list.querySelectorAll('.meal-card[data-extra]').forEach(c => c.remove());
+      loggedExtra.forEach(m => {
+        const label = SLOT_LABELS[m.slot];
+        if (!label) return;
+        const a = document.createElement('a');
+        a.href      = 'meal-detail.html?slot=' + m.slot;
+        a.className = m.syncStatus === 'queued' ? 'meal-card sync-pending' : 'meal-card done';
+        a.setAttribute('data-extra', '1');
+        a.innerHTML =
+          '<div class="meal-header">' +
+            '<span class="meal-name">' + label.name + '</span>' +
+            '<span class="meal-kcal">' + m.totalKcal + ' kcal</span>' +
+          '</div>' +
+          '<span class="meal-items">' + label.items + '</span>';
+        list.appendChild(a);
+      });
+    }
+
+    // ── Deviation / reajuste banner ────────────────────────────────────────────
+    function deviationMeal() {
+      if (NH_STATE.reajust_choice) return null;
+      return (NH_STATE.meals_logged || []).find(m => {
+        const t = SLOT_LABELS[m.slot] && SLOT_LABELS[m.slot].target;
+        return t && Math.abs((m.totalKcal || 0) - t) > DEV_THRESH;
+      }) || null;
+    }
+
+    function renderReajustBanner() {
+      const slot  = document.getElementById('deviation-slot');
+      const pulso = document.querySelector('.pulso-line');
+      const dev   = deviationMeal();
+      const next  = nextPendingSlot();
+
+      // Sem desvio e ainda há refeições pendentes → limpa e sai
+      if (!dev && next) {
+        slot.innerHTML = '';
+        pulso.classList.remove('off-plan');
+        return;
+      }
+
+      pulso.classList.add('off-plan');
+
+      const reajustHref = (window.NH_NAV && NH_NAV.fromHomeReajust)
+        ? NH_NAV.fromHomeReajust() : 'reajust-ticker.html';
+
+      let eyebrow, title, body;
+      if (dev) {
+        const t    = SLOT_LABELS[dev.slot];
+        const diff = (dev.totalKcal || 0) - t.target;
+        eyebrow = 'PLANO MUDOU';
+        title   = 'Você saiu da zona.';
+        body    = t.name.split(' · ')[0] + ': ' +
+                  (diff > 0 ? '+' : '−') + Math.abs(diff) +
+                  ' kcal da meta. Reajuste o resto do dia.';
+      } else {
+        eyebrow = 'DIA FECHADO';
+        title   = 'Revise o plano de amanhã.';
+        body    = 'Você registrou todas as refeições de hoje. ' +
+                  'Rode um reajuste para calibrar a meta do dia seguinte.';
+      }
+
+      slot.innerHTML =
+        '<div class="attention-card">' +
+          '<span class="att-eyebrow">' + eyebrow + '</span>' +
+          '<span class="att-title">'   + title   + '</span>' +
+          '<p class="att-body">'       + body    + '</p>' +
+          '<div class="att-actions">' +
+            '<a class="cta-primary" href="' + reajustHref + '">Reajustar dieta</a>' +
+          '</div>' +
+        '</div>';
+    }
+
+    // ── Reajust targets ─────────────────────────────────────────────────────────
+    function applyReajustTargets() {
+      const tgt = NH_STATE.reajust_targets;
+      if (!tgt) return;
+      Object.keys(tgt).forEach(slot => {
+        // Apenas atualiza se slot ainda não foi logado
+        const isLogged = (NH_STATE.meals_logged || []).some(m => m.slot === slot);
+        if (isLogged) return;
+        const el = document.querySelector('#meal-list [href*="slot=' + slot + '"] .meal-kcal');
+        if (el) el.textContent = tgt[slot] + ' kcal';
+        // Atualiza também o chip de próxima se for o slot em questão
+        const nc = document.querySelector('.nc-meta');
+        if (nc && nextPendingSlot() === slot) {
+          nc.textContent = SLOT_LABELS[slot].name.split(' · ')[1] +
+                           ' · ' + tgt[slot] + ' kcal estimados';
+        }
+      });
+    }
+
+    // ── Last reajust badge ──────────────────────────────────────────────────────
+    function updateLastReajust() {
+      const iso = NH_STATE.last_reajust_at;
+      const el  = document.getElementById('last-reajust');
+      if (!iso || !el) return;
+      const diffMs = Date.now() - new Date(iso).getTime();
+      const min    = Math.max(0, Math.round(diffMs / 60000));
+      const label  = NH_STATE.reajust_choice === 'kept' ? 'Plano mantido' : 'Recalibrado';
+      const when   = min < 1 ? 'agora' : min < 60 ? 'há ' + min + ' min' : 'há ' + Math.round(min / 60) + 'h';
+      el.innerHTML = '<span class="badge-recalibrated">' + label.toUpperCase() + ' · ' + when.toUpperCase() + '</span>';
+    }
+
+    // ── Flash toast (pós-registro / reajuste) ───────────────────────────────────
+    function consumeFlash() {
+      const flash = NH_STATE.consumeFlash ? NH_STATE.consumeFlash() : null;
+      if (!flash) return;
+      const el     = document.createElement('div');
+      el.className = 'toast-banner';
+      const isWarn = flash.type === 'sync-pending' || flash.kind === 'reajust-kept';
+      const label  = flash.msg || (flash.type === 'sync-pending' ? 'SAVE OFFLINE' : 'REGISTRADO');
+      const body   = flash.sub || flash.message || '';
+      el.innerHTML =
+        '<span class="l" style="color:' + (isWarn ? 'var(--c-atencao)' : 'var(--c-arco)') + ';">' + label + '</span>' +
+        '<span class="b">' + body + '</span>';
+      if (!isWarn) el.style.borderLeftColor = 'var(--c-arco)';
+      document.body.appendChild(el);
+      setTimeout(() => {
+        el.classList.add('fade-out');
+        setTimeout(() => el.remove(), 220);
+      }, 3000);
+    }
+
+    // ── Dev: simular reajuste semanal ───────────────────────────────────────────
+    function toggleWeekly() {
+      const slot = document.getElementById('weekly-slot');
+      if (slot.children.length > 0) { slot.innerHTML = ''; return; }
+      slot.innerHTML = `
+        <div class="attention-card">
+          <span class="att-eyebrow">PADRÃO DA SEMANA · DOMINGO 09:00</span>
+          <span class="att-title">Sexta é tarde.</span>
+          <p class="att-body">Três sextas seguidas você passa 380 kcal da meta entre 21h e 23h.
+             Sugestão: deslocar 200 kcal do almoço para o jantar de sexta.</p>
+          <div class="att-actions">
+            <a href="weekly-home-card.html" class="cta-ghost">Ver detalhe</a>
+            <button class="cta-primary" onclick="this.closest('.attention-card').remove()">Aplicar</button>
+          </div>
+        </div>`;
+      slot.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // ── Dev: simular desvio ─────────────────────────────────────────────────────
+    function simulateDeviation() {
+      const has = (NH_STATE.meals_logged || []).some(m => m.slot === 'almoco');
+      if (has) {
+        NH_STATE.meals_logged = (NH_STATE.meals_logged || []).filter(m => m.slot !== 'almoco');
+      } else {
+        const hist = NH_STATE.meals_logged || [];
+        hist.push({
+          slot: 'almoco', source: 'manual', items: [],
+          totalKcal: SLOT_LABELS['almoco'].target + 200,
+          loggedAt: new Date().toISOString(), syncStatus: 'synced',
+        });
+        NH_STATE.meals_logged = hist;
+      }
+      NH_STATE.reajust_choice = null;
+      window.location.reload();
+    }
+
+    // ── Boot ────────────────────────────────────────────────────────────────────
+    (function boot() {
+      const logged     = NH_STATE.meals_logged || [];
+      const targetKcal = NH_STATE.target_kcal  || 2000;
+
+      // Calcula total consumido (pre-done base + extras logados)
+      let extraKcal = 0;
+      logged.forEach(m => {
+        if (PRE_DONE.includes(m.slot)) return;
+        extraKcal += m.totalKcal || 0;
+      });
+      const total = BASE_KCAL + extraKcal;
+
+      updateGauge(total, targetKcal);
+      renderNextMeal();
+      renderDoneMeals();
+      renderReajustBanner();
+      applyReajustTargets();
+      updateLastReajust();
+      consumeFlash();
+    })();
+  </script>
+</body>
+</html>

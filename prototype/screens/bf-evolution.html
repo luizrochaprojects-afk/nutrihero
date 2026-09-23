@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Evolução</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+
+    /* ── Layout wrapper ── */
+    .evo {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px) + 16px);
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-4) var(--s-4) var(--s-3);
+    }
+
+    /* ════════════════════════════════════
+       BLOCO 1 · Weekly ring (Variante C)
+    ════════════════════════════════════ */
+    .weekly-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 var(--s-4) var(--s-3);
+      border-bottom: 1px solid var(--c-aco-700);
+    }
+
+    .ring-wrap {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      flex-shrink: 0;
+    }
+    .ring-wrap svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .ring-num {
+      font-family: var(--f-mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .ring-sub {
+      font-family: var(--f-narrow);
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      margin-top: 2px;
+    }
+
+    .weekly-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .weekly-label {
+      font-family: var(--f-narrow);
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+    }
+    .weekly-title {
+      font-family: var(--f-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .weekly-meta {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--c-cinza-300);
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+    .status-pill {
+      display: inline-block;
+      border: 1px solid;
+      border-radius: var(--r-1);
+      padding: 2px 6px;
+      font-family: var(--f-narrow);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 5px;
+      width: fit-content;
+    }
+    .status-pill.on-track  { color: #7bc47a; border-color: #3a5c30; background: #0D1610; }
+    .status-pill.behind    { color: var(--c-alerta); border-color: #5c5020; background: #141208; }
+    .status-pill.done-week { color: var(--c-cinza-400); border-color: var(--c-linha-500); }
+
+    /* ════════════════════════════════════
+       BLOCO 2 · Contextual measure banner
+    ════════════════════════════════════ */
+    .measure-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px var(--s-4);
+      background: var(--c-aco-700);
+      border: 1px solid rgba(255, 91, 31, 0.32);
+      border-radius: var(--r-2);
+      padding: 9px 12px;
+    }
+    .measure-banner.hidden { display: none; }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-arco); /* arco instance 1 */
+      flex-shrink: 0;
+      animation: pulse-glow 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 3px rgba(255, 91, 31, 0.4); }
+      50%       { box-shadow: 0 0 10px rgba(255, 91, 31, 0.85); }
+    }
+
+    .banner-text { flex: 1; }
+    .banner-eyebrow {
+      font-family: var(--f-narrow);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-arco);
+      opacity: 0.75;
+    }
+    .banner-title {
+      font-family: var(--f-display);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      margin-top: 2px;
+      letter-spacing: -0.01em;
+    }
+    .medir-btn {
+      background: var(--c-arco);
+      border: none;
+      border-radius: var(--r-1);
+      padding: 7px 12px;
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-vazio);
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity var(--t-fast);
+    }
+    .medir-btn:active { opacity: 0.8; }
+
+    /* ════════════════════════════════════
+       BLOCO 3 · BF% hero
+    ════════════════════════════════════ */
+    .bf-hero {
+      padding: 14px var(--s-4) 0;
+    }
+    .bf-hero-label {
+      font-family: var(--f-narrow);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      margin-bottom: var(--s-2);
+    }
+    .bf-num-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .bf-num {
+      font-family: var(--f-mono);
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      color: var(--c-giz-100);
+      font-variant-numeric: tabular-nums;
+    }
+    .bf-pct {
+      font-family: var(--f-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+    }
+    .bf-delta {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-arco); /* arco instance 2 */
+      letter-spacing: -0.01em;
+      margin-left: auto;
+      align-self: flex-end;
+      padding-bottom: 5px;
+    }
+
+    /* ════════════════════════════════════
+       BLOCO 4 · Area chart
+    ════════════════════════════════════ */
+    .chart-wrap {
+      margin-top: 6px;
+      width: 100%;
+      overflow: visible;
+    }
+    .chart-wrap svg {
+      display: block;
+      width: 100%;
+      overflow: visible;
+    }
+
+    /* ════════════════════════════════════
+       BLOCO 5 · KPI strip
+    ════════════════════════════════════ */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--c-aco-700);
+      border-top: 1px solid var(--c-aco-700);
+      border-bottom: 1px solid var(--c-aco-700);
+    }
+    .kpi {
+      background: var(--c-vazio);
+      padding: 10px var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .kpi-label {
+      font-family: var(--f-narrow);
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+    }
+    .kpi-val {
+      font-family: var(--f-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .kpi-val.good { color: #7bc47a; }
+    .kpi-val.warn { color: var(--c-alerta); }
+    .kpi-sub {
+      font-family: var(--f-narrow);
+      font-size: 8px;
+      font-weight: 500;
+      color: var(--c-cinza-400);
+      margin-top: 1px;
+    }
+
+    /* ════════════════════════════════════
+       BLOCO 6 · Composição 2×2
+    ════════════════════════════════════ */
+    .comp-section {
+      padding: var(--s-4) var(--s-4) 0;
+    }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--s-3);
+    }
+    .sec-label {
+      font-family: var(--f-narrow);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+    }
+    .sec-date {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--c-cinza-400);
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .comp-cell {
+      background: var(--c-aco-800);
+      border: 1px solid var(--c-aco-700);
+      border-radius: var(--r-2);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .comp-lbl {
+      font-family: var(--f-narrow);
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      margin-bottom: 4px;
+    }
+    .comp-val {
+      font-family: var(--f-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .comp-unit {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-giz-200);
+    }
+    .comp-spark {
+      display: block;
+      width: 100%;
+      height: 20px;
+      margin: 6px 0 4px;
+      overflow: visible;
+    }
+    .comp-delta {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      font-variant-numeric: tabular-nums;
+    }
+    .comp-delta.negative      { color: #7bc47a; }
+    .comp-delta.positive-good { color: #7bc47a; }
+    .comp-delta.positive-bad  { color: var(--c-arco); opacity: 0.65; }
+    .comp-delta.neutral       { color: var(--c-cinza-400); }
+
+    /* ════════════════════════════════════
+       BLOCO 7 · Kcal — meta vs realizado
+    ════════════════════════════════════ */
+    .kcal-section {
+      padding: var(--s-4) var(--s-4) var(--s-5);
+    }
+    .kcal-chart-wrap {
+      width: 100%;
+      margin: var(--s-3) 0 var(--s-2);
+      overflow: visible;
+    }
+    .kcal-chart-wrap svg {
+      display: block;
+      width: 100%;
+      overflow: visible;
+    }
+    .kcal-kpi-row {
+      display: flex;
+      gap: var(--s-3);
+      align-items: baseline;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+      flex-wrap: wrap;
+    }
+    .kcal-kpi-val {
+      color: var(--c-giz-100);
+      font-weight: 700;
+    }
+
+    /* ── Method sheet ── */
+    .sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 7, 10, 0.72);
+      z-index: 60;
+      display: none;
+    }
+    .sheet-overlay.open { display: block; animation: fade-in var(--t-fast) var(--ease-pulso); }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    .method-sheet {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--c-aco-700);
+      border-top: 1px solid var(--c-linha-500);
+      border-radius: 12px 12px 0 0;
+      padding: var(--s-4) var(--s-4) calc(var(--s-8) + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      z-index: 61;
+      transform: translateY(100%);
+      transition: transform var(--t-medium) var(--ease-pulso);
+    }
+    .method-sheet.open { transform: translateY(0); }
+    .sheet-handle {
+      width: 40px; height: 3px;
+      background: var(--c-linha-500);
+      border-radius: 2px;
+      margin: 0 auto var(--s-1);
+    }
+    .sheet-eyebrow {
+      font-family: var(--f-narrow);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      text-align: center;
+    }
+    .sheet-options { display: flex; flex-direction: column; gap: var(--s-2); }
+    .sheet-option {
+      background: var(--c-aco-800);
+      border: 1px solid var(--c-linha-500);
+      border-radius: var(--r-2);
+      padding: var(--s-4);
+      display: flex; flex-direction: column; gap: var(--s-1);
+      text-decoration: none; cursor: pointer;
+      transition: border-color var(--t-fast);
+    }
+    .sheet-option:hover { border-color: var(--c-cinza-300); }
+    .opt-title { font-family: var(--f-display); font-size: 16px; font-weight: 700; color: var(--c-giz-100); }
+    .opt-desc  { font-family: var(--f-narrow); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-cinza-300); }
+  </style>
+</head>
+<body>
+<div class="evo">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <a href="home.html" class="back-btn"
+       onclick="if(window.history.length>1){event.preventDefault();window.history.back()}"
+       aria-label="Voltar">←</a>
+    <span class="eyebrow">EVOLUÇÃO CORPORAL</span>
+  </div>
+
+  <!-- ① Ring semanal compacto -->
+  <div class="weekly-block">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="34" cy="34" r="28" fill="none" stroke="#2A2E3A" stroke-width="5"/>
+        <circle id="ring-arc" cx="34" cy="34" r="28" fill="none"
+                stroke="#FF5B1F" stroke-width="5" stroke-linecap="round"
+                stroke-dasharray="175.93"
+                transform="rotate(-90 34 34)"/>
+      </svg>
+      <div class="ring-center">
+        <span class="ring-num" id="ring-num">—</span>
+        <span class="ring-sub" id="ring-sub">dias</span>
+      </div>
+    </div>
+    <div class="weekly-info">
+      <span class="weekly-label">SEMANA DE MEDIÇÃO</span>
+      <span class="weekly-title" id="weekly-title">—</span>
+      <span class="weekly-meta" id="weekly-meta">—</span>
+      <span class="status-pill" id="status-pill">—</span>
+    </div>
+  </div>
+
+  <!-- ② Banner contextual -->
+  <div class="measure-banner hidden" id="measure-banner">
+    <div class="pulse-dot"></div>
+    <div class="banner-text">
+      <div class="banner-eyebrow">JANELA SEMANAL ABERTA</div>
+      <div class="banner-title">Registrar medição agora</div>
+    </div>
+    <button class="medir-btn" onclick="openSheet()" type="button">Medir</button>
+  </div>
+
+  <!-- ③ BF% hero -->
+  <div class="bf-hero">
+    <div class="bf-hero-label">GORDURA CORPORAL</div>
+    <div class="bf-num-row">
+      <span class="bf-num" id="bf-num">—</span>
+      <span class="bf-pct">%</span>
+      <span class="bf-delta" id="bf-delta">—</span>
+    </div>
+  </div>
+
+  <!-- ④ Area chart -->
+  <div class="chart-wrap">
+    <svg id="area-chart" viewBox="0 0 360 88"
+         xmlns="http://www.w3.org/2000/svg"
+         style="height:88px">
+      <!-- rendered by JS -->
+    </svg>
+  </div>
+
+  <!-- ⑤ KPI strip -->
+  <div class="kpi-strip">
+    <div class="kpi">
+      <span class="kpi-label">BF%</span>
+      <span class="kpi-val" id="kpi-bf">—</span>
+      <span class="kpi-sub">atual</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Ritmo</span>
+      <span class="kpi-val" id="kpi-ritmo">—</span>
+      <span class="kpi-sub" id="kpi-ritmo-sub">—</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Meta</span>
+      <span class="kpi-val" id="kpi-meta">—</span>
+      <span class="kpi-sub">restam</span>
+    </div>
+  </div>
+
+  <!-- ⑥ Composição 2×2 -->
+  <div class="comp-section">
+    <div class="sec-head">
+      <span class="sec-label">COMPOSIÇÃO</span>
+      <span class="sec-date" id="comp-date">—</span>
+    </div>
+    <div class="comp-grid" id="comp-grid">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ⑦ Kcal — meta vs realizado -->
+  <div class="kcal-section">
+    <div class="sec-head">
+      <span class="sec-label">KCAL · ÚLTIMA SEMANA</span>
+      <span class="sec-date" id="kcal-days-label">—</span>
+    </div>
+    <div class="kcal-chart-wrap">
+      <svg id="kcal-chart" viewBox="0 0 340 76"
+           xmlns="http://www.w3.org/2000/svg"
+           style="height:76px">
+        <!-- rendered by JS -->
+      </svg>
+    </div>
+    <div class="kcal-kpi-row" id="kcal-kpi-row">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+</div><!-- /.evo -->
+
+<!-- Tab bar -->
+<nav class="tab-bar">
+  <a class="tab" href="home.html" aria-label="Hoje">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg>
+    <span class="tab-label">Hoje</span>
+  </a>
+  <a class="tab active" href="bf-evolution.html" aria-label="Evolução">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg>
+    <span class="tab-label">Evolução</span>
+  </a>
+  <a class="tab-fab" href="meal-log.html" aria-label="Registrar refeição">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+      <circle cx="12" cy="13" r="3.5"/>
+    </svg>
+  </a>
+  <a class="tab" href="diario.html" aria-label="Diário">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h6"/></svg>
+    <span class="tab-label">Diário</span>
+  </a>
+  <a class="tab" href="perfil.html" aria-label="Perfil">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+    <span class="tab-label">Perfil</span>
+  </a>
+</nav>
+
+<!-- Method sheet -->
+<div id="sheet-overlay" class="sheet-overlay" onclick="closeSheet()"></div>
+<div id="method-sheet" class="method-sheet">
+  <div class="sheet-handle"></div>
+  <span class="sheet-eyebrow">MÉTODO DE MEDIÇÃO</span>
+  <div class="sheet-options">
+    <a class="sheet-option" href="bf-method-measure-first.html?context=update">
+      <span class="opt-title">Medidas corporais</span>
+      <span class="opt-desc">Pescoço · cintura · quadril · 40s</span>
+    </a>
+    <a class="sheet-option" href="bf-method-photo-first.html?context=update">
+      <span class="opt-title">Foto corporal</span>
+      <span class="opt-desc">3 poses · análise por IA</span>
+    </a>
+  </div>
+</div>
+
+<script src="../state.js"></script>
+<script src="../switcher.js"></script>
+<script>
+/* ── Seed data (prototype fallback) ── */
+const SEED_HISTORY = [
+  { date: '2026-04-24', method: 'measures', bf: 28.8, weight: 89.5, neck: 40.2, waist: 96.0, hip: 105.1 },
+  { date: '2026-05-01', method: 'photo',    bf: 27.4, weight: 88.8 },
+  { date: '2026-05-08', method: 'measures', bf: 26.2, weight: 88.1, neck: 39.5, waist: 94.2, hip: 104.0 },
+  { date: '2026-05-15', method: 'photo',    bf: 25.1, weight: 87.4 },
+  { date: '2026-05-22', method: 'measures', bf: 24.3, weight: 86.6, neck: 38.5, waist: 92.0, hip: 102.4 },
+];
+const TARGET_BF  = (NH_STATE && NH_STATE.bf_projected_90d) || 19.8;
+const stateHist  = (NH_STATE && NH_STATE.bf_history) || [];
+const history    = stateHist.length > 0 ? stateHist : SEED_HISTORY;
+const start      = history[0];
+const current    = history[history.length - 1];
+
+/* ── Days since last measurement ── */
+function daysSince(dateStr) {
+  const last = new Date(dateStr + 'T12:00:00');
+  return Math.floor((new Date() - last) / (1000 * 60 * 60 * 24));
+}
+const daysSinceLast = daysSince(current.date);
+
+/* ── ① Weekly ring ── */
+(function renderRing() {
+  const CIRCUMFERENCE = 175.93; /* 2π × 28 */
+  const progress   = Math.min(daysSinceLast / 7, 1);
+  const dashOffset = CIRCUMFERENCE * (1 - progress);
+
+  document.getElementById('ring-arc').setAttribute('stroke-dashoffset', dashOffset.toFixed(2));
+  document.getElementById('ring-num').textContent = daysSinceLast;
+
+  const titleEl = document.getElementById('weekly-title');
+  const metaEl  = document.getElementById('weekly-meta');
+  const pillEl  = document.getElementById('status-pill');
+
+  if (daysSinceLast <= 2) {
+    titleEl.textContent = 'Medido esta semana';
+    metaEl.textContent  = 'Próxima janela em ' + (7 - daysSinceLast) + ' dias.';
+    pillEl.textContent  = 'Em dia';
+    pillEl.className    = 'status-pill done-week';
+  } else if (daysSinceLast <= 7) {
+    const deadline = new Date(current.date + 'T12:00:00');
+    deadline.setDate(deadline.getDate() + 7);
+    const dias = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+    titleEl.textContent = 'Janela aberta';
+    metaEl.textContent  = 'Última medição há ' + daysSinceLast + ' dias. Meça até ' + dias[deadline.getDay()] + '.';
+    pillEl.textContent  = 'Em ritmo';
+    pillEl.className    = 'status-pill on-track';
+  } else {
+    titleEl.textContent = 'Atrasado';
+    metaEl.textContent  = 'Sem medição há ' + daysSinceLast + ' dias. Meça agora.';
+    pillEl.textContent  = 'Atrasado';
+    pillEl.className    = 'status-pill behind';
+  }
+})();
+
+/* ── ② Contextual banner (≥ 6 dias) ── */
+if (daysSinceLast >= 6) {
+  document.getElementById('measure-banner').classList.remove('hidden');
+}
+
+/* ── ③ BF% hero ── */
+const deltaVal = start.bf - current.bf;
+document.getElementById('bf-num').textContent   = current.bf.toFixed(1);
+document.getElementById('bf-delta').textContent =
+  (deltaVal >= 0 ? '−' : '+') + Math.abs(deltaVal).toFixed(1) + ' pontos';
+
+/* ── ④ Area chart ── */
+(function renderChart() {
+  const svg = document.getElementById('area-chart');
+  const ns  = 'http://www.w3.org/2000/svg';
+  const W = 360, H = 88, padX = 24, padY = 10;
+  const minBf = Math.min(TARGET_BF - 2, current.bf - 2);
+  const maxBf = Math.max(start.bf + 2, 32);
+
+  function bfToY(bf) {
+    return padY + (maxBf - bf) / (maxBf - minBf) * (H - 2 * padY);
+  }
+  function idxToX(i, n) {
+    return n === 1 ? W / 2 : padX + (i / (n - 1)) * (W - 2 * padX);
+  }
+
+  const n   = history.length;
+  const pts = history.map((h, i) => ({ x: idxToX(i, n), y: bfToY(h.bf) }));
+  const ty  = bfToY(TARGET_BF);
+
+  /* Gradient */
+  const defs = document.createElementNS(ns, 'defs');
+  const grad = document.createElementNS(ns, 'linearGradient');
+  grad.setAttribute('id', 'areaGrad');
+  grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+  grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+  [['0%', '0.28'], ['100%', '0']].forEach(([offset, opacity]) => {
+    const s = document.createElementNS(ns, 'stop');
+    s.setAttribute('offset', offset);
+    s.setAttribute('stop-color', '#FF5B1F');
+    s.setAttribute('stop-opacity', opacity);
+    grad.appendChild(s);
+  });
+  defs.appendChild(grad);
+  svg.appendChild(defs);
+
+  /* Target dashed line */
+  const tLine = document.createElementNS(ns, 'line');
+  tLine.setAttribute('x1', padX);         tLine.setAttribute('y1', ty.toFixed(1));
+  tLine.setAttribute('x2', W - padX);     tLine.setAttribute('y2', ty.toFixed(1));
+  tLine.setAttribute('stroke', '#2A2E3A');
+  tLine.setAttribute('stroke-width', '1');
+  tLine.setAttribute('stroke-dasharray', '3 4');
+  svg.appendChild(tLine);
+
+  /* Target label */
+  const tLbl = document.createElementNS(ns, 'text');
+  tLbl.setAttribute('x', W - padX); tLbl.setAttribute('y', (ty - 4).toFixed(1));
+  tLbl.setAttribute('text-anchor', 'end');
+  tLbl.setAttribute('font-family', 'JetBrains Mono, monospace');
+  tLbl.setAttribute('font-size', '7');
+  tLbl.setAttribute('fill', '#5A5E68');
+  tLbl.textContent = TARGET_BF.toFixed(1) + '% META';
+  svg.appendChild(tLbl);
+
+  /* Area fill */
+  if (n > 1) {
+    const areaPath = document.createElementNS(ns, 'path');
+    const linePts  = pts.map(p => p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' L');
+    const baseline = (H - padY / 2).toFixed(1);
+    areaPath.setAttribute('d',
+      'M' + pts[0].x.toFixed(1) + ',' + pts[0].y.toFixed(1) +
+      ' L' + linePts +
+      ' L' + pts[n-1].x.toFixed(1) + ',' + baseline +
+      ' L' + pts[0].x.toFixed(1) + ',' + baseline + ' Z'
+    );
+    areaPath.setAttribute('fill', 'url(#areaGrad)');
+    svg.appendChild(areaPath);
+
+    /* Trend line */
+    const poly = document.createElementNS(ns, 'polyline');
+    poly.setAttribute('points', pts.map(p => p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' '));
+    poly.setAttribute('stroke', '#FF5B1F');
+    poly.setAttribute('stroke-width', '1.8');
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke-linecap', 'round');
+    poly.setAttribute('stroke-linejoin', 'round');
+    poly.setAttribute('opacity', '0.75');
+    svg.appendChild(poly);
+  }
+
+  /* Data points */
+  pts.forEach((p, i) => {
+    const isLast = i === n - 1;
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', p.x.toFixed(1));
+    c.setAttribute('cy', p.y.toFixed(1));
+    if (isLast) {
+      c.setAttribute('r', '5.5');
+      c.setAttribute('fill', '#FF5B1F');
+    } else {
+      c.setAttribute('r', '3');
+      c.setAttribute('fill', '#0D0F14');
+      c.setAttribute('stroke', '#5A5E68');
+      c.setAttribute('stroke-width', '1.3');
+    }
+    svg.appendChild(c);
+    if (isLast) {
+      const ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('cx', p.x.toFixed(1)); ring.setAttribute('cy', p.y.toFixed(1));
+      ring.setAttribute('r', '9'); ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', '#FF5B1F'); ring.setAttribute('stroke-width', '0.8');
+      ring.setAttribute('opacity', '0.35');
+      svg.appendChild(ring);
+    }
+  });
+
+  /* Start label */
+  const sLbl = document.createElementNS(ns, 'text');
+  sLbl.setAttribute('x', pts[0].x.toFixed(1)); sLbl.setAttribute('y', (H - 1).toFixed(1));
+  sLbl.setAttribute('text-anchor', 'middle');
+  sLbl.setAttribute('font-family', 'JetBrains Mono, monospace');
+  sLbl.setAttribute('font-size', '7'); sLbl.setAttribute('fill', '#5A5E68');
+  sLbl.textContent = start.bf.toFixed(1) + '% INÍCIO';
+  svg.appendChild(sLbl);
+})();
+
+/* ── ⑤ KPI strip ── */
+(function renderKPIs() {
+  document.getElementById('kpi-bf').textContent = current.bf.toFixed(1);
+
+  const weeksElapsed = Math.max(
+    (new Date(current.date + 'T12:00:00') - new Date(start.date + 'T12:00:00')) / (1000 * 60 * 60 * 24 * 7),
+    0.1
+  );
+  const actualRate   = (start.bf - current.bf) / weeksElapsed;
+  const totalWeeks   = 12;
+  const requiredRate = (start.bf - TARGET_BF) / totalWeeks;
+  const ratio        = actualRate / Math.max(requiredRate, 0.01);
+
+  const ritmoEl  = document.getElementById('kpi-ritmo');
+  const ritmoSub = document.getElementById('kpi-ritmo-sub');
+  if (ratio >= 1.2) {
+    ritmoEl.textContent = '↑'; ritmoEl.className = 'kpi-val good'; ritmoSub.textContent = 'adiantado';
+  } else if (ratio >= 0.8) {
+    ritmoEl.textContent = '→'; ritmoEl.className = 'kpi-val good'; ritmoSub.textContent = 'em meta';
+  } else {
+    ritmoEl.textContent = '↓'; ritmoEl.className = 'kpi-val warn'; ritmoSub.textContent = 'atrasado';
+  }
+
+  const ptsLeft = Math.max(current.bf - TARGET_BF, 0);
+  document.getElementById('kpi-meta').textContent = ptsLeft.toFixed(1) + 'pts';
+})();
+
+/* ── ⑥ Composição 2×2 ── */
+(function renderComp() {
+  const cur        = [...history].reverse().find(e => e.weight);
+  const st         = history.find(e => e.weight);
+  if (!cur || !st) return;
+
+  try {
+    const d = new Date(cur.date + 'T12:00:00');
+    document.getElementById('comp-date').textContent =
+      d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).toUpperCase().replace('.', '');
+  } catch(_) {}
+
+  const leanCur    = cur.weight * (1 - cur.bf / 100);
+  const leanSt     = st.weight  * (1 - st.bf  / 100);
+  const fatCur     = cur.weight * (cur.bf / 100);
+  const fatSt      = st.weight  * (st.bf  / 100);
+  const waistEntry = [...history].reverse().find(e => e.waist);
+  const waistStart = history.find(e => e.waist);
+
+  function sparkPoints(values, ascending) {
+    const min = Math.min(...values), max = Math.max(...values);
+    const range = Math.max(max - min, 0.01);
+    return values.map((v, i) => {
+      const x = (i / Math.max(values.length - 1, 1)) * 100;
+      const y = ascending
+        ? 2  + ((v - min) / range) * 16
+        : 18 - ((v - min) / range) * 16;
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+  }
+
+  function fmtDelta(val, unit, lowerIsBetter) {
+    if (Math.abs(val) < 0.05) return { text: '—', cls: 'neutral' };
+    const isNeg = val < 0;
+    const isGood = lowerIsBetter ? isNeg : !isNeg;
+    return {
+      text: (isNeg ? '−' : '+') + Math.abs(val).toFixed(1) + ' ' + unit,
+      cls:  isGood ? (isNeg ? 'negative' : 'positive-good') : 'positive-bad',
+    };
+  }
+
+  const weightVals = history.filter(e => e.weight).map(e => e.weight);
+  const leanVals   = history.filter(e => e.weight).map(e => e.weight * (1 - e.bf / 100));
+  const fatVals    = history.filter(e => e.weight).map(e => e.weight * (e.bf / 100));
+  const waistVals  = history.filter(e => e.waist).map(e => e.waist);
+
+  const cells = [
+    {
+      lbl: 'Peso',         val: cur.weight.toFixed(1), unit: 'kg',
+      spark: weightVals.length > 1 ? sparkPoints(weightVals, false) : null,
+      sparkStroke: '#5A5E68', sparkOpacity: null,
+      delta: fmtDelta(cur.weight - st.weight, 'kg', true),
+    },
+    {
+      lbl: 'Massa Magra',  val: leanCur.toFixed(1),    unit: 'kg',
+      spark: leanVals.length > 1 ? sparkPoints(leanVals, true) : null,
+      sparkStroke: '#7bc47a', sparkOpacity: null,
+      delta: fmtDelta(leanCur - leanSt, 'kg', false),
+    },
+    {
+      lbl: 'Gordura',      val: fatCur.toFixed(1),     unit: 'kg',
+      spark: fatVals.length > 1 ? sparkPoints(fatVals, false) : null,
+      sparkStroke: '#FF5B1F', sparkOpacity: '0.65',
+      delta: fmtDelta(fatCur - fatSt, 'kg', true),
+    },
+    waistEntry && waistStart ? {
+      lbl: 'Cintura',      val: waistEntry.waist.toFixed(1), unit: 'cm',
+      spark: waistVals.length > 1 ? sparkPoints(waistVals, false) : null,
+      sparkStroke: '#5A5E68', sparkOpacity: null,
+      delta: fmtDelta(waistEntry.waist - waistStart.waist, 'cm', true),
+    } : null,
+  ].filter(Boolean);
+
+  const grid = document.getElementById('comp-grid');
+  cells.forEach(cell => {
+    const el = document.createElement('div');
+    el.className = 'comp-cell';
+    const opacityAttr = cell.sparkOpacity ? ` opacity="${cell.sparkOpacity}"` : '';
+    el.innerHTML = `
+      <span class="comp-lbl">${cell.lbl}</span>
+      <div><span class="comp-val">${cell.val}</span><span class="comp-unit"> ${cell.unit}</span></div>
+      ${cell.spark
+        ? `<svg class="comp-spark" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+             <polyline points="${cell.spark}" stroke="${cell.sparkStroke}"
+               stroke-width="1.3" fill="none" stroke-linecap="round"${opacityAttr}/>
+           </svg>`
+        : '<div style="height:20px;margin:6px 0 4px"></div>'
+      }
+      <span class="comp-delta ${cell.delta.cls}">${cell.delta.text}</span>
+    `;
+    grid.appendChild(el);
+  });
+})();
+
+/* ── ⑦ Kcal chart ── */
+(function renderKcalChart() {
+  const TARGET = (NH_STATE && NH_STATE.target_kcal) || 2000;
+  const DAYS = [
+    { day: 'Seg', kcal: 1820 },
+    { day: 'Ter', kcal: 1950 },
+    { day: 'Qua', kcal: 2140 },
+    { day: 'Qui', kcal: 1880 },
+    { day: 'Sex', kcal: 2340 },
+    { day: 'Sáb', kcal: 1980 },
+    { day: 'Dom', kcal: 1760 },
+  ];
+
+  const onPlan   = DAYS.filter(d => d.kcal <= TARGET).length;
+  const avgKcal  = Math.round(DAYS.reduce((s, d) => s + d.kcal, 0) / DAYS.length);
+  const maxKcal  = Math.max(...DAYS.map(d => d.kcal), TARGET * 1.15);
+
+  /* Header label */
+  document.getElementById('kcal-days-label').textContent = onPlan + '/' + DAYS.length + ' DIAS NO PLANO';
+
+  /* KPI row */
+  document.getElementById('kcal-kpi-row').innerHTML =
+    'Média <span class="kcal-kpi-val">' + avgKcal.toLocaleString('pt-BR') + ' kcal</span>' +
+    ' &middot; Meta <span class="kcal-kpi-val">' + TARGET.toLocaleString('pt-BR') + ' kcal</span>';
+
+  /* SVG bar chart */
+  const svg  = document.getElementById('kcal-chart');
+  const ns   = 'http://www.w3.org/2000/svg';
+  const W    = 340;
+  const padX = 4;        // left/right margin
+  const padT = 6;        // top margin (above tallest bar)
+  const barH = 52;       // max bar height
+  const lblH = 18;       // height reserved for day labels
+  const barW = 38;
+  const gap  = 8;
+  const n    = DAYS.length;
+  const totalW = n * barW + (n - 1) * gap;  // 266 + 48 = 314
+  const startX = Math.round((W - totalW) / 2);  // (340-314)/2 = 13
+
+  /* Target line Y */
+  const targetY = padT + barH * (1 - TARGET / maxKcal);
+
+  /* Dashed target line */
+  const tLine = document.createElementNS(ns, 'line');
+  tLine.setAttribute('x1', padX);
+  tLine.setAttribute('y1', targetY.toFixed(1));
+  tLine.setAttribute('x2', W - padX);
+  tLine.setAttribute('y2', targetY.toFixed(1));
+  tLine.setAttribute('stroke', 'var(--c-linha-500)');
+  tLine.setAttribute('stroke-width', '1');
+  tLine.setAttribute('stroke-dasharray', '2 4');
+  svg.appendChild(tLine);
+
+  /* Target label */
+  const tLbl = document.createElementNS(ns, 'text');
+  tLbl.setAttribute('x', (W - padX - 2).toString());
+  tLbl.setAttribute('y', (targetY - 3).toFixed(1));
+  tLbl.setAttribute('text-anchor', 'end');
+  tLbl.setAttribute('font-family', 'JetBrains Mono, monospace');
+  tLbl.setAttribute('font-size', '7');
+  tLbl.setAttribute('fill', 'var(--c-cinza-400)');
+  tLbl.textContent = TARGET.toLocaleString('pt-BR');
+  svg.appendChild(tLbl);
+
+  /* Bars + day labels */
+  DAYS.forEach(function (d, i) {
+    const x    = startX + i * (barW + gap);
+    const bH   = barH * (d.kcal / maxKcal);
+    const y    = padT + barH - bH;
+    const over = d.kcal > TARGET;
+
+    const rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x',      x.toString());
+    rect.setAttribute('y',      y.toFixed(1));
+    rect.setAttribute('width',  barW.toString());
+    rect.setAttribute('height', bH.toFixed(1));
+    rect.setAttribute('rx',     '2');
+    rect.setAttribute('fill',   over ? 'var(--c-atencao)' : 'var(--c-giz-100)');
+    rect.setAttribute('opacity', over ? '0.75' : '0.55');
+    svg.appendChild(rect);
+
+    /* Day label */
+    const lbl = document.createElementNS(ns, 'text');
+    lbl.setAttribute('x',           (x + barW / 2).toFixed(1));
+    lbl.setAttribute('y',           (padT + barH + lblH - 4).toFixed(1));
+    lbl.setAttribute('text-anchor', 'middle');
+    lbl.setAttribute('font-family', 'Archivo Narrow, sans-serif');
+    lbl.setAttribute('font-size',   '7');
+    lbl.setAttribute('font-weight', '600');
+    lbl.setAttribute('fill',        'var(--c-cinza-400)');
+    lbl.setAttribute('letter-spacing', '0.06em');
+    lbl.textContent = d.day.toUpperCase();
+    svg.appendChild(lbl);
+  });
+})();
+
+/* ── Sheet controls ── */
+function openSheet() {
+  document.getElementById('sheet-overlay').classList.add('open');
+  document.getElementById('method-sheet').classList.add('open');
+}
+function closeSheet() {
+  document.getElementById('sheet-overlay').classList.remove('open');
+  document.getElementById('method-sheet').classList.remove('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Calcular zona</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .bf {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .bf .top { padding-top: var(--s-6); display: flex; flex-direction: column; gap: var(--s-2); }
+    #state-choose .top, #state-entry .top { padding-top: var(--s-2); }
+
+    .measure-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+      animation: fade-in var(--t-medium) var(--ease-pulso);
+    }
+    .field { display: flex; flex-direction: column; gap: var(--s-1); }
+    .field-hint {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 10px;
+      color: var(--c-cinza-300);
+    }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .result-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+      padding-top: var(--s-6);
+      animation: fade-in var(--t-slow) var(--ease-pulso);
+    }
+    .result-block .pct-suffix { font-family: var(--f-mono); font-weight: 700; font-size: 48px; color: var(--c-arco); }
+    .data-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s-2);
+    }
+    .data-row .label-line {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--c-cinza-300);
+    }
+    .data-row .data-val {
+      font-family: var(--f-mono);
+      font-weight: 500;
+      font-size: 18px;
+      color: var(--c-giz-100);
+    }
+    .data-row .data-val.arco { color: var(--c-arco); }
+    .footer { display: flex; flex-direction: column; gap: var(--s-3); margin-top: auto; }
+    .hidden { display: none !important; }
+    .pulso-wrap { width: 65%; margin-top: var(--s-2); }
+  </style>
+</head>
+<body>
+
+  <!-- STATE: escolha do método -->
+  <div class="bf" id="state-choose">
+    <a class="back-btn" href="onboarding-short.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">02 / 05 · ZONA CALÓRICA</span>
+      <h1 class="title-display-2">Calcular sua zona.</h1>
+    </div>
+
+    <div class="why-block">
+      <span class="why-eyebrow">Por que gordura, não IMC</span>
+      <p class="why-text">Quase todo app monta dieta pelo IMC — peso dividido por altura. Matemática rasa. Dois corpos de 82 kg podem precisar de dietas opostas: o que decide é a gordura, não o peso. Você mede sua gordura corporal de verdade. Sua zona calórica sai daí.</p>
+    </div>
+
+    <button class="foto-hero" onclick="goOther('bf-method-photo-first.html')">
+      <span class="hero-eyebrow">Recomendado</span>
+      <span class="hero-title">Foto</span>
+      <span class="hero-desc">IA analisa 3 poses em 10 segundos. Sem fita.</span>
+      <span class="hero-arrow">Tirar fotos →</span>
+    </button>
+
+    <button class="method-alt" onclick="showEntry()">
+      <span class="alt-main">
+        <span class="alt-title">Medidas</span>
+        <span class="alt-desc">Fita métrica · pescoço, cintura, quadril.</span>
+      </span>
+      <span class="alt-arrow">→</span>
+    </button>
+  </div>
+
+  <!-- STATE: captura por medidas -->
+  <div class="bf hidden" id="state-entry">
+    <button class="back-btn" onclick="showChoose()" aria-label="Voltar">←</button>
+    <div class="top">
+      <span class="eyebrow">02 / 05 · ZONA CALÓRICA</span>
+      <h1 class="title-display-2">Suas medidas.</h1>
+    </div>
+
+    <div class="measure-form">
+      <div class="base-data">
+        <span class="base-label">Dados base · do cadastro</span>
+        <div class="base-fields">
+          <div class="field">
+            <span class="field-hint">PESO</span>
+            <div class="input-num-row">
+              <input class="input-num" id="weightInp" type="text" inputmode="decimal" value="82" />
+              <span class="input-unit">kg</span>
+            </div>
+          </div>
+          <div class="field">
+            <span class="field-hint">ALTURA</span>
+            <div class="input-num-row">
+              <input class="input-num" id="heightInp" type="text" inputmode="decimal" value="173" />
+              <span class="input-unit">cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-hint">PESCOÇO · NA MAÇÃ DE ADÃO</span>
+        <div class="input-num-row">
+          <input class="input-num" id="neckInp" type="text" inputmode="decimal" value="38.5" />
+          <span class="input-unit">cm</span>
+        </div>
+      </div>
+      <div class="field">
+        <span class="field-hint">CINTURA · NA ALTURA DO UMBIGO</span>
+        <div class="input-num-row">
+          <input class="input-num" id="waistInp" type="text" inputmode="decimal" value="92.0" />
+          <span class="input-unit">cm</span>
+        </div>
+      </div>
+      <div class="field">
+        <span class="field-hint">QUADRIL · PARTE MAIS LARGA</span>
+        <div class="input-num-row">
+          <input class="input-num" id="hipInp" type="text" inputmode="decimal" value="102.4" />
+          <span class="input-unit">cm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button class="cta-primary" onclick="calculate()">Calcular com medidas</button>
+    </div>
+  </div>
+
+  <!-- STATE: resultado -->
+  <div class="bf hidden" id="state-result">
+    <div class="top">
+      <span class="eyebrow">02 / 05 · ZONA CALÓRICA</span>
+      <h1 class="title-display-2">Sua zona.</h1>
+    </div>
+
+    <div class="result-block">
+      <span class="eyebrow">% DE GORDURA · MÉTODO MEDIDAS</span>
+      <div style="display: flex; align-items: baseline; gap: 4px;">
+        <span class="data-hero arco">24.3</span>
+        <span class="pct-suffix">%</span>
+      </div>
+      <div class="pulso-wrap"><div class="pulso-line"></div></div>
+      <p class="body-text" style="margin-top: var(--s-3);">Zona de cortar. 2.000 kcal por dia para sair daqui em 90 dias. Cinco refeições, distribuídas.</p>
+
+      <div class="divider"></div>
+
+      <div class="data-row">
+        <span class="label-line">Manutenção</span>
+        <span class="data-val">2.480 <span style="font-size: 11px; color: var(--c-cinza-300);">kcal</span></span>
+      </div>
+      <div class="data-row">
+        <span class="label-line">Plano · cortar</span>
+        <span class="data-val arco">2.000 <span style="font-size: 11px; color: var(--c-cinza-300);">kcal</span></span>
+      </div>
+      <div class="data-row">
+        <span class="label-line">Déficit / dia</span>
+        <span class="data-val">−480 <span style="font-size: 11px; color: var(--c-cinza-300);">kcal</span></span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="projection.html" data-nh-next="afterBf" class="cta-primary">Continuar</a>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    function showEntry() {
+      document.getElementById('state-choose').classList.add('hidden');
+      document.getElementById('state-entry').classList.remove('hidden');
+      window.scrollTo({ top: 0 });
+    }
+    function showChoose() {
+      document.getElementById('state-entry').classList.add('hidden');
+      document.getElementById('state-choose').classList.remove('hidden');
+      window.scrollTo({ top: 0 });
+    }
+    /* Navega para o outro método, preservando context=update */
+    function goOther(file) {
+      const ctx = new URLSearchParams(location.search).get('context');
+      location.href = file + '?go=entry' + (ctx === 'update' ? '&context=update' : '');
+    }
+
+    function calculate() {
+      /* persistir peso/altura editados de volta na anamnese */
+      const a = Object.assign({}, NH_STATE.anamnese || {});
+      const w = parseFloat((document.getElementById('weightInp').value || '').replace(',', '.'));
+      const h = parseFloat((document.getElementById('heightInp').value || '').replace(',', '.'));
+      if (!isNaN(w)) a.weight = w;
+      if (!isNaN(h)) a.height = h;
+      NH_STATE.anamnese = a;
+
+      document.getElementById('state-entry').classList.add('hidden');
+      document.getElementById('state-result').classList.remove('hidden');
+      NH_STATE.bf_current = 24.3;
+      window.scrollTo({ top: 0 });
+    }
+
+    /* Init: pré-preencher peso/altura e pular para captura se ?go=entry */
+    document.addEventListener('DOMContentLoaded', function () {
+      const a = NH_STATE && NH_STATE.anamnese;
+      if (a) {
+        if (a.weight != null) document.getElementById('weightInp').value =
+          (a.weight % 1 === 0) ? a.weight : parseFloat(a.weight).toFixed(1);
+        if (a.height != null) document.getElementById('heightInp').value = Math.round(a.height);
+      }
+      if (new URLSearchParams(location.search).get('go') === 'entry') showEntry();
+    });
+
+    /* context=update: route back to bf-evolution after a new measurement */
+    (function () {
+      const isUpdate = new URLSearchParams(location.search).get('context') === 'update';
+      if (!isUpdate) return;
+
+      const ctaEl = document.querySelector('#state-result .cta-primary');
+      if (ctaEl) {
+        ctaEl.addEventListener('click', function (e) {
+          e.preventDefault();
+          const neck   = parseFloat((document.getElementById('neckInp').value || '').replace(',', '.')) || 38.5;
+          const waist  = parseFloat((document.getElementById('waistInp').value || '').replace(',', '.')) || 92.0;
+          const hip    = parseFloat((document.getElementById('hipInp').value || '').replace(',', '.')) || 102.4;
+          const weight = parseFloat((document.getElementById('weightInp').value || '').replace(',', '.'))
+                         || parseFloat(NH_STATE?.anamnese?.weight) || 86.6;
+          const hist = NH_STATE.bf_history || [];
+          hist.push({ date: new Date().toISOString(), method: 'measures', bf: NH_STATE.bf_current,
+                      weight, neck, waist, hip });
+          NH_STATE.bf_history = hist;
+          window.location.href = 'bf-evolution.html';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

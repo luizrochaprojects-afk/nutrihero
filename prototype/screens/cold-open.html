@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Abertura</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .cold {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-8);
+      gap: var(--s-6);
+    }
+    .cold .mark { width: 56px; height: 56px; margin-top: var(--s-8); }
+    .cold .mark img { width: 100%; height: 100%; }
+    .cold .pitch { flex: 1; display: flex; align-items: flex-end; }
+    .cold .pitch h1 {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 44px;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .cold .pitch h1 .arco { color: var(--c-arco); }
+    .cold .sub {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+      max-width: 32ch;
+    }
+    .cold .footer { display: flex; flex-direction: column; gap: var(--s-3); }
+    .cold .legal {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="cold">
+    <div class="mark"><img src="../assets/mark-primary.svg" alt="NutriHero" /></div>
+
+    <div class="pitch">
+      <h1>Seu nutricionista<br />de bolso.<br /><span class="arco">Recalibra</span><br />cada refeição.</h1>
+    </div>
+
+    <p class="sub">BF%, não IMC. Reajuste diário, não trimestral. Toque, coma, siga.</p>
+
+    <div class="footer">
+      <a href="onboarding-short.html" class="cta-primary hero">Começar</a>
+      <p class="legal">Sem trial fofo · sem promessa de coach</p>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+</body>
+</html>

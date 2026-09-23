@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Projeção · Trajetória</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .proj {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .proj .top { display: flex; flex-direction: column; gap: var(--s-2); }
+    .proj .top .title-display-2 { margin-top: var(--s-1); }
+    .proj .top .title-display-2 .arco { color: var(--c-arco); }
+
+    .trajectory {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: var(--s-4) 0 var(--s-3);
+    }
+    .trajectory::before {
+      content: '';
+      position: absolute;
+      top: calc(var(--s-4) + 4px); /* aligned with dot vertical center */
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: linear-gradient(
+        to right,
+        var(--c-linha-500) 0%,
+        var(--c-linha-500) 66.66%,
+        var(--c-arco) 66.66%,
+        var(--c-arco) 100%
+      );
+      transform-origin: left center;
+      animation: trajectory-grow 600ms var(--ease-pulso) both;
+    }
+    @keyframes trajectory-grow {
+      from { transform: scaleX(0); opacity: 0.4; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+    .trajectory .pt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--s-1);
+      position: relative;
+      z-index: 1;
+    }
+    .trajectory .pt .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--r-1);
+      background: var(--c-linha-500);
+      border: 2px solid var(--c-vazio);
+      box-sizing: content-box;
+    }
+    .trajectory .pt.future .dot { background: var(--c-arco); }
+    .trajectory .pt .l {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      margin-top: var(--s-2);
+    }
+    .trajectory .pt .v {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: var(--c-giz-200);
+      font-feature-settings: 'tnum';
+    }
+    .trajectory .pt.future .v { color: var(--c-arco); }
+
+    .silhouette-solo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-2);
+      min-height: 0;
+    }
+    .silhouette {
+      position: relative;
+      width: 170px;
+      aspect-ratio: 3 / 5;
+      max-height: 100%;
+      background: var(--c-aco-700);
+      border-radius: var(--r-2);
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      padding-bottom: var(--s-3);
+      overflow: hidden;
+      border-right: 3px solid var(--c-cinza-400);
+    }
+    .silhouette svg { width: 60%; height: auto; }
+    .silhouette-caption {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+
+    .footer-cta { margin-top: auto; }
+
+    @media (max-height: 700px) {
+      .proj { gap: var(--s-3); padding-top: var(--s-3); padding-bottom: var(--s-4); }
+      .silhouette { width: 116px; }
+      .silhouette-solo { gap: var(--s-1); }
+      .trajectory { padding: var(--s-3) 0 var(--s-2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="proj">
+    <a class="back-btn" href="bf-method-measure-first.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">03 / 05 · PROJEÇÃO</span>
+      <h1 class="title-display-2">De <span data-bf="current-title">24.3</span><br />a <span class="arco" data-bf="future-title">19.8</span>.</h1>
+    </div>
+
+    <div class="trajectory">
+      <div class="pt">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="l">Hoje</span>
+        <span class="v" data-h-val="0">24.3%</span>
+      </div>
+      <div class="pt">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="l">30 dias</span>
+        <span class="v" data-h-val="30">22.4%</span>
+      </div>
+      <div class="pt">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="l">60 dias</span>
+        <span class="v" data-h-val="60">21.1%</span>
+      </div>
+      <div class="pt future">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="l">90 dias</span>
+        <span class="v" data-h-val="90">19.8%</span>
+      </div>
+    </div>
+
+    <div class="silhouette-solo">
+      <div class="silhouette">
+        <svg viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M30 10 c-5 0 -8 4 -8 8 c0 4 3 7 8 7 c5 0 8 -3 8 -7 c0 -4 -3 -8 -8 -8 z M23 26 c-3 1 -6 5 -7 10 l-2 16 c0 3 2 5 4 5 l3 0 l1 27 c0 3 2 5 4 5 l8 0 c2 0 4 -2 4 -5 l1 -27 l3 0 c2 0 4 -2 4 -5 l-2 -16 c-1 -5 -4 -9 -7 -10 z" fill="#BDB9AF" />
+        </svg>
+      </div>
+      <span class="silhouette-caption">Seu corpo em 90 dias</span>
+    </div>
+
+    <a href="paywall-post-projection.html" data-nh-next="afterProjection" class="cta-primary footer-cta">Manter ritmo</a>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const S = window.NH_STATE || { bf_current: 24.3, bf_projected_90d: 19.8 };
+    const bfCur = Number(S.bf_current) || 24.3;
+    const bf90 = Number(S.bf_projected_90d) || 19.8;
+    const totalDelta = bf90 - bfCur;
+
+    /* Horizon fractions of total 90d delta (linear) */
+    const horizons = [
+      { d: 0,  frac: 0.00 },
+      { d: 30, frac: 0.36 },
+      { d: 60, frac: 0.69 },
+      { d: 90, frac: 1.00 },
+    ];
+
+    function fmtBf(v)     { return v.toFixed(1) + '%'; }
+    function fmtBare(v)   { return v.toFixed(1); }
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animateNumber(el, from, to, dur, fmt) {
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - start) / dur);
+        el.textContent = fmt(from + (to - from) * easeOutCubic(t));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    /* Title — currentTitle is fixed, futureTitle animates */
+    const currentTitleEl = document.querySelector('[data-bf="current-title"]');
+    const futureTitleEl  = document.querySelector('[data-bf="future-title"]');
+    currentTitleEl.textContent = fmtBare(bfCur);
+    futureTitleEl.textContent  = fmtBare(bfCur);
+
+    /* Initial render — all points at current value */
+    horizons.forEach(h => {
+      const el = document.querySelector('[data-h-val="' + h.d + '"]');
+      el.textContent = fmtBf(bfCur);
+    });
+
+    requestAnimationFrame(() => {
+      animateNumber(futureTitleEl, bfCur, bf90, 700, fmtBare);
+      horizons.forEach((h, i) => {
+        const el = document.querySelector('[data-h-val="' + h.d + '"]');
+        const targetBf = bfCur + totalDelta * h.frac;
+        /* Stagger by 80ms after the trajectory line finishes growing */
+        setTimeout(() => animateNumber(el, bfCur, targetBf, 500, fmtBf), 400 + i * 80);
+      });
+    });
+  </script>
+</body>
+</html>

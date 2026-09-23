@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Excluir conta</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .excluir {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .excluir .top { padding-top: var(--s-2); display: flex; flex-direction: column; gap: var(--s-2); }
+
+    .warn-block {
+      background: var(--c-aco-800);
+      border-left: 2px solid var(--c-atencao);
+      padding: var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .warn-block .l {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-atencao);
+    }
+    .warn-block .b {
+      font-family: var(--f-display);
+      font-size: 14px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+    .loss-list { display: flex; flex-direction: column; gap: var(--s-2); }
+    .loss-list .item { display: flex; gap: var(--s-3); align-items: baseline; }
+    .loss-list .bullet { font-family: var(--f-mono); color: var(--c-atencao); font-size: 11px; min-width: 14px; }
+    .loss-list .txt { font-family: var(--f-display); font-size: 13px; color: var(--c-giz-200); line-height: 1.4; }
+
+    .cta-danger { background: var(--c-atencao); color: var(--c-vazio); }
+    .cta-danger:hover { opacity: 0.92; }
+
+    .footer { margin-top: auto; padding-top: var(--s-4); display: flex; flex-direction: column; gap: var(--s-3); }
+    .cancel-link {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      text-align: center;
+      text-decoration: none;
+      padding: var(--s-2);
+    }
+    .cancel-link:hover { color: var(--c-giz-100); }
+  </style>
+</head>
+<body>
+  <div class="excluir">
+    <a class="back-btn" href="ajustes.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">EXCLUIR CONTA</span>
+      <h1 class="title-display-2">Apagar tudo.</h1>
+    </div>
+
+    <div class="warn-block">
+      <span class="l">AÇÃO IRREVERSÍVEL</span>
+      <p class="b">Excluir a conta apaga seus dados de forma permanente. Não dá para desfazer.</p>
+      <div class="loss-list">
+        <div class="item"><span class="bullet">›</span><span class="txt">Histórico de BF% e todas as medições.</span></div>
+        <div class="item"><span class="bullet">›</span><span class="txt">Refeições registradas e a zona calórica.</span></div>
+        <div class="item"><span class="bullet">›</span><span class="txt">Projeções e diagnósticos semanais.</span></div>
+        <div class="item"><span class="bullet">›</span><span class="txt">Sua assinatura é cancelada.</span></div>
+      </div>
+    </div>
+
+    <div class="pay-input-row" id="confirm-row">
+      <label for="confirm-input">Digite EXCLUIR para confirmar</label>
+      <input id="confirm-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" placeholder="EXCLUIR" />
+    </div>
+
+    <div class="footer">
+      <button class="cta-primary cta-danger" id="delete-btn" disabled onclick="doDelete()">Excluir minha conta</button>
+      <a class="cancel-link" href="ajustes.html" onclick="if(history.length>1){event.preventDefault();history.back()}">Cancelar · manter conta</a>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const input = document.getElementById('confirm-input');
+    const btn = document.getElementById('delete-btn');
+
+    input.addEventListener('input', function () {
+      btn.disabled = input.value.trim().toUpperCase() !== 'EXCLUIR';
+    });
+
+    function doDelete() {
+      if (btn.disabled) return;
+      if (NH_STATE && typeof NH_STATE.reset === 'function') NH_STATE.reset();
+      try {
+        sessionStorage.removeItem('nh.state');
+        sessionStorage.removeItem('nh.first-reajust-shown');
+      } catch (_) {}
+      window.location.href = 'cold-open.html';
+    }
+  </script>
+</body>
+</html>

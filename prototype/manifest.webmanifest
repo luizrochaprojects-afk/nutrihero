@@ -1,0 +1,27 @@
+{
+  "name": "NutriHero",
+  "short_name": "NutriHero",
+  "description": "Seu nutricionista de bolso. Recalibra cada refeição.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06070A",
+  "theme_color": "#06070A",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "./assets/app-icon-1024.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/android-monochrome.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    }
+  ],
+  "categories": ["health", "fitness", "lifestyle"]
+}

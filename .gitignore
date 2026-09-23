@@ -1,0 +1,15 @@
+# Material privado (brief original, transcrição, renders de processo) — nunca publicar
+_private/
+
+# Ferramentas locais
+.claude/
+.playwright-mcp/
+.superpowers/
+.tmp/
+.vercel/
+node_modules/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini

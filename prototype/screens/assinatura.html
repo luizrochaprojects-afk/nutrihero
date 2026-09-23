@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Assinatura</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .assinatura {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-5);
+    }
+    .assinatura .top { padding-top: var(--s-2); display: flex; flex-direction: column; gap: var(--s-2); }
+
+    .sub-card {
+      background: var(--c-aco-800);
+      border-left: 2px solid var(--c-arco);
+      padding: var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .sub-card .plan-eyebrow {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-arco);
+    }
+    .sub-card .price {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-2);
+    }
+    .sub-card .amount {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 40px;
+      letter-spacing: -0.035em;
+      color: var(--c-giz-100);
+    }
+    .sub-card .period {
+      font-family: var(--f-narrow);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .sub-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: var(--s-2);
+      border-top: 1px solid var(--c-linha-500);
+    }
+    .sub-row .k {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .sub-row .v {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--c-giz-100);
+    }
+    .sub-row .v.arco { color: var(--c-arco); }
+
+    .incl {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .incl .feat { display: flex; gap: var(--s-3); align-items: baseline; }
+    .incl .bullet { font-family: var(--f-mono); color: var(--c-arco); font-size: 11px; min-width: 14px; }
+    .incl .txt { font-family: var(--f-display); font-size: 13px; color: var(--c-giz-200); line-height: 1.4; }
+
+    .cancel-confirm {
+      display: none;
+      flex-direction: column;
+      gap: var(--s-3);
+      background: var(--c-aco-800);
+      border-left: 2px solid var(--c-atencao);
+      padding: var(--s-4);
+    }
+    .cancel-confirm.open { display: flex; }
+    .cancel-confirm .l {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-atencao);
+    }
+    .cancel-confirm .b {
+      font-family: var(--f-display);
+      font-size: 14px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+    .cancel-confirm .row { display: flex; gap: var(--s-2); }
+    .cancel-confirm .row .cta-ghost { flex: 0 0 40%; }
+    .cancel-confirm .row .cta-primary { flex: 1; }
+
+    .canceled-note {
+      display: none;
+      font-family: var(--f-display);
+      font-size: 13px;
+      color: var(--c-cinza-300);
+      line-height: 1.5;
+      padding: var(--s-3) 0;
+    }
+    .footer { margin-top: auto; padding-top: var(--s-4); }
+  </style>
+</head>
+<body>
+  <div class="assinatura">
+    <a class="back-btn" href="ajustes.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">ASSINATURA</span>
+      <h1 class="title-display-2">Seu plano.</h1>
+    </div>
+
+    <div class="sub-card">
+      <span class="plan-eyebrow" id="plan-eyebrow">Plano mensal · Ativo</span>
+      <div class="price">
+        <span class="amount">R$&nbsp;39,90</span>
+        <span class="period">/ mês</span>
+      </div>
+      <div class="sub-row">
+        <span class="k">Status</span>
+        <span class="v arco" id="v-status">Ativa</span>
+      </div>
+      <div class="sub-row">
+        <span class="k" id="k-next">Próxima cobrança</span>
+        <span class="v" id="v-next">—</span>
+      </div>
+      <div class="sub-row">
+        <span class="k">Método</span>
+        <span class="v" id="v-method">Apple Pay</span>
+      </div>
+    </div>
+
+    <div class="incl">
+      <div class="feat"><span class="bullet">›</span><span class="txt">Cálculo de BF% por medidas ou foto.</span></div>
+      <div class="feat"><span class="bullet">›</span><span class="txt">Reajuste diário do plano.</span></div>
+      <div class="feat"><span class="bullet">›</span><span class="txt">Registro por foto, áudio ou WhatsApp.</span></div>
+      <div class="feat"><span class="bullet">›</span><span class="txt">Diagnóstico semanal de padrão.</span></div>
+    </div>
+
+    <p class="canceled-note" id="canceled-note">
+      Assinatura cancelada. Você mantém acesso até o fim do ciclo atual. Depois disso, o motor de reajuste para.
+    </p>
+
+    <div class="cancel-confirm" id="cancel-confirm">
+      <span class="l">CONFIRMAR CANCELAMENTO</span>
+      <p class="b">Sem assinatura, o motor para: nada de reajuste diário, diagnóstico semanal ou cálculo de BF%. Você pode reativar depois.</p>
+      <div class="row">
+        <button class="cta-ghost" onclick="closeCancel()">Voltar</button>
+        <button class="cta-primary" onclick="confirmCancel()">Confirmar</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button class="cta-ghost" id="cancel-btn" onclick="openCancel()">Cancelar assinatura</button>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const DAY = 86400000;
+
+    function getSub() {
+      let sub = NH_STATE && NH_STATE.subscription;
+      if (!sub) sub = { active: true, since: new Date(Date.now() - 2 * DAY).toISOString() };
+      if (!sub.since) sub.since = new Date(Date.now() - 2 * DAY).toISOString();
+      return sub;
+    }
+
+    function fmtDate(d) {
+      return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0');
+    }
+
+    function render() {
+      const sub = getSub();
+      const since = new Date(sub.since);
+      const trialEnd = new Date(since.getTime() + 7 * DAY);
+      const now = Date.now();
+
+      const statusEl = document.getElementById('v-status');
+      const eyebrowEl = document.getElementById('plan-eyebrow');
+      const kNext = document.getElementById('k-next');
+      const vNext = document.getElementById('v-next');
+
+      if (sub.active === false) {
+        statusEl.textContent = 'Cancelada';
+        statusEl.classList.remove('arco');
+        eyebrowEl.textContent = 'Plano mensal · Cancelado';
+        kNext.textContent = 'Acesso até';
+        vNext.textContent = fmtDate(trialEnd.getTime() > now ? trialEnd : new Date(now + 14 * DAY));
+        document.getElementById('cancel-btn').style.display = 'none';
+        document.getElementById('canceled-note').style.display = 'block';
+        return;
+      }
+
+      if (now < trialEnd.getTime()) {
+        statusEl.textContent = 'Em teste';
+        eyebrowEl.textContent = 'Plano mensal · Período de teste';
+        kNext.textContent = '1ª cobrança';
+        vNext.textContent = fmtDate(trialEnd);
+      } else {
+        statusEl.textContent = 'Ativa';
+        eyebrowEl.textContent = 'Plano mensal · Ativo';
+        let next = trialEnd.getTime();
+        while (next <= now) next += 30 * DAY;
+        kNext.textContent = 'Próxima cobrança';
+        vNext.textContent = fmtDate(new Date(next));
+      }
+    }
+
+    function openCancel()  { document.getElementById('cancel-confirm').classList.add('open'); }
+    function closeCancel() { document.getElementById('cancel-confirm').classList.remove('open'); }
+    function confirmCancel() {
+      const sub = getSub();
+      NH_STATE.subscription = { active: false, since: sub.since };
+      closeCancel();
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Medição</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    [hidden] { display: none !important; }
+
+    .detail {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-8);
+      gap: var(--s-5);
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      padding-top: var(--s-4);
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+    }
+
+    /* ── Date + badge header ── */
+    .entry-header {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-3);
+      flex-wrap: wrap;
+    }
+    .entry-date {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--c-giz-200);
+      font-variant-numeric: tabular-nums;
+    }
+    .method-badge {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      border: 1px solid var(--c-linha-500);
+      border-radius: var(--r-1);
+      padding: 2px 6px;
+    }
+
+    /* ── BF hero ── */
+    .bf-hero {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+    .bf-num-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+    .bf-num {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 72px;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--c-giz-100);
+      font-variant-numeric: tabular-nums;
+    }
+    .bf-pct {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--c-giz-100);
+      padding-bottom: 4px;
+    }
+    .bf-since {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      color: var(--c-arco);
+      letter-spacing: -0.01em;
+      margin-top: var(--s-1);
+    }
+
+    /* ── Sections ── */
+    .sec-block { display: flex; flex-direction: column; gap: 0; }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--s-2);
+    }
+    .sec-head .h {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+    }
+
+    /* ── Data rows ── */
+    .data-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: var(--s-3);
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--c-aco-800);
+    }
+    .data-line:last-child { border-bottom: none; }
+    .data-line.has-delta {
+      grid-template-columns: 1fr auto auto;
+    }
+    .dl-label {
+      font-family: var(--f-display);
+      font-size: 13px;
+      color: var(--c-cinza-300);
+    }
+    .dl-val {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .dl-delta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-400);
+      text-align: right;
+      white-space: nowrap;
+      min-width: 60px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── vs INÍCIO comparison ── */
+    .vs-line {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto;
+      align-items: baseline;
+      gap: var(--s-2);
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--c-aco-800);
+    }
+    .vs-line:last-child { border-bottom: none; }
+    .vs-key {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+    }
+    .vs-range {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--c-cinza-300);
+      font-variant-numeric: tabular-nums;
+    }
+    .vs-delta {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c-cinza-400);
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .vs-delta.arco { color: var(--c-arco); }
+
+    /* ── Photo fallback ── */
+    .no-measures {
+      font-family: var(--f-display);
+      font-size: 12px;
+      color: var(--c-cinza-300);
+      padding: var(--s-3) 0;
+      line-height: 1.5;
+    }
+
+    /* ── Edit view ── */
+    #edit-view { display: flex; flex-direction: column; gap: var(--s-4); }
+    #edit-measures { display: flex; flex-direction: column; gap: var(--s-4); }
+    .field { display: flex; flex-direction: column; gap: var(--s-1); }
+    .field-hint {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 10px;
+      color: var(--c-cinza-300);
+    }
+
+    /* ── Footer / actions ── */
+    .footer {
+      margin-top: auto;
+      padding-top: var(--s-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    #edit-controls { display: flex; flex-direction: column; gap: var(--s-2); }
+    .remove-link {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-atencao);
+      padding: var(--s-3);
+      text-align: center;
+      margin-top: var(--s-1);
+    }
+    .remove-link:hover { opacity: 0.8; }
+    .cta-danger { background: var(--c-atencao); color: var(--c-vazio); }
+    .cta-danger:hover { opacity: 0.92; }
+
+    .remove-confirm {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      background: var(--c-aco-800);
+      border-left: 2px solid var(--c-atencao);
+      padding: var(--s-4);
+    }
+    .remove-confirm .rc-l {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-atencao);
+    }
+    .remove-confirm .rc-b {
+      font-family: var(--f-display);
+      font-size: 14px;
+      color: var(--c-giz-200);
+      line-height: 1.5;
+    }
+    .remove-confirm .rc-row { display: flex; gap: var(--s-2); }
+    .remove-confirm .rc-row .cta-ghost { flex: 0 0 40%; }
+    .remove-confirm .rc-row .cta-primary { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="detail">
+
+    <div class="top-bar">
+      <a href="bf-evolution.html" class="back-btn" onclick="if(window.history.length>1){event.preventDefault();window.history.back()}" aria-label="Voltar">←</a>
+      <span class="eyebrow">MEDIÇÃO · DETALHE</span>
+    </div>
+
+    <!-- READ VIEW -->
+    <div id="read-view">
+      <div class="entry-header" id="entry-header"></div>
+
+      <div class="bf-hero">
+        <span class="eyebrow">GORDURA CORPORAL</span>
+        <div class="bf-num-wrap">
+          <span class="bf-num" id="bf-num">—</span>
+          <span class="bf-pct">%</span>
+        </div>
+        <span class="bf-since" id="bf-since" hidden></span>
+      </div>
+
+      <div class="sec-block" id="section-composition">
+        <div class="sec-head"><span class="h">COMPOSIÇÃO</span></div>
+        <div id="comp-rows"></div>
+      </div>
+
+      <div class="sec-block" id="section-measures">
+        <div class="sec-head"><span class="h">MEDIDAS CORPORAIS</span></div>
+        <div id="measures-rows"></div>
+      </div>
+
+      <div class="sec-block" id="section-vs" hidden>
+        <div class="sec-head">
+          <span class="h">VS INÍCIO</span>
+          <span class="eyebrow" id="vs-start-date">—</span>
+        </div>
+        <div id="vs-rows"></div>
+      </div>
+    </div>
+
+    <!-- EDIT VIEW -->
+    <div id="edit-view" hidden>
+      <span class="eyebrow">EDITAR MEDIÇÃO</span>
+      <div class="field">
+        <span class="field-hint">Gordura corporal</span>
+        <div class="input-num-row">
+          <input class="input-num" id="edit-bf" type="text" inputmode="decimal" />
+          <span class="input-unit">%</span>
+        </div>
+      </div>
+      <div class="field" id="field-weight">
+        <span class="field-hint">Peso</span>
+        <div class="input-num-row">
+          <input class="input-num" id="edit-weight" type="text" inputmode="decimal" />
+          <span class="input-unit">kg</span>
+        </div>
+      </div>
+      <div id="edit-measures">
+        <div class="field">
+          <span class="field-hint">Pescoço</span>
+          <div class="input-num-row">
+            <input class="input-num" id="edit-neck" type="text" inputmode="decimal" />
+            <span class="input-unit">cm</span>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-hint">Cintura</span>
+          <div class="input-num-row">
+            <input class="input-num" id="edit-waist" type="text" inputmode="decimal" />
+            <span class="input-unit">cm</span>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-hint">Quadril</span>
+          <div class="input-num-row">
+            <input class="input-num" id="edit-hip" type="text" inputmode="decimal" />
+            <span class="input-unit">cm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER / ACTIONS -->
+    <div class="footer">
+      <button class="cta-ghost" id="btn-edit" onclick="enterEdit()">Editar medição</button>
+
+      <div id="edit-controls" hidden>
+        <button class="cta-primary" onclick="saveEdit()">Salvar alterações</button>
+        <button class="cta-ghost" onclick="cancelEdit()">Cancelar</button>
+        <button class="remove-link" onclick="askRemove()">Remover medição</button>
+      </div>
+
+      <div class="remove-confirm" id="remove-confirm" hidden>
+        <span class="rc-l">Remover medição</span>
+        <p class="rc-b">Esta medição sai do seu histórico de BF%. Não dá para desfazer.</p>
+        <div class="rc-row">
+          <button class="cta-ghost" onclick="cancelRemove()">Voltar</button>
+          <button class="cta-primary cta-danger" onclick="confirmRemove()">Remover</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    /* ── Seed data (same as bf-evolution.html) ── */
+    const SEED_HISTORY = [
+      { date: '2026-04-24', method: 'measures', bf: 28.8, weight: 89.5, neck: 40.2, waist: 96.0, hip: 105.1 },
+      { date: '2026-05-01', method: 'photo',    bf: 27.4, weight: 88.8 },
+      { date: '2026-05-08', method: 'measures', bf: 26.2, weight: 88.1, neck: 39.5, waist: 94.2, hip: 104.0 },
+      { date: '2026-05-15', method: 'photo',    bf: 25.1, weight: 87.4 },
+      { date: '2026-05-22', method: 'measures', bf: 24.3, weight: 86.6, neck: 38.5, waist: 92.0, hip: 102.4 },
+    ];
+
+    const i       = parseInt(new URLSearchParams(location.search).get('i') ?? '0', 10);
+    const stHist  = (NH_STATE && NH_STATE.bf_history) || [];
+    const histList = stHist.length > 0 ? stHist : SEED_HISTORY;
+    const idx     = Math.min(Math.max(0, i), histList.length - 1);
+    const entry   = histList[idx];
+    const start   = histList[0];
+    const isStart = (idx === 0 || entry === start);
+
+    const METHOD_LABEL = { measures: 'MEDIDAS', photo: 'FOTO' };
+
+    /* ── Header: date + method badge ── */
+    (function () {
+      let longDate = '—';
+      try {
+        const d = new Date(entry.date + 'T12:00:00');
+        longDate = d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+                    .toUpperCase();
+      } catch(_) {}
+      document.getElementById('entry-header').innerHTML = `
+        <span class="entry-date">${longDate}</span>
+        <span class="method-badge">${METHOD_LABEL[entry.method] || entry.method.toUpperCase()}</span>
+      `;
+    })();
+
+    /* ── BF hero ── */
+    document.getElementById('bf-num').textContent = entry.bf.toFixed(1);
+    if (!isStart) {
+      const sinceEl = document.getElementById('bf-since');
+      const d = (start.bf - entry.bf);
+      sinceEl.textContent = (d >= 0 ? '−' : '+') + Math.abs(d).toFixed(1) + ' pontos desde o início';
+      sinceEl.hidden = false;
+    }
+
+    /* ── Composition ── */
+    (function () {
+      if (!entry.weight) { document.getElementById('section-composition').hidden = true; return; }
+      const lean = entry.weight * (1 - entry.bf / 100);
+      const fat  = entry.weight * (entry.bf / 100);
+      const rows = [
+        { label: 'Peso',        val: entry.weight.toFixed(1) + ' kg' },
+        { label: 'Massa magra', val: lean.toFixed(1) + ' kg' },
+        { label: 'Gordura',     val: fat.toFixed(1) + ' kg' },
+      ];
+      const container = document.getElementById('comp-rows');
+      rows.forEach(r => {
+        const el = document.createElement('div');
+        el.className = 'data-line';
+        el.innerHTML = `<span class="dl-label">${r.label}</span><span class="dl-val">${r.val}</span>`;
+        container.appendChild(el);
+      });
+    })();
+
+    /* ── Body measurements ── */
+    (function () {
+      if (!entry.neck) {
+        document.getElementById('measures-rows').innerHTML =
+          '<p class="no-measures">Registrado por foto · medidas corporais não disponíveis</p>';
+        return;
+      }
+      const startNeck  = start.neck  || null;
+      const startWaist = start.waist || null;
+      const startHip   = start.hip   || null;
+
+      function fmtDelta(cur, st) {
+        if (isStart || st == null) return null;
+        const d = cur - st;
+        if (Math.abs(d) < 0.05) return '—';
+        return (d > 0 ? '+' : '−') + Math.abs(d).toFixed(1) + ' cm';
+      }
+
+      const mrows = [
+        { label: 'Pescoço', val: entry.neck.toFixed(1) + ' cm',  delta: fmtDelta(entry.neck, startNeck) },
+        { label: 'Cintura', val: entry.waist.toFixed(1) + ' cm', delta: fmtDelta(entry.waist, startWaist) },
+        { label: 'Quadril', val: entry.hip.toFixed(1) + ' cm',   delta: fmtDelta(entry.hip, startHip) },
+      ];
+      const container = document.getElementById('measures-rows');
+      mrows.forEach(r => {
+        const el = document.createElement('div');
+        el.className = r.delta != null ? 'data-line has-delta' : 'data-line';
+        el.innerHTML = `<span class="dl-label">${r.label}</span><span class="dl-val">${r.val}</span>` +
+          (r.delta != null ? `<span class="dl-delta">${r.delta}</span>` : '');
+        container.appendChild(el);
+      });
+    })();
+
+    /* ── vs INÍCIO ── */
+    (function () {
+      const sec = document.getElementById('section-vs');
+      if (isStart) { sec.hidden = true; return; }
+      sec.hidden = false;
+
+      try {
+        const d = new Date(start.date + 'T12:00:00');
+        document.getElementById('vs-start-date').textContent =
+          d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).toUpperCase().replace('.', '');
+      } catch(_) {}
+
+      function fmtD(d, unit) {
+        if (Math.abs(d) < 0.05) return '—';
+        return (d > 0 ? '+' : '−') + Math.abs(d).toFixed(1) + ' ' + unit;
+      }
+
+      const vsRows = [{
+        key: 'BF%',
+        range: start.bf.toFixed(1) + '% → ' + entry.bf.toFixed(1) + '%',
+        delta: fmtD(entry.bf - start.bf, 'pts'),
+        arco: true,
+      }];
+      if (entry.weight && start.weight) {
+        vsRows.push({
+          key: 'Peso',
+          range: start.weight.toFixed(1) + ' → ' + entry.weight.toFixed(1) + ' kg',
+          delta: fmtD(entry.weight - start.weight, 'kg'),
+          arco: false,
+        });
+      }
+      if (entry.waist && start.waist) {
+        vsRows.push({
+          key: 'Cintura',
+          range: start.waist.toFixed(1) + ' → ' + entry.waist.toFixed(1) + ' cm',
+          delta: fmtD(entry.waist - start.waist, 'cm'),
+          arco: false,
+        });
+      }
+
+      const container = document.getElementById('vs-rows');
+      vsRows.forEach(r => {
+        const el = document.createElement('div');
+        el.className = 'vs-line';
+        el.innerHTML = `
+          <span class="vs-key">${r.key}</span>
+          <span class="vs-range">${r.range}</span>
+          <span class="vs-delta${r.arco ? ' arco' : ''}">${r.delta}</span>
+        `;
+        container.appendChild(el);
+      });
+    })();
+
+    /* ── Edit / remove ───────────────────────────────────────────── */
+
+    /* Materializa o seed no estado para permitir editar/remover. */
+    function materialize() {
+      if (!NH_STATE.bf_history || NH_STATE.bf_history.length === 0) {
+        NH_STATE.bf_history = SEED_HISTORY.map(e => Object.assign({}, e));
+      }
+      return NH_STATE.bf_history;
+    }
+
+    function readNum(id) {
+      const v = parseFloat((document.getElementById(id).value || '').replace(',', '.'));
+      return isNaN(v) ? null : v;
+    }
+
+    function enterEdit() {
+      document.getElementById('edit-bf').value = entry.bf != null ? entry.bf : '';
+      document.getElementById('field-weight').hidden = (entry.weight == null);
+      if (entry.weight != null) document.getElementById('edit-weight').value = entry.weight;
+
+      const hasMeasures = entry.neck != null;
+      document.getElementById('edit-measures').hidden = !hasMeasures;
+      if (hasMeasures) {
+        document.getElementById('edit-neck').value  = entry.neck;
+        document.getElementById('edit-waist').value = entry.waist;
+        document.getElementById('edit-hip').value   = entry.hip;
+      }
+
+      document.getElementById('read-view').hidden = true;
+      document.getElementById('edit-view').hidden = false;
+      document.getElementById('btn-edit').hidden = true;
+      document.getElementById('edit-controls').hidden = false;
+      window.scrollTo({ top: 0 });
+    }
+
+    function cancelEdit() {
+      document.getElementById('edit-view').hidden = true;
+      document.getElementById('read-view').hidden = false;
+      document.getElementById('edit-controls').hidden = true;
+      document.getElementById('remove-confirm').hidden = true;
+      document.getElementById('btn-edit').hidden = false;
+    }
+
+    function saveEdit() {
+      const hist = materialize();
+      const at = Math.min(Math.max(0, i), hist.length - 1);
+      const updated = Object.assign({}, hist[at]);
+
+      const bf = readNum('edit-bf');
+      if (bf != null) updated.bf = bf;
+      if (entry.weight != null) {
+        const w = readNum('edit-weight');
+        if (w != null) updated.weight = w;
+      }
+      if (entry.neck != null) {
+        const nk = readNum('edit-neck'), wa = readNum('edit-waist'), hp = readNum('edit-hip');
+        if (nk != null) updated.neck = nk;
+        if (wa != null) updated.waist = wa;
+        if (hp != null) updated.hip = hp;
+      }
+
+      const next = hist.slice();
+      next[at] = updated;
+      NH_STATE.bf_history = next;
+      /* Se for a medição mais recente, mantém bf_current em sincronia */
+      if (at === next.length - 1) NH_STATE.bf_current = updated.bf;
+      window.location.reload();
+    }
+
+    function askRemove() {
+      document.getElementById('edit-controls').hidden = true;
+      document.getElementById('remove-confirm').hidden = false;
+    }
+    function cancelRemove() {
+      document.getElementById('remove-confirm').hidden = true;
+      document.getElementById('edit-controls').hidden = false;
+    }
+    function confirmRemove() {
+      const hist = materialize();
+      const at = Math.min(Math.max(0, i), hist.length - 1);
+      const next = hist.slice();
+      next.splice(at, 1);
+      NH_STATE.bf_history = next;
+      if (next.length > 0) NH_STATE.bf_current = next[next.length - 1].bf;
+      window.location.href = 'bf-evolution.html';
+    }
+  </script>
+</body>
+</html>

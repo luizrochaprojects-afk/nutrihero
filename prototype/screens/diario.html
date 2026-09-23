@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Linha do Tempo</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+
+    /* ── Layout ── */
+    .timeline-screen {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px) + 16px);
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-4) var(--s-4) var(--s-3);
+    }
+
+    /* ── Week block ── */
+    .week-block {
+      margin: 0 0 var(--s-2);
+      border-top: 1px solid var(--c-aco-700);
+    }
+
+    .week-header {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-3) var(--s-4) var(--s-2);
+      flex-wrap: wrap;
+    }
+    .week-label {
+      font-family: var(--f-narrow);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      flex: 1;
+      white-space: nowrap;
+    }
+    .week-bf-badge {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+      background: var(--c-aco-700);
+      border: 1px solid var(--c-linha-500);
+      border-radius: var(--r-1);
+      padding: 2px 7px;
+      white-space: nowrap;
+    }
+    .week-adherence {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--c-cinza-400);
+      white-space: nowrap;
+    }
+    .week-adherence.good { color: #7bc47a; }
+    .week-adherence.warn { color: var(--c-alerta); }
+
+    /* ── Event list ── */
+    .event-list {
+      border-top: 1px solid var(--c-aco-700);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-row {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-3) var(--s-4);
+      border-bottom: 1px solid var(--c-aco-800);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background var(--t-fast);
+    }
+    .event-row:last-child { border-bottom: none; }
+    .event-row:hover { background: rgba(255,255,255,0.025); }
+
+    .event-icon {
+      font-size: 14px;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .event-icon.measurement { color: var(--c-arco); }
+    .event-icon.reajuste    { color: var(--c-alerta); }
+    .event-icon.pattern     { color: var(--c-cinza-300); }
+
+    .event-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .event-type-label {
+      font-family: var(--f-narrow);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+    }
+    .event-title {
+      font-family: var(--f-display);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-giz-100);
+      line-height: 1.3;
+    }
+    .event-meta {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--c-cinza-300);
+      font-variant-numeric: tabular-nums;
+    }
+    .event-arrow {
+      font-size: 14px;
+      color: var(--c-cinza-400);
+      flex-shrink: 0;
+    }
+
+    /* ── Days list ── */
+    .days-list {
+      border-top: 1px solid var(--c-aco-700);
+    }
+
+    .day-row-wrap { border-bottom: 1px solid var(--c-aco-800); }
+    .day-row-wrap:last-child { border-bottom: none; }
+
+    .day-row-header {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: 9px var(--s-4);
+      cursor: pointer;
+      transition: background var(--t-fast);
+      user-select: none;
+    }
+    .day-row-header:hover { background: rgba(255,255,255,0.02); }
+    .day-row-header.no-data { opacity: 0.38; cursor: default; }
+    .day-row-header.no-data:hover { background: none; }
+
+    .day-arrow {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--c-cinza-400);
+      width: 10px;
+      flex-shrink: 0;
+    }
+    .day-date {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+      flex: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+    }
+    .day-kcal {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    .day-kcal.over { color: var(--c-arco); }
+    .day-kcal.none { color: var(--c-cinza-400); }
+
+    /* Adherence dot */
+    .adh-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .adh-dot.on      { background: #7bc47a; }
+    .adh-dot.over    { background: var(--c-arco); }
+    .adh-dot.partial { background: var(--c-cinza-400); border: 1px solid var(--c-cinza-300); }
+    .adh-dot.none    { background: none; border: 1px solid var(--c-aco-700); }
+
+    /* Expanded meals */
+    .day-meals {
+      display: none;
+      flex-direction: column;
+      background: var(--c-aco-800);
+      padding: var(--s-2) var(--s-4) var(--s-3) calc(var(--s-4) + 22px);
+      gap: 1px;
+    }
+    .day-meals.open { display: flex; }
+    .meal-entry {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-3);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--c-aco-700);
+      text-decoration: none;
+    }
+    .meal-entry:last-child { border-bottom: none; }
+    .meal-slot {
+      font-family: var(--f-narrow);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      white-space: nowrap;
+    }
+    .meal-items {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      color: var(--c-cinza-400);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .meal-kcal {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c-giz-200);
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Empty state ── */
+    .empty-week {
+      padding: var(--s-3) var(--s-4);
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      color: var(--c-cinza-400);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+<div class="timeline-screen">
+
+  <div class="top-bar">
+    <a href="home.html" class="back-btn"
+       onclick="if(window.history.length>1){event.preventDefault();window.history.back()}"
+       aria-label="Voltar">←</a>
+    <span class="eyebrow">LINHA DO TEMPO</span>
+  </div>
+
+  <div id="timeline-root">
+    <!-- rendered by JS -->
+  </div>
+
+</div>
+
+<!-- Tab bar -->
+<nav class="tab-bar">
+  <a class="tab" href="home.html" aria-label="Hoje">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg>
+    <span class="tab-label">Hoje</span>
+  </a>
+  <a class="tab" href="bf-evolution.html" aria-label="Evolução">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg>
+    <span class="tab-label">Evolução</span>
+  </a>
+  <a class="tab-fab" href="meal-log.html" aria-label="Registrar refeição">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+      <circle cx="12" cy="13" r="3.5"/>
+    </svg>
+  </a>
+  <a class="tab active" href="diario.html" aria-label="Diário">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h6"/></svg>
+    <span class="tab-label">Diário</span>
+  </a>
+  <a class="tab" href="perfil.html" aria-label="Perfil">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+    <span class="tab-label">Perfil</span>
+  </a>
+</nav>
+
+<script src="../state.js"></script>
+<script src="../switcher.js"></script>
+<script>
+/* ──────────────────────────────────────────
+   SEED DATA — prototype timeline
+   Weeks in reverse chronological order.
+   Each week has: label, dates string, bf
+   (if measured), adherence, events[], days[]
+   ────────────────────────────────────────── */
+const SEED_WEEKS = [
+  /* ── SEMANA 5 · 19–25 MAI ── */
+  {
+    weekNum: 5,
+    label: 'ESTA SEMANA',
+    dates: '19–25 MAI',
+    bf: { value: 24.3, delta: -0.8 },
+    adherence: { days: 4, total: 7 },
+    events: [
+      {
+        type: 'measurement',
+        date: '22 MAI',
+        histIdx: 4,
+        title: '24.3% gordura corporal',
+        meta: '−0.8 pts · Cintura 92 cm',
+      },
+    ],
+    days: [
+      {
+        label: 'SEG 19 MAI', kcal: 1940, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',    time: '07:10', kcal: 410, items: 'Ovos · aveia · café preto' },
+          { slot: 'LANCHE',  time: '10:15', kcal: 380, items: 'Whey · banana' },
+          { slot: 'ALMOÇO',  time: '12:45', kcal: 610, items: 'Arroz · feijão · patinho · salada' },
+          { slot: 'LANCHE',  time: '16:30', kcal: 260, items: 'Iogurte · castanhas' },
+          { slot: 'JANTAR',  time: '20:10', kcal: 280, items: 'Frango grelhado · legumes' },
+        ],
+      },
+      {
+        label: 'TER 20 MAI', kcal: 2180, target: 2000, status: 'over',
+        meals: [
+          { slot: 'CAFÉ',    time: '07:30', kcal: 420, items: 'Pão integral · ovos · café' },
+          { slot: 'ALMOÇO',  time: '13:00', kcal: 680, items: 'Macarrão · carne · salada' },
+          { slot: 'JANTAR',  time: '20:30', kcal: 820, items: 'Pizza · refrigerante' },
+        ],
+      },
+      {
+        label: 'QUA 21 MAI', kcal: 1650, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',    time: '07:00', kcal: 390, items: 'Ovos · café preto' },
+          { slot: 'LANCHE',  time: '10:00', kcal: 350, items: 'Whey · maçã' },
+          { slot: 'ALMOÇO',  time: '12:30', kcal: 580, items: 'Arroz · feijão · filé' },
+          { slot: 'JANTAR',  time: '19:45', kcal: 330, items: 'Frango · batata doce' },
+        ],
+      },
+      {
+        label: 'QUI 22 MAI', kcal: 820, target: 2000, status: 'partial',
+        meals: [
+          { slot: 'CAFÉ',    time: '07:15', kcal: 420, items: 'Ovos · pão integral · café preto' },
+          { slot: 'LANCHE',  time: '10:00', kcal: 400, items: 'Whey · banana · pasta de amendoim' },
+        ],
+      },
+      { label: 'SEX 23 MAI', kcal: 0, target: 2000, status: 'none', meals: [] },
+      { label: 'SÁB 24 MAI', kcal: 0, target: 2000, status: 'none', meals: [] },
+      { label: 'DOM 25 MAI', kcal: 0, target: 2000, status: 'none', meals: [] },
+    ],
+  },
+
+  /* ── SEMANA 4 · 12–18 MAI ── */
+  {
+    weekNum: 4,
+    label: 'SEMANA 4',
+    dates: '12–18 MAI',
+    bf: { value: 25.1, delta: -1.1 },
+    adherence: { days: 6, total: 7 },
+    events: [
+      {
+        type: 'measurement',
+        date: '15 MAI',
+        histIdx: 3,
+        title: '25.1% gordura corporal',
+        meta: '−1.1 pts · Peso 87.4 kg',
+      },
+      {
+        type: 'pattern',
+        date: '18 MAI',
+        title: '“Sexta é tarde” detectado',
+        meta: '3 domingos seguidos · excesso noturno',
+        href: 'weekly-dedicated.html',
+      },
+    ],
+    days: [
+      {
+        label: 'SEG 12 MAI', kcal: 1890, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '07:00', kcal: 400, items: 'Ovos · aveia · café' },
+          { slot: 'ALMOÇO', time: '12:30', kcal: 620, items: 'Arroz · feijão · frango' },
+          { slot: 'JANTAR', time: '19:30', kcal: 580, items: 'Salmão · batata doce · brócolis' },
+          { slot: 'LANCHE', time: '22:00', kcal: 290, items: 'Iogurte · granola' },
+        ],
+      },
+      {
+        label: 'TER 13 MAI', kcal: 1950, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',    time: '07:15', kcal: 410, items: 'Ovos · pão · café preto' },
+          { slot: 'LANCHE',  time: '10:30', kcal: 350, items: 'Whey · banana' },
+          { slot: 'ALMOÇO',  time: '13:00', kcal: 640, items: 'Macarrão integral · carne moída' },
+          { slot: 'JANTAR',  time: '20:00', kcal: 550, items: 'Frango · arroz · salada' },
+        ],
+      },
+      {
+        label: 'QUA 14 MAI', kcal: 1780, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '07:00', kcal: 380, items: 'Ovos mexidos · café' },
+          { slot: 'ALMOÇO', time: '12:00', kcal: 700, items: 'Feijoada · arroz · couve' },
+          { slot: 'JANTAR', time: '19:00', kcal: 460, items: 'Omelete · salada verde' },
+          { slot: 'LANCHE', time: '21:30', kcal: 240, items: 'Castanhas · iogurte' },
+        ],
+      },
+      {
+        label: 'QUI 15 MAI', kcal: 1920, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '07:10', kcal: 390, items: 'Ovos · aveia · banana' },
+          { slot: 'ALMOÇO', time: '12:45', kcal: 580, items: 'Frango · arroz · feijão' },
+          { slot: 'JANTAR', time: '20:00', kcal: 600, items: 'Tilápia · batata doce · brócolis' },
+          { slot: 'LANCHE', time: '22:00', kcal: 350, items: 'Whey · amendoim' },
+        ],
+      },
+      {
+        label: 'SEX 16 MAI', kcal: 2050, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '07:30', kcal: 420, items: 'Pão · ovos · café' },
+          { slot: 'ALMOÇO', time: '13:00', kcal: 650, items: 'Arroz · feijão · carne assada' },
+          { slot: 'JANTAR', time: '20:30', kcal: 620, items: 'Macarrão · salada · vinho (1 taça)' },
+          { slot: 'LANCHE', time: '23:00', kcal: 360, items: 'Pão de queijo · iogurte' },
+        ],
+      },
+      {
+        label: 'SÁB 17 MAI', kcal: 2180, target: 2000, status: 'over',
+        meals: [
+          { slot: 'CAFÉ',   time: '09:00', kcal: 420, items: 'Tapioca · ovos · suco' },
+          { slot: 'ALMOÇO', time: '13:30', kcal: 680, items: 'Churrasco · arroz · farofa' },
+          { slot: 'JANTAR', time: '21:00', kcal: 820, items: 'Pizza · refrigerante · sorvete' },
+          { slot: 'LANCHE', time: '23:30', kcal: 260, items: 'Biscoitos · leite' },
+        ],
+      },
+      { label: 'DOM 18 MAI', kcal: 0, target: 2000, status: 'none', meals: [] },
+    ],
+  },
+
+  /* ── SEMANA 3 · 5–11 MAI ── */
+  {
+    weekNum: 3,
+    label: 'SEMANA 3',
+    dates: '5–11 MAI',
+    bf: { value: 26.2, delta: -1.2 },
+    adherence: { days: 5, total: 7 },
+    events: [
+      {
+        type: 'measurement',
+        date: '8 MAI',
+        histIdx: 2,
+        title: '26.2% gordura corporal',
+        meta: '−1.2 pts · Cintura 94.2 cm',
+      },
+      {
+        type: 'reajuste',
+        date: '10 MAI',
+        title: 'Plano recalibrado',
+        meta: 'Kcal −200 · Carboidratos −15%',
+        href: 'ajustes.html',
+      },
+    ],
+    days: [
+      {
+        label: 'SEG 5 MAI', kcal: 2010, target: 2200, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '07:00', kcal: 400, items: 'Ovos · aveia · café' },
+          { slot: 'ALMOÇO', time: '12:30', kcal: 650, items: 'Arroz · feijão · frango grelhado' },
+          { slot: 'JANTAR', time: '20:00', kcal: 620, items: 'Atum · batata doce · cenoura' },
+          { slot: 'LANCHE', time: '22:30', kcal: 340, items: 'Iogurte · mel · castanhas' },
+        ],
+      },
+      {
+        label: 'TER 6 MAI', kcal: 1990, target: 2200, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '07:15', kcal: 380, items: 'Tapioca · ovo · café preto' },
+          { slot: 'ALMOÇO', time: '12:00', kcal: 700, items: 'Macarrão · carne · salada verde' },
+          { slot: 'JANTAR', time: '19:30', kcal: 560, items: 'Frango · arroz integral · brócolis' },
+          { slot: 'LANCHE', time: '22:00', kcal: 350, items: 'Whey · banana · amendoim' },
+        ],
+      },
+      { label: 'QUA 7 MAI', kcal: 0, target: 2200, status: 'none', meals: [] },
+      {
+        label: 'QUI 8 MAI', kcal: 1850, target: 2200, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',    time: '07:00', kcal: 420, items: 'Ovos · pão integral · café' },
+          { slot: 'LANCHE',  time: '10:30', kcal: 370, items: 'Whey · maçã' },
+          { slot: 'ALMOÇO',  time: '12:30', kcal: 620, items: 'Arroz · feijão · filé mignon' },
+          { slot: 'JANTAR',  time: '20:00', kcal: 440, items: 'Omelete · salada · iogurte' },
+        ],
+      },
+      {
+        label: 'SEX 9 MAI', kcal: 2380, target: 2200, status: 'over',
+        meals: [
+          { slot: 'CAFÉ',   time: '08:00', kcal: 480, items: 'Pão de queijo · suco · ovo' },
+          { slot: 'ALMOÇO', time: '13:00', kcal: 780, items: 'Rodízio de pizza · salada' },
+          { slot: 'JANTAR', time: '21:30', kcal: 860, items: 'Hamburguer artesanal · batata frita' },
+          { slot: 'LANCHE', time: '23:30', kcal: 260, items: 'Sorvete · biscoito' },
+        ],
+      },
+      {
+        label: 'SÁB 10 MAI', kcal: 1920, target: 2000, status: 'on',
+        meals: [
+          { slot: 'CAFÉ',   time: '09:00', kcal: 420, items: 'Ovos · tapioca · café' },
+          { slot: 'ALMOÇO', time: '13:00', kcal: 640, items: 'Frango assado · purê · salada' },
+          { slot: 'JANTAR', time: '19:00', kcal: 520, items: 'Salmão · batata doce · espinafre' },
+          { slot: 'LANCHE', time: '21:30', kcal: 340, items: 'Iogurte · granola · mel' },
+        ],
+      },
+      { label: 'DOM 11 MAI', kcal: 0, target: 2000, status: 'none', meals: [] },
+    ],
+  },
+
+  /* ── SEMANA 2 · 28 ABR–4 MAI ── */
+  {
+    weekNum: 2,
+    label: 'SEMANA 2',
+    dates: '28 ABR–4 MAI',
+    bf: { value: 27.4, delta: -1.4 },
+    adherence: { days: 5, total: 7 },
+    events: [
+      {
+        type: 'measurement',
+        date: '1 MAI',
+        histIdx: 1,
+        title: '27.4% gordura corporal',
+        meta: '−1.4 pts · Peso 88.8 kg',
+      },
+      {
+        type: 'reajuste',
+        date: '4 MAI',
+        title: 'Plano recalibrado',
+        meta: 'Kcal +200 · Proteína +10g',
+        href: 'ajustes.html',
+      },
+    ],
+    days: [
+      { label: 'SEG 28 ABR', kcal: 2190, target: 2200, status: 'on',   meals: [] },
+      { label: 'TER 29 ABR', kcal: 2050, target: 2200, status: 'on',   meals: [] },
+      { label: 'QUA 30 ABR', kcal: 2210, target: 2200, status: 'on',   meals: [] },
+      { label: 'QUI 1 MAI',  kcal: 2170, target: 2200, status: 'on',   meals: [] },
+      { label: 'SEX 2 MAI',  kcal: 2580, target: 2200, status: 'over', meals: [] },
+      { label: 'SÁB 3 MAI',  kcal: 2400, target: 2200, status: 'over', meals: [] },
+      { label: 'DOM 4 MAI',  kcal: 0,    target: 2200, status: 'none', meals: [] },
+    ],
+  },
+
+  /* ── SEMANA 1 · 21–27 ABR (início) ── */
+  {
+    weekNum: 1,
+    label: 'INÍCIO · SEMANA 1',
+    dates: '21–27 ABR',
+    bf: { value: 28.8, delta: null },
+    adherence: { days: 4, total: 7 },
+    events: [
+      {
+        type: 'measurement',
+        date: '24 ABR',
+        histIdx: 0,
+        title: '28.8% gordura corporal',
+        meta: 'Medição inicial · Cintura 96 cm',
+      },
+    ],
+    days: [
+      { label: 'SEG 21 ABR', kcal: 0,    target: 2200, status: 'none', meals: [] },
+      { label: 'TER 22 ABR', kcal: 0,    target: 2200, status: 'none', meals: [] },
+      { label: 'QUA 23 ABR', kcal: 0,    target: 2200, status: 'none', meals: [] },
+      { label: 'QUI 24 ABR', kcal: 2050, target: 2200, status: 'on',   meals: [] },
+      { label: 'SEX 25 ABR', kcal: 2180, target: 2200, status: 'on',   meals: [] },
+      { label: 'SÁB 26 ABR', kcal: 2310, target: 2200, status: 'over', meals: [] },
+      { label: 'DOM 27 ABR', kcal: 2140, target: 2200, status: 'on',   meals: [] },
+    ],
+  },
+];
+
+/* ──────────────────────────────────────────
+   RENDER ENGINE
+   ────────────────────────────────────────── */
+const EVENT_ICONS = {
+  measurement: { char: '◉', cls: 'measurement', typeLabel: 'MEDIÇÃO' },
+  reajuste:    { char: '⚡', cls: 'reajuste',    typeLabel: 'REAJUSTE' },
+  pattern:     { char: '◈', cls: 'pattern',      typeLabel: 'PADRÃO DETECTADO' },
+};
+
+function adherenceClass(adherence) {
+  const pct = adherence.days / adherence.total;
+  if (pct >= 0.85) return 'good';
+  if (pct >= 0.57) return '';
+  return 'warn';
+}
+
+function renderEvent(ev) {
+  const icon = EVENT_ICONS[ev.type];
+  let href = '#';
+  if (ev.type === 'measurement') href = 'measurement-detail.html?i=' + ev.histIdx;
+  else if (ev.href) href = ev.href;
+
+  const el = document.createElement('a');
+  el.className = 'event-row';
+  el.href = href;
+  el.innerHTML =
+    '<span class="event-icon ' + icon.cls + '">' + icon.char + '</span>' +
+    '<div class="event-body">' +
+      '<span class="event-type-label">' + icon.typeLabel + ' · ' + ev.date + '</span>' +
+      '<span class="event-title">' + ev.title + '</span>' +
+      (ev.meta ? '<span class="event-meta">' + ev.meta + '</span>' : '') +
+    '</div>' +
+    '<span class="event-arrow">→</span>';
+  return el;
+}
+
+function dotClass(status) {
+  return { on: 'on', over: 'over', partial: 'partial', none: 'none' }[status] || 'none';
+}
+
+function renderDay(day) {
+  const wrap = document.createElement('div');
+  wrap.className = 'day-row-wrap';
+
+  const hasMeals  = day.meals && day.meals.length > 0;
+  const hasKcal   = day.status !== 'none';
+  const canExpand = hasMeals;
+
+  /* header row */
+  const header = document.createElement('div');
+  header.className = 'day-row-header' + (day.status === 'none' ? ' no-data' : '');
+  if (canExpand) {
+    header.onclick = function() { toggleDay(this); };
+  }
+
+  const kcalStr = hasKcal
+    ? day.kcal.toLocaleString('pt-BR') + '/' + day.target.toLocaleString('pt-BR') + ' kcal'
+    : 'sem registro';
+
+  header.innerHTML =
+    '<span class="day-arrow">' + (canExpand ? '▸' : '–') + '</span>' +
+    '<span class="day-date">' + day.label + '</span>' +
+    '<span class="day-kcal ' + (day.status === 'over' ? 'over' : (day.status === 'none' ? 'none' : '')) + '">' + kcalStr + '</span>' +
+    '<span class="adh-dot ' + dotClass(day.status) + '"></span>';
+  wrap.appendChild(header);
+
+  /* expandable meals */
+  if (hasMeals) {
+    const mealsEl = document.createElement('div');
+    mealsEl.className = 'day-meals';
+    day.meals.forEach(function(meal) {
+      const entry = document.createElement('a');
+      entry.className = 'meal-entry';
+      entry.href = '#';
+      entry.innerHTML =
+        '<span class="meal-slot">' + meal.slot + ' · ' + meal.time + '</span>' +
+        '<span class="meal-items">' + meal.items + '</span>' +
+        '<span class="meal-kcal">' + meal.kcal + ' kcal</span>';
+      mealsEl.appendChild(entry);
+    });
+    wrap.appendChild(mealsEl);
+  }
+
+  return wrap;
+}
+
+function toggleDay(headerEl) {
+  const wrap  = headerEl.parentElement;
+  const meals = wrap.querySelector('.day-meals');
+  const arrow = headerEl.querySelector('.day-arrow');
+  if (!meals) return;
+  const open = meals.classList.toggle('open');
+  arrow.textContent = open ? '▾' : '▸';
+}
+
+function renderWeek(week) {
+  const block = document.createElement('div');
+  block.className = 'week-block';
+
+  /* week header */
+  const adhText = week.adherence.days + '/' + week.adherence.total + ' DIAS';
+  const header = document.createElement('div');
+  header.className = 'week-header';
+  header.innerHTML =
+    '<span class="week-label">' + week.label + ' · ' + week.dates + '</span>' +
+    (week.bf ? '<span class="week-bf-badge">' + week.bf.value.toFixed(1) + '% BF</span>' : '') +
+    '<span class="week-adherence ' + adherenceClass(week.adherence) + '">' + adhText + '</span>';
+  block.appendChild(header);
+
+  /* events */
+  if (week.events && week.events.length > 0) {
+    const eventList = document.createElement('div');
+    eventList.className = 'event-list';
+    week.events.forEach(function(ev) { eventList.appendChild(renderEvent(ev)); });
+    block.appendChild(eventList);
+  }
+
+  /* days */
+  const daysList = document.createElement('div');
+  daysList.className = 'days-list';
+  week.days.forEach(function(day) { daysList.appendChild(renderDay(day)); });
+  block.appendChild(daysList);
+
+  return block;
+}
+
+/* ── Main render ── */
+const root = document.getElementById('timeline-root');
+SEED_WEEKS.forEach(function(week) { root.appendChild(renderWeek(week)); });
+</script>
+</body>
+</html>

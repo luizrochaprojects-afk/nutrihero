@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Reajustar (drawer)</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .home-bg {
+      min-height: 100dvh;
+      padding: var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .home-bg .eyebrow { color: var(--c-cinza-400); }
+    .home-bg .hero { font-family: var(--f-mono); font-weight: 700; font-size: 84px; color: var(--c-giz-200); line-height: 0.86; }
+    .home-bg .pulso-line { width: 75%; opacity: 0.3; }
+
+    .scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 7, 10, 0.55);
+      z-index: 50;
+    }
+    .drawer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-height: 65dvh;
+      background: var(--c-linha-600);
+      border-top: 1px solid var(--c-linha-500);
+      border-top-left-radius: var(--r-3);
+      border-top-right-radius: var(--r-3);
+      padding: var(--s-3) var(--s-4) var(--s-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+      z-index: 60;
+      animation: slide-up var(--t-medium) var(--ease-pulso);
+      overflow-y: auto;
+    }
+    @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .grabber {
+      width: 40px;
+      height: 4px;
+      background: var(--c-cinza-400);
+      border-radius: var(--r-1);
+      margin: 0 auto var(--s-2);
+    }
+    .drawer .top { display: flex; flex-direction: column; gap: var(--s-2); }
+    .drawer h2 {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .drawer h2 .arco { color: var(--c-arco); }
+
+    .reason { font-family: var(--f-display); font-size: 13px; color: var(--c-giz-200); line-height: 1.5; }
+    .change-list { display: flex; flex-direction: column; gap: 0; }
+    .change-row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--s-2) 0; border-bottom: 1px solid var(--c-linha-500); }
+    .change-row:last-child { border-bottom: none; }
+    .change-row .name { font-family: var(--f-display); font-weight: 600; font-size: 12px; text-transform: uppercase; color: var(--c-giz-100); letter-spacing: 0.04em; }
+    .change-row .delta { font-family: var(--f-mono); font-weight: 700; font-size: 14px; color: var(--c-giz-200); }
+
+    .actions { display: flex; gap: var(--s-2); }
+    .actions .cta-ghost { flex: 0 0 35%; }
+    .actions .cta-primary { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="home-bg">
+    <span class="eyebrow">CONSUMIDO · META 2.000 KCAL</span>
+    <div class="hero">820</div>
+    <div class="pulso-line"></div>
+    <div style="height: 60dvh;"></div>
+  </div>
+
+  <a href="home.html" class="scrim" aria-label="Fechar"></a>
+
+  <div class="drawer">
+    <span class="grabber"></span>
+    <div class="top">
+      <span class="eyebrow">RECALIBRAÇÃO · 12:18</span>
+      <h2>Plano <span class="arco">mudou.</span></h2>
+    </div>
+
+    <p class="reason">Você comeu 80 kcal a mais às 10h. Deslocamos 3 refeições.</p>
+
+    <div class="change-list">
+      <div class="change-row"><span class="name">Almoço · 12:30</span><span class="delta">−40 kcal</span></div>
+      <div class="change-row"><span class="name">Lanche · 16:00</span><span class="delta">−20 kcal</span></div>
+      <div class="change-row"><span class="name">Jantar · 20:00</span><span class="delta">−20 kcal</span></div>
+    </div>
+
+    <div class="actions">
+      <button class="cta-secondary" onclick="keep()">Manter plano</button>
+      <button class="cta-primary" onclick="apply()">Aplicar</button>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    const NEW_TARGETS = { almoco: 580, 'lanche-pm': 260, jantar: 260 };
+    function apply() {
+      NH_STATE.consumed_kcal = 820;
+      NH_STATE.last_reajust_at = new Date().toISOString();
+      NH_STATE.reajust_choice = 'applied';
+      NH_STATE.reajust_targets = NEW_TARGETS;
+      NH_STATE.flash = { kind: 'reajust-applied', msg: 'PLANO RECALIBRADO', sub: 'Almoço, lanche e jantar deslocados.' };
+      window.location.href = NH_NAV.afterReajust();
+    }
+    function keep() {
+      NH_STATE.consumed_kcal = 820;
+      NH_STATE.last_reajust_at = new Date().toISOString();
+      NH_STATE.reajust_choice = 'kept';
+      NH_STATE.reajust_targets = null;
+      NH_STATE.flash = { kind: 'reajust-kept', msg: 'PLANO MANTIDO', sub: 'Você compensa nas próximas refeições.' };
+      window.location.href = NH_NAV.afterReajust();
+    }
+  </script>
+</body>
+</html>

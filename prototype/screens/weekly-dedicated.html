@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Padrão da semana</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .wk { min-height: 100dvh; display: flex; flex-direction: column; padding: var(--s-4); padding-bottom: var(--s-6); gap: var(--s-5); }
+    .wk .top { padding-top: 0; display: flex; flex-direction: column; gap: var(--s-2); }
+    .wk h1 {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-size: 56px;
+      letter-spacing: -0.04em;
+      line-height: 0.88;
+      text-transform: uppercase;
+      color: var(--c-giz-100);
+    }
+    .wk h1 .atencao { color: var(--c-atencao); }
+
+    .summary-row { display: flex; flex-direction: column; gap: var(--s-2); }
+    .summary-row .lbl { font-family: var(--f-narrow); font-weight: 600; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-atencao); }
+    .summary-row .b { font-family: var(--f-display); font-size: 15px; color: var(--c-giz-200); line-height: 1.5; }
+
+    /* Chart */
+    .chart-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      background: var(--c-aco-800);
+      padding: var(--s-4);
+      border-radius: var(--r-2);
+    }
+    .chart {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: var(--s-2);
+      align-items: end;
+      height: 160px;
+    }
+    .chart .bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--s-2);
+      height: 100%;
+      justify-content: end;
+    }
+    .chart .bar {
+      background: var(--c-giz-200);
+      border-radius: var(--r-1);
+      width: 100%;
+      min-height: 4px;
+    }
+    .chart .bar.flag { background: var(--c-atencao); }
+    .chart .day-label {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      text-align: center;
+    }
+    .chart .day-label.flag { color: var(--c-atencao); }
+    .chart .day-val {
+      font-family: var(--f-mono);
+      font-weight: 500;
+      font-size: 10px;
+      color: var(--c-cinza-400);
+      text-align: center;
+    }
+
+    .target-line {
+      position: relative;
+      height: 1px;
+      background: var(--c-linha-500);
+      margin-top: var(--s-3);
+    }
+    .target-line span {
+      position: absolute;
+      right: 0;
+      top: -16px;
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+
+    .recommendation { background: var(--c-aco-800); border-left: 2px solid var(--c-atencao); padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-2); }
+    .recommendation .h { font-family: var(--f-narrow); font-weight: 600; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-atencao); }
+    .recommendation .b { font-family: var(--f-display); font-size: 14px; color: var(--c-giz-200); line-height: 1.5; }
+    .recommendation .actions-line {
+      display: flex;
+      gap: var(--s-2);
+      align-items: baseline;
+      margin-top: var(--s-2);
+    }
+    .recommendation .a-bullet { font-family: var(--f-mono); color: var(--c-atencao); font-size: 11px; }
+    .recommendation .a-text { font-family: var(--f-display); font-size: 13px; color: var(--c-giz-200); }
+
+    .footer { display: flex; gap: var(--s-2); margin-top: auto; padding-top: var(--s-4); }
+    .footer .cta-ghost { flex: 0 0 35%; }
+    .footer .cta-primary { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="wk">
+    <a class="back-btn" href="home.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow">SEMANA 19 · 13 → 19 MAI</span>
+      <h1>Sexta<br />é <span class="atencao">tarde.</span></h1>
+    </div>
+
+    <div class="summary-row">
+      <span class="lbl">3 SEMANAS SEGUIDAS · MESMO PADRÃO</span>
+      <p class="b">Você passa em média 380 kcal da meta entre 21h e 23h nas sextas. Resto da semana, fecha dentro.</p>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart">
+        <div class="bar-col">
+          <span class="day-val">1.840</span>
+          <div class="bar" style="height: 73%"></div>
+          <span class="day-label">SEG</span>
+        </div>
+        <div class="bar-col">
+          <span class="day-val">1.960</span>
+          <div class="bar" style="height: 78%"></div>
+          <span class="day-label">TER</span>
+        </div>
+        <div class="bar-col">
+          <span class="day-val">1.900</span>
+          <div class="bar" style="height: 76%"></div>
+          <span class="day-label">QUA</span>
+        </div>
+        <div class="bar-col">
+          <span class="day-val">2.000</span>
+          <div class="bar" style="height: 80%"></div>
+          <span class="day-label">QUI</span>
+        </div>
+        <div class="bar-col">
+          <span class="day-val" style="color: var(--c-atencao)">2.380</span>
+          <div class="bar flag" style="height: 95%"></div>
+          <span class="day-label flag">SEX</span>
+        </div>
+        <div class="bar-col">
+          <span class="day-val">1.920</span>
+          <div class="bar" style="height: 77%"></div>
+          <span class="day-label">SÁB</span>
+        </div>
+        <div class="bar-col">
+          <span class="day-val">1.880</span>
+          <div class="bar" style="height: 75%"></div>
+          <span class="day-label">DOM</span>
+        </div>
+      </div>
+      <div class="target-line"><span>META · 2.000 KCAL</span></div>
+    </div>
+
+    <div class="recommendation">
+      <span class="h">SUGESTÃO · APLICAR NA PRÓXIMA SEXTA</span>
+      <p class="b">Deslocar 200 kcal do almoço para o jantar de sexta. Você sai do gatilho das 21h sem mexer na meta semanal.</p>
+      <div class="actions-line"><span class="a-bullet">›</span><span class="a-text">Validar na próxima sexta · 26 mai</span></div>
+      <div class="actions-line"><span class="a-bullet">›</span><span class="a-text">Se o padrão repetir, vou sugerir outra coisa</span></div>
+    </div>
+
+    <div class="footer">
+      <a href="home.html" class="cta-ghost">Ignorar</a>
+      <a href="home.html" class="cta-primary">Aplicar</a>
+    </div>
+  </div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+</body>
+</html>

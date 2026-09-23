@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Hoje · V1 Focada</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .home {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: calc(var(--s-6) + 72px);
+    }
+
+    /* ── Top row ── */
+    .top {
+      padding-top: var(--s-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--s-10);
+    }
+    .date {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .streak {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-giz-200);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Hero ── */
+    .hero-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: var(--s-6);
+    }
+    .hero-number-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-2);
+      margin-top: var(--s-1);
+    }
+    .hero-number {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 100px;
+      letter-spacing: -0.05em;
+      line-height: 0.88;
+      color: var(--c-giz-100);
+      font-feature-settings: 'tnum';
+    }
+    .hero-unit {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      align-self: flex-end;
+      padding-bottom: 12px;
+    }
+    .pulso-wrap {
+      width: 100%;
+      margin: var(--s-4) 0 var(--s-3);
+    }
+    .hero-context {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--c-cinza-400);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Deviation slot: oculto quando vazio ── */
+    #deviation-slot:empty { display: none; }
+    #deviation-slot { margin-bottom: var(--s-4); }
+
+    /* ── Sections ── */
+    .section {
+      border-top: 1px solid var(--c-linha-500);
+      padding-top: var(--s-5);
+      margin-top: var(--s-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .section-head .h {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+    }
+    .section-head .meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--c-cinza-300);
+    }
+
+    /* ── Next meal ── */
+    .next-meal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      padding: var(--s-1) 0;
+      gap: var(--s-3);
+    }
+    .next-meal-row:hover .nm-name { color: var(--c-arco); }
+    .nm-name {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      color: var(--c-giz-100);
+      transition: color var(--t-fast);
+      text-transform: uppercase;
+    }
+    .nm-meta {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--c-cinza-300);
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+    }
+    .nm-arrow {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      color: var(--c-cinza-400);
+      flex-shrink: 0;
+    }
+
+    /* ── Meal list ── */
+    .meal-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+
+    /* ── Dev row ── */
+    .dev-row {
+      margin-top: auto;
+      padding-top: var(--s-6);
+      display: flex;
+      justify-content: flex-end;
+    }
+    .dev-btn {
+      font-family: var(--f-narrow);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-400);
+      background: none;
+      border: 1px dashed var(--c-linha-500);
+      padding: 4px 10px;
+      border-radius: var(--r-1);
+      cursor: pointer;
+      transition: color var(--t-fast), border-color var(--t-fast);
+    }
+    .dev-btn:hover { color: var(--c-arco); border-color: var(--c-arco); }
+  </style>
+</head>
+<body>
+  <div class="home">
+
+    <div class="top">
+      <span class="date">TER · 19 MAI</span>
+      <span class="streak">+4 DIAS NO PLANO</span>
+    </div>
+
+    <!-- Hero: kcal restantes -->
+    <div class="hero-block">
+      <span class="eyebrow">RESTAM HOJE</span>
+      <div class="hero-number-row">
+        <span class="hero-number">360</span>
+        <span class="hero-unit">kcal</span>
+      </div>
+      <div class="pulso-wrap">
+        <div class="pulso-line"></div>
+      </div>
+      <span class="hero-context">de 2.000 &middot; 1.640 consumido</span>
+    </div>
+
+    <!-- Desvio: só aparece quando detectado -->
+    <div id="deviation-slot"></div>
+
+    <!-- Próxima refeição -->
+    <div class="section">
+      <span class="eyebrow">AGORA</span>
+      <a href="meal-log.html?slot=almoco" class="next-meal-row">
+        <div>
+          <div class="nm-name">Almoço</div>
+          <div class="nm-meta">12:30 &middot; 620 kcal estimados</div>
+        </div>
+        <span class="nm-arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Refeições registradas -->
+    <div class="section">
+      <div class="section-head">
+        <span class="h">REGISTRADAS HOJE</span>
+        <span class="meta">2 / 5</span>
+      </div>
+      <div class="meal-list">
+        <a href="meal-detail.html?slot=cafe" class="meal-card done">
+          <div class="meal-header">
+            <span class="meal-name">Café · 07:15</span>
+            <span class="meal-kcal">420 kcal</span>
+          </div>
+          <span class="meal-items">Ovos · pão integral · café preto</span>
+        </a>
+        <a href="meal-detail.html?slot=lanche-am" class="meal-card done">
+          <div class="meal-header">
+            <span class="meal-name">Lanche · 10:00</span>
+            <span class="meal-kcal">400 kcal</span>
+          </div>
+          <span class="meal-items">Whey · banana · pasta de amendoim</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Dev -->
+    <div class="dev-row">
+      <button class="dev-btn" onclick="toggleDeviation()">Simular desvio</button>
+    </div>
+
+  </div><!-- /home -->
+
+  <nav class="tab-bar">
+    <a class="tab active" href="home.html" aria-label="Hoje">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg>
+      <span class="tab-label">Hoje</span>
+    </a>
+    <a class="tab" href="bf-evolution.html" aria-label="Evolução">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg>
+      <span class="tab-label">Evolução</span>
+    </a>
+    <a class="tab-fab" href="meal-log.html" aria-label="Registrar refeição">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+        <circle cx="12" cy="13" r="3.5"/>
+      </svg>
+    </a>
+    <a class="tab" href="diario.html" aria-label="Diário">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h6"/></svg>
+      <span class="tab-label">Diário</span>
+    </a>
+    <a class="tab" href="perfil.html" aria-label="Perfil">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      <span class="tab-label">Perfil</span>
+    </a>
+  </nav>
+
+  <script>
+    function toggleDeviation() {
+      const slot = document.getElementById('deviation-slot');
+      const pulso = document.querySelector('.pulso-line');
+      if (slot.innerHTML.trim()) {
+        slot.innerHTML = '';
+        pulso.classList.remove('off-plan');
+        return;
+      }
+      pulso.classList.add('off-plan');
+      slot.innerHTML = `
+        <div class="attention-card">
+          <span class="att-eyebrow">PLANO MUDOU</span>
+          <span class="att-title">Almoço ficou 200 kcal acima.</span>
+          <p class="att-body">Você saiu da zona. Reajuste as próximas refeições para fechar o dia no plano.</p>
+          <div class="att-actions">
+            <a href="reajust-ticker.html" class="cta-primary">Reajustar dieta</a>
+          </div>
+        </div>`;
+      slot.querySelector('.attention-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>

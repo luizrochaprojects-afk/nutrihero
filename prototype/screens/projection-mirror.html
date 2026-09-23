@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Projeção</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .proj {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: var(--s-6);
+      gap: var(--s-4);
+    }
+    .proj .top { display: flex; flex-direction: column; gap: var(--s-2); }
+    .proj .top .eyebrow.date-eyebrow {
+      color: var(--c-arco);
+      font-weight: 600;
+    }
+    .proj .top .title-display-2 { margin-top: var(--s-1); }
+
+    .silhouette-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+      flex: 1;
+      align-content: center;
+      align-items: stretch;
+      min-height: 0;
+    }
+    .silhouette {
+      position: relative;
+      aspect-ratio: 3 / 5;
+      max-height: 100%;
+      background: var(--c-aco-700);
+      border-radius: var(--r-2);
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      padding-bottom: var(--s-4);
+      overflow: hidden;
+    }
+    .silhouette.future { border-right: 3px solid var(--c-arco); }
+    .silhouette svg { width: 60%; height: auto; transition: opacity var(--t-fast); }
+    .silhouette .stamp {
+      position: absolute;
+      top: var(--s-3);
+      left: var(--s-3);
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+    .silhouette.future .stamp { color: var(--c-giz-200); }
+    .silhouette .bf {
+      position: absolute;
+      bottom: var(--s-3);
+      left: var(--s-3);
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--c-giz-100);
+      font-feature-settings: 'tnum';
+      transition: opacity var(--t-fast);
+    }
+    /* Future starts in "analyzing" state: svg + bf invisible, stamp shows analyse chip. */
+    .silhouette.future[data-state="analyzing"] svg,
+    .silhouette.future[data-state="analyzing"] .bf { opacity: 0; }
+    .silhouette.future[data-state="analyzing"] .stamp {
+      color: var(--c-arco);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .silhouette.future[data-state="analyzing"] .stamp::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--c-arco);
+      border-radius: 50%;
+      animation: stamp-dot 600ms var(--ease-pulso) infinite alternate;
+    }
+    @keyframes stamp-dot {
+      from { opacity: 0.4; transform: scale(0.7); }
+      to   { opacity: 1;   transform: scale(1); }
+    }
+
+    /* Kicker block (pulso + kg) */
+    .kicker-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 320ms var(--ease-pulso), transform 320ms var(--ease-pulso);
+    }
+    .kicker-block.in { opacity: 1; transform: translateY(0); }
+    .kicker-pulso {
+      height: 2px;
+      width: 100%;
+      background: var(--c-cinza-300);
+      border-radius: var(--r-1);
+      opacity: 0.45;
+    }
+    .kg-line {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s-2);
+    }
+    .kg-num {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+      color: var(--c-arco);
+      font-feature-settings: 'tnum';
+    }
+    .kg-label {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+    }
+
+    .footer-cta { margin-top: var(--s-2); }
+
+    /* Hard-cut Giz overlay — covers entire screen for 40ms */
+    .giz-cut {
+      position: fixed;
+      inset: 0;
+      background: var(--c-giz-100);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8000;
+      transition: opacity 20ms linear;
+    }
+    .giz-cut.flash { opacity: 1; }
+
+    @media (max-height: 700px) {
+      .proj { gap: var(--s-3); padding-bottom: var(--s-4); }
+      .silhouette .bf { font-size: 22px; }
+      .kg-num { font-size: 22px; }
+    }
+
+    /* Respect reduced motion: skip reveal sequence visuals */
+    @media (prefers-reduced-motion: reduce) {
+      .kicker-block { transition: none; }
+      .silhouette .bf { transition: none; }
+      .silhouette svg { transition: none; }
+      .giz-cut { display: none; }
+      .silhouette.future[data-state="analyzing"]::before { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="proj">
+    <a class="back-btn" href="bf-method-measure-first.html" onclick="if(history.length>1){event.preventDefault();history.back()}" aria-label="Voltar">←</a>
+    <div class="top">
+      <span class="eyebrow date-eyebrow">Você · <span data-projected-date>22 · AGO · 2026</span></span>
+      <h1 class="title-display-2">Daqui a<br />90 dias.</h1>
+    </div>
+
+    <div class="silhouette-row">
+      <div class="silhouette">
+        <span class="stamp">Hoje</span>
+        <svg viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M30 10 c-5 0 -8 4 -8 8 c0 4 3 7 8 7 c5 0 8 -3 8 -7 c0 -4 -3 -8 -8 -8 z M22 26 c-4 1 -7 5 -8 11 l-2 18 c0 3 2 5 4 5 l3 0 l2 25 c0 3 2 5 5 5 l8 0 c3 0 5 -2 5 -5 l2 -25 l3 0 c2 0 4 -2 4 -5 l-2 -18 c-1 -6 -4 -10 -8 -11 z" fill="#5A5E68" />
+        </svg>
+        <span class="bf" data-bf="current">24.3%</span>
+      </div>
+      <div class="silhouette future" data-state="analyzing">
+        <span class="stamp" data-future-stamp>Análise · 0.0s</span>
+        <svg viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M30 10 c-5 0 -8 4 -8 8 c0 4 3 7 8 7 c5 0 8 -3 8 -7 c0 -4 -3 -8 -8 -8 z M23 26 c-3 1 -6 5 -7 10 l-2 16 c0 3 2 5 4 5 l3 0 l1 27 c0 3 2 5 4 5 l8 0 c2 0 4 -2 4 -5 l1 -27 l3 0 c2 0 4 -2 4 -5 l-2 -16 c-1 -5 -4 -9 -7 -10 z" fill="#BDB9AF" />
+        </svg>
+        <span class="bf" data-bf="future">19.8%</span>
+      </div>
+    </div>
+
+    <div class="kicker-block" data-kicker>
+      <div class="kicker-pulso" aria-hidden="true"></div>
+      <div class="kg-line">
+        <span class="kg-num" data-kg>−0.0</span>
+        <span class="kg-label">kg de gordura</span>
+      </div>
+    </div>
+
+    <a href="paywall-post-projection.html" data-nh-next="afterProjection" class="cta-primary footer-cta">Manter ritmo</a>
+  </div>
+
+  <div class="giz-cut" data-giz-cut aria-hidden="true"></div>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+  (function () {
+    const S = window.NH_STATE || {};
+    const bfCur = Number(S.bf_current ?? 24.3);
+    const bf90  = Number(S.bf_projected_90d ?? 19.8);
+    const weight = Number((S.anamnese && S.anamnese.weight) || 70);
+    const kgDelta = -(weight * (bfCur - bf90) / 100); /* negative when cutting */
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* — Date eyebrow: today + 90 days — */
+    const MONTHS = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+    function projectedDate() {
+      const t = new Date();
+      t.setDate(t.getDate() + 90);
+      const dd = String(t.getDate()).padStart(2, '0');
+      const mmm = MONTHS[t.getMonth()];
+      const yyyy = t.getFullYear();
+      return `${dd} · ${mmm} · ${yyyy}`;
+    }
+    document.querySelector('[data-projected-date]').textContent = projectedDate();
+
+    /* — Number formatters — */
+    function fmtBf(v) { return v.toFixed(1) + '%'; }
+    function fmtKg(v) {
+      const s = v < 0 ? '−' : (v > 0 ? '+' : '');
+      return s + Math.abs(v).toFixed(1);
+    }
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animateNumber(el, from, to, dur, fmt) {
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - start) / dur);
+        el.textContent = fmt(from + (to - from) * easeOutCubic(t));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    /* — Refs — */
+    const currentEl = document.querySelector('[data-bf="current"]');
+    const futureEl  = document.querySelector('[data-bf="future"]');
+    const stampEl   = document.querySelector('[data-future-stamp]');
+    const kgEl      = document.querySelector('[data-kg]');
+    const kicker    = document.querySelector('[data-kicker]');
+    const gizCut    = document.querySelector('[data-giz-cut]');
+    const futureSil = document.querySelector('.silhouette.future');
+
+    /* HOJE is always rendered immediately */
+    currentEl.textContent = fmtBf(bfCur);
+    futureEl.textContent  = fmtBf(bfCur); /* pre-set for count-up source */
+
+    /* — Reduced-motion fast path: skip reveal, show final state — */
+    if (reduceMotion) {
+      futureSil.setAttribute('data-state', 'ready');
+      futureEl.textContent = fmtBf(bf90);
+      kgEl.textContent = fmtKg(kgDelta);
+      kicker.classList.add('in');
+      return;
+    }
+
+    /* — Reveal sequence — */
+    /* 0–600ms: "ANÁLISE · X.Xs" ticker counting up.
+       Bail if reveal already triggered (rAF can fire after the 680ms setTimeout
+       when the tab is throttled — without this guard the last tick overwrites
+       the "+90 dias" stamp back to "Análise · 0.6s"). */
+    const analyzeStart = performance.now();
+    const ANALYZE_END = 600;
+    function tickAnalyze(now) {
+      if (futureSil.getAttribute('data-state') === 'ready') return;
+      const elapsed = (now - analyzeStart);
+      if (elapsed >= ANALYZE_END) {
+        stampEl.textContent = 'Análise · 0.6s';
+        return;
+      }
+      const s = (elapsed / 1000).toFixed(1);
+      stampEl.textContent = 'Análise · ' + s + 's';
+      requestAnimationFrame(tickAnalyze);
+    }
+    requestAnimationFrame(tickAnalyze);
+
+    /* 640ms: hard-cut Giz flash */
+    setTimeout(() => { gizCut.classList.add('flash'); }, 640);
+
+    /* 680ms: cut overlay back to 0, future silhouette + bf revealed, count-up bf */
+    setTimeout(() => {
+      gizCut.classList.remove('flash');
+      futureSil.setAttribute('data-state', 'ready');
+      stampEl.textContent = '+90 dias';
+      animateNumber(futureEl, bfCur, bf90, 320, fmtBf);
+    }, 680);
+
+    /* 1100ms: pulso line fades in */
+    setTimeout(() => { kicker.classList.add('in'); }, 1100);
+
+    /* 1500ms: kg line count-up */
+    setTimeout(() => {
+      animateNumber(kgEl, 0, kgDelta, 700, fmtKg);
+    }, 1500);
+  })();
+  </script>
+</body>
+</html>

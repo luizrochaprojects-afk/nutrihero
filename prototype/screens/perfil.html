@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#06070A" />
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="../assets/app-icon-1024.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <script src="../frame.js"></script>
+  <title>NutriHero — Perfil</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="../components.css" />
+  <style>
+    .perfil {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--s-4);
+      padding-bottom: calc(var(--s-6) + 64px + env(safe-area-inset-bottom, 0px));
+      gap: var(--s-5);
+    }
+    .perfil .top { padding-top: var(--s-6); display: flex; flex-direction: column; gap: var(--s-2); }
+
+    .snapshot {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-2);
+    }
+    .snapshot .stat {
+      background: var(--c-aco-700);
+      border-radius: var(--r-2);
+      padding: var(--s-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+    }
+    .snapshot .stat .v {
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      color: var(--c-giz-100);
+    }
+    .snapshot .stat .v.arco { color: var(--c-arco); }
+    .snapshot .stat .l {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--s-1);
+    }
+    .section-head .h {
+      font-family: var(--f-narrow);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-giz-200);
+    }
+    .section-head .redo {
+      font-family: var(--f-narrow);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-cinza-300);
+      text-decoration: none;
+    }
+    .section-head .redo:hover { color: var(--c-arco); }
+
+    .data-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--s-3);
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--c-aco-800);
+    }
+    .data-line:last-child { border-bottom: none; }
+    .data-line .dl-label {
+      font-family: var(--f-display);
+      font-size: 13px;
+      color: var(--c-cinza-300);
+    }
+    .data-line .dl-val {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c-giz-100);
+    }
+  </style>
+</head>
+<body>
+  <div class="perfil">
+    <div class="top">
+      <span class="eyebrow">PERFIL</span>
+      <h1 class="title-display-2">Seu perfil.</h1>
+    </div>
+
+    <div class="snapshot">
+      <div class="stat">
+        <span class="v arco" id="snap-bf">24.3%</span>
+        <span class="l">BF atual</span>
+      </div>
+      <div class="stat">
+        <span class="v" id="snap-target">19.8%</span>
+        <span class="l">Meta 90d</span>
+      </div>
+      <div class="stat">
+        <span class="v" id="snap-days">4</span>
+        <span class="l">Dias no plano</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-head">
+        <span class="h">SEUS DADOS</span>
+        <a class="redo" href="onboarding-short.html">Refazer anamnese →</a>
+      </div>
+      <div id="data-list">
+        <div class="data-line"><span class="dl-label">Objetivo</span><span class="dl-val" id="d-goal">—</span></div>
+        <div class="data-line"><span class="dl-label">Sexo</span><span class="dl-val" id="d-sex">—</span></div>
+        <div class="data-line"><span class="dl-label">Idade</span><span class="dl-val" id="d-age">—</span></div>
+        <div class="data-line"><span class="dl-label">Peso</span><span class="dl-val" id="d-weight">—</span></div>
+        <div class="data-line"><span class="dl-label">Altura</span><span class="dl-val" id="d-height">—</span></div>
+        <div class="data-line"><span class="dl-label">Nível de atividade</span><span class="dl-val" id="d-activity">—</span></div>
+      </div>
+    </div>
+
+    <div class="set-list">
+      <div class="set-row" id="theme-row" style="cursor:pointer;">
+        <span class="set-label">Modo claro</span>
+        <span class="set-right">
+          <button class="toggle" id="theme-toggle" aria-label="Alternar modo claro/escuro"></button>
+        </span>
+      </div>
+      <a class="set-row" href="ajustes.html">
+        <span class="set-label">Ajustes</span>
+        <span class="set-right">
+          <span class="set-value">Conta · legal</span>
+          <span class="set-chevron">→</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="tab-bar">
+    <a class="tab" href="home.html" aria-label="Hoje">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg>
+      <span class="tab-label">Hoje</span>
+    </a>
+    <a class="tab" href="bf-evolution.html" aria-label="Evolução">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg>
+      <span class="tab-label">Evolução</span>
+    </a>
+    <a class="tab-fab" href="meal-log.html" aria-label="Registrar refeição">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+        <circle cx="12" cy="13" r="3.5"/>
+      </svg>
+    </a>
+    <a class="tab" href="diario.html" aria-label="Diário">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h6"/></svg>
+      <span class="tab-label">Diário</span>
+    </a>
+    <a class="tab active" href="perfil.html" aria-label="Perfil">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      <span class="tab-label">Perfil</span>
+    </a>
+  </nav>
+
+  <script src="../state.js"></script>
+  <script src="../switcher.js"></script>
+  <script>
+    /* Seed para quando o protótipo é aberto direto, sem passar pela anamnese */
+    const SEED = { goal: 'Cortar', sex: 'Masc.', age: 30, weight: 82, height: 173, activity: 'Médio' };
+    const a = Object.assign({}, SEED, (NH_STATE && NH_STATE.anamnese) || {});
+
+    function fmt(v, dec) {
+      if (v == null || v === '') return '—';
+      const n = parseFloat(v);
+      if (isNaN(n)) return String(v);
+      return dec ? n.toFixed(1) : String(Math.round(n));
+    }
+
+    document.getElementById('d-goal').textContent     = a.goal || '—';
+    document.getElementById('d-sex').textContent      = a.sex || '—';
+    document.getElementById('d-age').textContent      = fmt(a.age) + ' anos';
+    document.getElementById('d-weight').textContent   = fmt(a.weight, true) + ' kg';
+    document.getElementById('d-height').textContent   = fmt(a.height) + ' cm';
+    document.getElementById('d-activity').textContent = a.activity || '—';
+
+    if (NH_STATE) {
+      if (NH_STATE.bf_current != null)
+        document.getElementById('snap-bf').textContent = parseFloat(NH_STATE.bf_current).toFixed(1) + '%';
+      if (NH_STATE.bf_projected_90d != null)
+        document.getElementById('snap-target').textContent = parseFloat(NH_STATE.bf_projected_90d).toFixed(1) + '%';
+    }
+
+    /* — Theme toggle — */
+    (function () {
+      var toggleEl = document.getElementById('theme-toggle');
+      var rowEl    = document.getElementById('theme-row');
+
+      function syncToggle() {
+        var isLight = window.NH_THEME.load() === 'light';
+        toggleEl.classList.toggle('on', isLight);
+      }
+
+      function flipTheme(e) {
+        /* Prevent the row click from double-firing when the button itself is clicked */
+        e.stopPropagation();
+        var next = window.NH_THEME.load() === 'light' ? 'dark' : 'light';
+        window.NH_THEME.apply(next);
+        syncToggle();
+      }
+
+      syncToggle();
+      toggleEl.addEventListener('click', flipTheme);
+      rowEl.addEventListener('click', flipTheme);
+    })();
+  </script>
+</body>
+</html>
