@@ -1,107 +1,111 @@
-# NutriHero · nutricionista de bolso
+# NutriHero · a nutritionist in your pocket
 
-**Case de produto:** sprint de 3 semanas, do kick-off ao handoff, para o MVP de um app brasileiro de nutrição. Inclui estratégia de MVP, direção de marca, design system e protótipo navegável de alta fidelidade.
+<sub>English · [Português](README.pt-BR.md)</sub>
 
-**[▶ Abrir o protótipo](https://luizrochaprojects-afk.github.io/nutrihero/prototype/)** · funciona no celular e no desktop
+**Product case:** a 3-week sprint, from kick-off to handoff, for the MVP of a Brazilian nutrition app. It covers MVP strategy, brand direction, a design system and a high-fidelity clickable prototype.
 
-![Telas principais: projeção do corpo, Hoje, recalibração e padrão semanal](docs/images/telas-principais.png)
+**[▶ Open the prototype](https://luizrochaprojects-afk.github.io/nutrihero/prototype/)** · works on mobile and desktop
+
+![Main screens: body projection, Today, recalibration and weekly pattern](docs/images/telas-principais.png)
 
 ---
 
-## O problema
+## The problem
 
-Os apps de dieta mais usados calculam a zona calórica a partir do **IMC** (peso, altura e idade). Duas pessoas com o mesmo IMC e percentuais de gordura diferentes recebem a mesma dieta, e uma delas vai errar: ou ganha gordura ou perde massa magra.
+The most popular diet apps set the calorie target from **BMI** (weight, height and age). Two people with the same BMI and different body fat percentages get the same diet, and one of them will get it wrong: either they gain fat or they lose lean mass.
 
-O ajuste também é lento. O nutricionista recalibra a dieta a cada **três meses**, e a maioria das pessoas desiste antes do retorno.
+Adjustment is also slow. A nutritionist recalibrates the diet every **three months**, and most people quit before the follow-up.
 
-## A tese
+## The thesis
 
-| | Apps de dieta hoje | NutriHero |
+| | Diet apps today | NutriHero |
 |---|---|---|
-| **Variável central** | IMC | % de gordura corporal (medidas ou foto) |
-| **Ciclo de ajuste** | Trimestral (consulta) | Diário (um botão) + semanal (padrões) |
-| **Papel do app** | Diário alimentar | Nutricionista de bolso que decide o que falta |
+| **Core variable** | BMI | Body fat % (measurements or photo) |
+| **Adjustment cycle** | Quarterly (appointment) | Daily (one button) + weekly (patterns) |
+| **Role of the app** | Food diary | Pocket nutritionist that decides what is left |
 
-A interação central cabe numa frase: **abrir, comer, apertar, seguir.** O botão de recalibrar redistribui as calorias restantes do dia entre as próximas refeições.
+The core interaction fits in one line: **open, eat, tap, follow.** The recalibrate button redistributes the day's remaining calories across the next meals.
 
-## O que eu fiz
+## What I did
 
-Conduzi a sprint de produto e design do kick-off ao handoff:
+I ran the product and design sprint from kick-off to handoff:
 
-1. **Imersão e corte de escopo.** A visão original tinha 8 frentes além do core (gamificação, ONG, treino, comunidade, marketplace…). O MVP ficou em **motor + reajuste + registro + paywall**. → [Brief](docs/00-brief.md) · [PRD](docs/process/prd-mvp.md)
-2. **Direção de marca.** Três direções exploradas; a escolhida, **"Pulso"**, trata o corpo como um sistema mensurável e o usuário como operador, não como paciente. → [Direção](docs/01-brand-direction.md) · [Menu de direções](docs/02-brand-direction-menu.html) · [Exploração visual](docs/02-brand-direction-visual.html)
-3. **Design system.** Tokens, tipografia, contraste, estados, motion e o componente-assinatura `PulsoLine`. → [Visual system](docs/03-visual-system.html)
-4. **Identidade e telas.** Logo, ícone do app e mockups das telas-chave. → [Visual identity](docs/04-visual-identity.html)
-5. **Protótipo com variantes.** 17 telas de jornada mais telas de apoio, com **5 decisões de produto em aberto** que o revisor alterna ao vivo. → [Protótipo](prototype/)
-6. **Handoff.** Stack, tokens prontos para colar, ordem de build em 14 dias, comportamento tela a tela e critérios de aceite. → [Dev handoff](docs/05-dev-handoff.md)
+1. **Immersion and scope cut.** The original vision had 8 fronts beyond the core (gamification, a nonprofit tie-in, workouts, community, a marketplace…). The MVP became **engine + readjustment + logging + paywall**. → [Brief](docs/00-brief.md) · [PRD](docs/process/prd-mvp.md)
+2. **Brand direction.** Three directions explored. The chosen one, **"Pulso"** (pulse), treats the body as a measurable system and the user as an operator, not a patient. → [Direction](docs/01-brand-direction.md) · [Direction menu](docs/02-brand-direction-menu.html) · [Visual exploration](docs/02-brand-direction-visual.html)
+3. **Design system.** Tokens, typography, contrast, states, motion and the signature component `PulsoLine`. → [Visual system](docs/03-visual-system.html)
+4. **Identity and screens.** Logo, app icon and mockups of the key screens. → [Visual identity](docs/04-visual-identity.html)
+5. **Prototype with variants.** 17 journey screens plus supporting screens, with **5 open product decisions** the reviewer toggles live. → [Prototype](prototype/)
+6. **Handoff.** Stack, ready-to-paste tokens, a 14-day build order, screen-by-screen behavior and acceptance criteria. → [Dev handoff](docs/05-dev-handoff.md)
 
-## Decisões de produto testáveis
+The documents are in Portuguese, the language the sprint ran in.
 
-Em vez de defender uma resposta, o protótipo deixa as decisões mais arriscadas lado a lado:
+## Testable product decisions
 
-| Decisão | Pergunta | Variantes |
+Instead of defending one answer, the prototype puts the riskiest decisions side by side:
+
+| Decision | Question | Variants |
 |---|---|---|
-| **Anamnese** | Quanta fricção cabe antes da revelação? | 5 perguntas · 8 perguntas |
-| **% de gordura** | Medidas são previsíveis; foto vende mais. Qual abre a jornada? | Medidas primeiro · Foto primeiro |
-| **Paywall** | Onde pedir o cartão? | Antes do cálculo · Após a projeção · Após o 1º reajuste |
-| **Recalibração** | Como o plano novo aparece? | Ticker animado · Modal · Bottom sheet |
-| **Reajuste semanal** | Onde o padrão da semana chega? | Card na Hoje · Tela dedicada · Push |
+| **Intake** | How much friction fits before the reveal? | 5 questions · 8 questions |
+| **Body fat %** | Measurements are predictable; a photo sells more. Which opens the journey? | Measurements first · Photo first |
+| **Paywall** | Where to ask for the card? | Before the calculation · After the projection · After the 1st readjustment |
+| **Recalibration** | How does the new plan appear? | Animated ticker · Modal · Bottom sheet |
+| **Weekly readjustment** | Where does the week's pattern land? | Card on Today · Dedicated screen · Push |
 
-![Três variantes da projeção do corpo comparadas lado a lado](docs/images/variantes-projecao.png)
+![Three variants of the body projection compared side by side](docs/images/variantes-projecao.png)
 
-## Antes e depois
+## Before and after
 
-À esquerda, o rascunho de onde a sprint partiu: template genérico de wellness, fundo salmão e botões-pílula. À direita, a mesma pergunta na direção Pulso: número grande em monospace, régua arrastável e progresso da anamnese com tempo estimado.
+On the left, the draft the sprint started from: a generic wellness template, salmon background and pill buttons. On the right, the same question in the Pulso direction: a large monospace number, a draggable ruler and intake progress with an estimated time.
 
 <p>
-  <img src="docs/images/antes-cadastro.png" alt="Antes: cadastro com fundo salmão, dois campos de texto e botão vermelho" width="280" />
+  <img src="docs/images/antes-cadastro.png" alt="Before: sign-up with salmon background, two text fields and a red button" width="280" />
   &nbsp;&nbsp;
-  <img src="docs/images/depois-cadastro.png" alt="Depois: pergunta de peso com número grande e régua arrastável" width="240" />
+  <img src="docs/images/depois-cadastro.png" alt="After: weight question with a large number and a draggable ruler" width="240" />
 </p>
 
-## Direção "Pulso" em 30 segundos
+## The "Pulso" direction in 30 seconds
 
-- **Ferramenta, não coach.** Tom de operador: segunda pessoa, verbos no imperativo, decimais expostos. Sem emoji, sem "ops!".
-- **Uma cor de ação.** Arco `#FF5B1F`, no máximo 2 vezes por tela. Atenção `#F7D74C` é o único aviso, usado uma vez por semana. Sem verdes, sem azuis.
-- **Tipografia.** Archivo (display) + Archivo Narrow + JetBrains Mono para todo número que exige precisão.
-- **Assinatura.** A `PulsoLine`: uma linha fina sob o kcal do dia que pulsa devagar quando você está no plano e acelera quando sai dele.
+- **A tool, not a coach.** Operator tone: second person, imperative verbs, decimals shown. No emoji, no "oops!".
+- **One action color.** Arc `#FF5B1F`, at most twice per screen. Attention `#F7D74C` is the only warning, used once a week. No greens, no blues.
+- **Typography.** Archivo (display) + Archivo Narrow + JetBrains Mono for every number that needs precision.
+- **Signature.** The `PulsoLine`: a thin line under the day's kcal that pulses slowly when you are on plan and speeds up when you drift off it.
 
 ---
 
-## Como navegar o protótipo
+## How to navigate the prototype
 
-- **No celular:** abre em tela cheia, como um app. Dá para adicionar à tela inicial.
-- **No desktop:** abre dentro de uma moldura de celular, com um painel para pular entre etapas, trocar variantes, alternar tema claro/escuro e mostrar os cenários de teste.
-- **Comparar variantes:** [`prototype/compare.html`](prototype/compare.html) mostra as opções de cada decisão lado a lado.
+- **On mobile:** opens full screen, like an app. You can add it to the home screen.
+- **On desktop:** opens inside a phone frame, with a panel to jump between steps, switch variants, toggle light/dark theme and show the test scenarios.
+- **Compare variants:** [`prototype/compare.html`](prototype/compare.html) shows each decision's options side by side.
 
-![Protótipo aberto no desktop: moldura de celular à esquerda e painel de jornada e variantes à direita](docs/images/prototipo-desktop.png)
+![Prototype on desktop: phone frame on the left, journey and variants panel on the right](docs/images/prototipo-desktop.png)
 
-Para rodar localmente, sem build:
+To run locally, no build step:
 
 ```bash
 npx serve .
-# abra http://localhost:3000/prototype/index.html
+# open http://localhost:3000/prototype/index.html
 ```
 
-## Estrutura
+## Structure
 
 ```
-├── prototype/          Protótipo navegável (HTML/CSS/JS puro, sem build)
-│   ├── index.html      Entrada
-│   ├── device.html     Moldura de celular para desktop
-│   ├── compare.html    Variantes lado a lado
-│   └── screens/        Telas da jornada
+├── prototype/          Clickable prototype (plain HTML/CSS/JS, no build)
+│   ├── index.html      Entry point
+│   ├── device.html     Phone frame for desktop
+│   ├── compare.html    Variants side by side
+│   └── screens/        Journey screens
 ├── docs/
-│   ├── 00-brief.md                 Contexto e escopo (anonimizado)
-│   ├── 01-brand-direction.md       Direção de marca
-│   ├── 02-brand-direction-*.html   Exploração das direções
+│   ├── 00-brief.md                 Context and scope (anonymized)
+│   ├── 01-brand-direction.md       Brand direction
+│   ├── 02-brand-direction-*.html   Direction exploration
 │   ├── 03-visual-system.*          Design system
-│   ├── 04-visual-identity.*        Logo, ícone e telas
-│   ├── 05-dev-handoff.md           Handoff para desenvolvimento
-│   └── process/                    PRD, plano do protótipo, notas de UX e export do Figma
-└── assets/brand/       Logo, ícone e marcas em SVG
+│   ├── 04-visual-identity.*        Logo, icon and screens
+│   ├── 05-dev-handoff.md           Development handoff
+│   └── process/                    PRD, prototype plan, UX notes and Figma export
+└── assets/brand/       Logo, icon and marks in SVG
 ```
 
 ---
 
-<sub>Projeto de portfólio. Nomes de pessoas, empresas parceiras e condições comerciais foram removidos. Os valores nutricionais do protótipo são ilustrativos e não constituem recomendação de saúde.</sub>
+<sub>Portfolio project. Names of people, partner companies and commercial terms were removed. Nutritional values in the prototype are illustrative and are not health advice.</sub>
